@@ -41,7 +41,7 @@ const TeacherCard = ({item, theme}) => (
 const Card = ({item, theme}) => {
     if (item.code) {
         return (
-            <CourseCard theme={theme} item={item}/>
+            <CourseCard theme={theme} item={item} />
         );
     }
 

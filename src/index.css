@@ -57,7 +57,7 @@ body {
     border-radius: 7px 0 0 7px;
     text-indent: 20px;
     font-size: 16px;
-    transition: color 0.75s ease-in-out, caret-color 0.75s ease-in-out, background-color 0.75s ease-in-out;
+    transition: color 0.5s ease-in-out, caret-color 0.5s ease-in-out, background-color 0.5s ease-in-out;
 }
 
 .searchbox-dark input {
@@ -68,7 +68,7 @@ body {
 
 .searchbox input::-webkit-input-placeholder, .searchbox-dark input::-webkit-input-placeholder {
     color: #333;
-    transition: color 0.75s ease-in-out;
+    transition: color 0.5s ease-in-out;
 }
 
 .searchbox-dark input::-webkit-input-placeholder {
@@ -81,7 +81,7 @@ body {
     width: 50px;
     border-radius: 0 7px 7px 0;
     background-color: #2181f7;
-    transition: background-color 0.75s ease-in-out;
+    transition: background-color 0.5s ease-in-out;
 }
 
 .searchbutton-dark {
@@ -98,7 +98,7 @@ body {
     text-align-last: center;
     color: #333;
     background-color: #d1e9fc;
-    transition: color 0.75s ease-in-out, background-color 0.75s ease-in-out;
+    transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
     -moz-appearance: none;
     -webkit-appearance: none;
     border-radius: 0;
@@ -115,7 +115,7 @@ body {
 }
 
 .quarter-loading, .quarter-dark-loading {
-    transition: border 0.75s ease-in-out;
+    transition: border 0.5s ease-in-out;
     border: 4px solid #fff;
     border-top: 4px solid #2181f7;
     border-radius: 50%;
@@ -134,7 +134,7 @@ body {
     height: calc(100vh - 210px);
     padding: 20px 0;
     overflow-y: scroll;
-    transition: background-color 0.75s ease-in-out;
+    transition: background-color 0.5s ease-in-out;
 }
 
 .list-dark {
@@ -148,9 +148,9 @@ body {
     border-radius: 3px;
     margin-bottom: 7px;
     background-color: #eee;
-    transition: background-color 0.75s ease-in-out;
-    animation: pulse 0.75s infinite ease-in-out;
-    -webkit-animation: pulse 0.75s infinite ease-in-out;
+    transition: background-color 0.5s ease-in-out;
+    animation: pulse 0.5s infinite ease-in-out;
+    -webkit-animation: pulse 0.5s infinite ease-in-out;
 }
 
 .blankcard-subtitle, .blankcard-subtitle-dark {
@@ -194,7 +194,7 @@ body {
     font-size: 20px;
     height: 85px;
     text-indent:20px;
-    transition: background-color 0.75s ease-in-out, color 0.75s ease-in-out;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -228,7 +228,7 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-bottom: 0px;
-    transition: color 0.75s ease-in-out;
+    transition: color 0.5s ease-in-out;
 }
 
 .card-title-dark {
@@ -254,7 +254,7 @@ body {
     background-color: #f0f0f0;
     border-radius: 7px;
     margin-right: 50px;
-    transition: background-color 0.75s ease-in-out;  
+    transition: background-color 0.5s ease-in-out;  
 }
 
 .btn-close-dark {
@@ -263,7 +263,7 @@ body {
 
 .btn-close svg path, .btn-close-dark svg path {
     fill: #333;
-    transition: fill 0.75s ease-in-out;   
+    transition: fill 0.5s ease-in-out;   
 }
 
 .btn-close-dark svg path {
@@ -279,7 +279,7 @@ body {
     z-index: 1px;
     height: 100px;
     justify-content: space-between;
-    transition: background-color 0.75s ease-in-out, color 0.75s ease-in-out, border 0.75s ease-in-out;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, border 0.5s ease-in-out;
     border-bottom: 2px solid #eee;
     background-color: #f8f8f8;
 }
@@ -293,7 +293,7 @@ body {
     padding: 20px 50px;
     height: calc(100vh - 102px);
     overflow-y: scroll;
-    transition: background-color 0.75s ease-in-out, color 0.75s ease-in-out;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 
 .content-dark {
@@ -302,7 +302,7 @@ body {
 
 .emptypane, .emptypane-dark {
     width: 72vw;
-    transition: background-color 0.75s ease-in-out;   
+    transition: background-color 0.5s ease-in-out;   
 }
 
 .emptypane-dark {
@@ -312,7 +312,7 @@ body {
 .card-waitlist, .card-waitlist-dark {
     height: 100%;
     margin-right: 20px;
-    transition: fill 0.75s ease-in-out;
+    transition: fill 0.5s ease-in-out;
 }
 
 .card-waitlist svg {
@@ -330,7 +330,7 @@ body {
 .empty-list, .empty-list-dark {
     height: 100%;
     color: #333;
-    transition: color 0.75s ease-in-out;
+    transition: color 0.5s ease-in-out;
     flex-direction: column;
     text-align: center;
 }
@@ -352,7 +352,7 @@ body {
     background-color: #0059ff;
     border-radius: 5px;
     margin: 0 10px;
-    transition: background-color 0.75s ease-in-out;
+    transition: background-color 0.5s ease-in-out;
 }
 
 .list-help-dark div {
@@ -364,10 +364,42 @@ body {
     .quarter, .quarter-dark {
         width: 50px;
     }
+
+    .branding, .branding-dark {
+        height: 55px;
+        font-size: 18px;
+    }
+
+    .branding svg, .branding-dark svg {
+        transform: scale(0.75);
+        margin: 0 3px;
+        top: -3px;
+    }
+
+    .searchbox input, .searchbox-dark input {
+        width: calc(100vw - 120px);
+        font-size: 12px;
+        text-indent: 20px;
+    }
+
+    .searchbox, .searchbox-dark {
+        padding-bottom: 10px;
+    }
+
+    .list, .list-dark {
+        padding: 10px 0;
+        height: calc(100vh - 135px);
+    }
+
+    .card, .card-dark, .blankcard, .blankcard-dark {
+        margin: 0 10px;
+        min-width: calc(100% - 20px);
+        height: 75px;
+    }
 }
 
 /* Mobile */
-@media screen and (max-width: 849px) {
+@media screen and (min-width: 520px) and (max-width: 849px) {
     .list, .list-dark {
         height: calc(100vh - 185px);
     }
@@ -377,7 +409,7 @@ body {
         height: 75px;
     }
 
-    .branding img, .branding-dark img {
+    .branding svg, .branding-dark svg {
         transform: scale(0.9);
         margin: 0 5px;
         top: -3px;
@@ -405,7 +437,7 @@ body {
         width: 500px;
     }
 
-    .branding img, .branding-dark img {
+    .branding svg, .branding-dark svg {
         transform: scale(1.1);
         margin: 0 11px;
     }
@@ -423,7 +455,7 @@ body {
         font-size: 24px;
     }
 
-    .branding img, .branding-dark img {
+    .branding svg, .branding-dark svg {
         transform: scale(1);
         margin: 0 8px;
     }
