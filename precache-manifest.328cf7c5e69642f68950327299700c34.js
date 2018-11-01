@@ -20,19 +20,19 @@ self.__precacheManifest = [
     "url": "/triton/static/js/runtime~main.eb3f76c6.js"
   },
   {
-    "revision": "62d3355c518463109e86",
-    "url": "/triton/static/js/main.62d3355c.chunk.js"
+    "revision": "2c57ebf0466db23e0393",
+    "url": "/triton/static/js/main.2c57ebf0.chunk.js"
   },
   {
     "revision": "a24a20a54b5abda80779",
     "url": "/triton/static/js/1.a24a20a5.chunk.js"
   },
   {
-    "revision": "62d3355c518463109e86",
-    "url": "/triton/static/css/main.d361e1ad.chunk.css"
+    "revision": "2c57ebf0466db23e0393",
+    "url": "/triton/static/css/main.de28cc36.chunk.css"
   },
   {
-    "revision": "21eaa8fb293459e33c300eb170316db8",
+    "revision": "adf315a8b2c318a2c65e3bc66e28a883",
     "url": "/triton/index.html"
   }
 ];
