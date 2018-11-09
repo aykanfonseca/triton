@@ -7,6 +7,7 @@ import { GlobalContext } from './Context';
 import Branding from './Branding';
 import List from './List';
 import Searchbox from './Searchbox';
+import Navigation from './Navigation';
 
 export default class Sidepane extends PureComponent {
     static contextType = GlobalContext;
@@ -25,7 +26,7 @@ export default class Sidepane extends PureComponent {
             displayResults: []
         };
 
-        console.log("MOUNTED! - SIDEPANE")
+        // console.log("MOUNTED! - SIDEPANE")
     }
 
     setRef = (ref) => {
@@ -142,12 +143,25 @@ export default class Sidepane extends PureComponent {
                     changeQuarter={this.props.changeQuarter}
                     selectedQuarter={this.props.selectedQuarter}
                     filterView={this.filterView}
-                    // setRef={this.setRef}
+                    setRef={this.setRef}
                 />
                 <List 
                     searchResults={this.state.displayResults}
                     loading={this.props.loading}
+                    isMobile={this.props.isMobile}
+                    pinned={this.props.pinned}
+                    removePin={this.props.removePin}
                 />
+                { (this.props.isMobile || this.props.pinned.length > 0) && 
+                    <Navigation 
+                        type='home' 
+                        theme={this.context.theme} 
+                        pinned={this.props.pinned} 
+                        addPin={this.props.addPin}
+                        removePin={this.props.removePin}
+                        isMobile={this.props.isMobile}
+                    /> 
+                } 
             </div>
         );
     }

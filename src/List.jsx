@@ -1,12 +1,36 @@
 import React, { Component, createRef } from 'react';
 
 // Libraries / Context
-import { GlobalContext } from './Context';
 import { AutoSizer, List as VirtualList } from 'react-virtualized';
+import { GlobalContext } from './Context';
+import { debounce } from './Utils';
 
 // Custom Components
 import BlankCard from './BlankCard';
 import Card from './Card';
+
+// class ScrollSpeed {
+//     clear = () => {
+//         this.lastPosition = null;
+//         this.delta = 0;
+//     };
+    
+//     getScrollSpeed(scrollOffset) {
+//         if (this.lastPosition != null) {
+//             this.delta = scrollOffset - this.lastPosition;
+//         }
+        
+//         this.lastPosition = scrollOffset;
+        
+//         window.clearTimeout(this._timeout);
+//         this._timeout = window.setTimeout(this.clear, 50);
+        
+//         return this.delta;
+//     }
+// }
+
+// const SPEED_THRESHOLD = 70; // Tweak this to whatever feels right for your app
+// const SCROLL_DEBOUNCE_DURATION = 100; // In milliseconds
 
 class List extends Component {
     static contextType = GlobalContext;
@@ -15,12 +39,42 @@ class List extends Component {
         super(props);
 
         this.list = createRef();
-        
-        // console.log("MOUNTED! - LIST");
+
+        this.state = {
+            isScrollingFast: false
+        };
     }
+
+    // getScrollSpeed = new ScrollSpeed().getScrollSpeed;
+
+    // handleScroll = ({scrollTop}) => {
+    //     // scrollSpeed represents the number of pixels scrolled since the last scroll event was fired
+    //     const scrollSpeed = Math.abs(this.getScrollSpeed(scrollTop));
+
+    //     if (scrollSpeed >= SPEED_THRESHOLD) {
+    //         this.setState({ isScrollingFast: true });
+    //     }
+
+    //     else {
+    //         this.setState({ isScrollingFast: false });   
+    //     }
+
+    //     // Since this method is debounced, it will only fire once scrolling has stopped for the duration of SCROLL_DEBOUNCE_DURATION
+    //     this.handleScrollEnd();
+    // }
+    
+    // handleScrollEnd = debounce(() => {
+    //     if (this.state.isScrollingFast) {
+    //         this.setState({ isScrollingFast: false });
+    //     }
+    // }, SCROLL_DEBOUNCE_DURATION);
 
     componentDidUpdate(prevProps) {
         if (this.props.context !== prevProps.context) {
+            this.list.current.forceUpdateGrid();
+        }
+
+        if (this.props.pinned.length !== prevProps.pinned.length) {
             this.list.current.forceUpdateGrid();
         }
     }
@@ -29,7 +83,10 @@ class List extends Component {
         let content = '';
 
         if (this.props.loading) {
-            content = <BlankCard theme={this.context.theme} key={index} />;
+            content = <BlankCard 
+                        theme={this.context.theme} 
+                        key={index} 
+                    />;
         }
 
         else if (this.props.searchResults.length === 0) {
@@ -54,12 +111,16 @@ class List extends Component {
                 </div>);
         }
 
-        else {
+        else {            
             const item = this.props.searchResults[index];
             content = <Card 
-                        key={key.code || item.teacher}
+                        key={key.code || key.teacher}
                         item={item}
                         theme={this.context.theme}
+                        isScrollingFast={this.state.isScrollingFast}
+                        index={index}
+                        pinned={this.props.pinned}
+                        removePin={this.props.removePin}
                     />;
         }
 
@@ -70,42 +131,57 @@ class List extends Component {
         );
     }
 
-    // TODO
-    // getRowHeight = () => {
-    //     if (window.innerWidth < 519) {
-    //         return 85;
-    //     }
+    getNumRows = () => {
+        if (this.props.loading) {
+            return 100;
+        }
+        
+        else if (this.props.searchResults.length === 0) {
+            return 1;
+        }
+        
+        return this.props.searchResults.length;
+    }
 
-    //     return 95;
-    // }
+    getRowHeight = (height, width) => {
+        if (!this.props.loading && this.props.searchResults.length === 0) {
+            return height;
+        }
+
+        else if (width < 400) {
+            return 80;
+        }
+
+        return 95;
+    }
 
     render() {
         return (
-            <div className={'list' + this.props.context}>
+            <div className={this.props.isMobile ? 'list' + this.props.context : this.props.pinned.length > 0 ? 'list-short' + this.props.context : 'list' + this.props.context}>
                 <AutoSizer>
                     {({ height, width}) => (
                         <VirtualList
                             ref={this.list}
                             height={height}
                             width={width}
-                            rowCount={this.props.loading ? 100 : this.props.searchResults.length === 0 ? 1 : this.props.searchResults.length}
-                            rowHeight={(!this.props.loading && this.props.searchResults.length === 0) ? height : 95}
+                            rowCount={this.getNumRows()}
+                            rowHeight={this.getRowHeight(height, width)}
                             rowRenderer={this.rowRenderer}
                             loading={this.props.loading}
+                            // onScroll={this.handleScroll}
                         />  
                     )}
                 </AutoSizer>
-            </div> 
+            </div>
         );   
     }
 }
 
-const mapContext = ({ searchResults, loading }) => (
+const mapContext = props => (
     <GlobalContext.Consumer>
         {({theme}) => (
             <List 
-                loading={loading} 
-                searchResults={searchResults} 
+                {...props}
                 context={theme}
             />
         )}

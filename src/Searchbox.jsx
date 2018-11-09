@@ -20,6 +20,12 @@ export default class Searchbox extends PureComponent {
         this.searchbox = createRef();
     }
 
+    handleText = (event) => {
+        this.setState({ text: event.target.value});
+
+        this.props.filterView(event);
+    }
+
     clearSearchBox = () => {
         this.searchbox.value = ''
         this.setState({ text : '' });
@@ -34,7 +40,7 @@ export default class Searchbox extends PureComponent {
                     spellCheck="false"
                     ref={(input) => { this.searchbox = input; }}
                     placeholder="Find courses, teachers, units..." 
-                    onKeyUp={this.props.filterView}
+                    onKeyUp={this.handleText}
                 ></input>
                 <QuarterSwitcher 
                     quarters={this.props.quarters}

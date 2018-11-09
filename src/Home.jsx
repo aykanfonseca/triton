@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 // Libraries / Context
 import { Route, Redirect, Switch } from 'react-router-dom';
+import { GlobalContext } from './Context';
 
 // Custom Components
 import Sidepane from './Sidepane';
@@ -13,7 +14,9 @@ import Firebase from './firebase.js';
 // Utilities
 import { naturalSort, fetchQuarters, quarter_abbreviations } from './Utils';
 
-export default class Home extends Component {    
+export default class Home extends Component {   
+    static contextType = GlobalContext;
+    
     constructor(props) {
         super(props);
 
@@ -23,10 +26,27 @@ export default class Home extends Component {
         this.teachers = [];
 
         this.state = {
-            loading: true
+            loading: true,
+            pinned: []
         };
+    }
 
-        console.log("MOUNTED! - HOME");
+    addPin = (course) => {
+        if (this.state.pinned.length < 6) {
+            this.setState({ pinned: [ ...this.state.pinned, course]})
+        }
+    }
+
+    removePin = (course) =>  {
+        // Remove course from pinned by filtering.
+        this.setState(prev => ({ pinned: prev.pinned.filter(val => val !== course) })); 
+    };
+
+    clearPins = () => {
+        // If we don't have to, we shouldn't call setState to reset the pinned list.
+        if (this.state.pinned.length > 0) {
+            this.setState({pinned: []});
+        }
     }
 
     componentDidMount() {
@@ -144,7 +164,7 @@ export default class Home extends Component {
     render() {
         return (
             <ResponsiveQuery>
-                {isMobile => isMobile ? (
+                {width => width < 1200 ? (
                         <Switch>
                             <Route exact path='/' render={props => 
                                 <Sidepane 
@@ -154,10 +174,23 @@ export default class Home extends Component {
                                     changeQuarter={this.changeQuarter}
                                     teachers={this.teachers} 
                                     loading={this.state.loading} 
+                                    pinned={this.state.pinned}
+                                    clearPins={this.clearPins}
+                                    removePin={this.removePin}
+                                    isMobile={width < 1200}
                                     {...props} 
                                 />
                             }/>
-                            <Route path="/:id" component={Rightpane} />
+                            <Route path="/:id" render={props => 
+                                <Rightpane 
+                                    isMobile={width < 1200} 
+                                    classes={this.classes}
+                                    pinned={this.state.pinned}
+                                    addPin={this.addPin}
+                                    removePin={this.removePin} 
+                                    {...props} 
+                                /> 
+                            }/>
                             <Redirect from="/settings" to="/" />
                             <Redirect from="/:id" to="/" />
                         </Switch>
@@ -171,11 +204,24 @@ export default class Home extends Component {
                                     changeQuarter={this.changeQuarter}
                                     teachers={this.teachers}
                                     loading={this.state.loading} 
+                                    pinned={this.state.pinned}
+                                    removePin={this.removePin}
+                                    clearPins={this.clearPins}
+                                    isMobile={width < 1200}
                                     {...props} 
                                 />
                                 <Switch>
-                                    <Route path="/:id" component={Rightpane} />
-                                    <Route component={Emptypane}/>
+                                    <Route path="/:id" render={props => 
+                                        <Rightpane 
+                                            isMobile={width < 1200} 
+                                            classes={this.classes} 
+                                            pinned={this.state.pinned}
+                                            addPin={this.addPin}
+                                            removePin={this.removePin} 
+                                            {...props} 
+                                        />
+                                    }/>
+                                    <Route render={_ => (<Emptypane theme={this.context.theme} />)} />
                                 </Switch>
                             </div>
                         )}/>

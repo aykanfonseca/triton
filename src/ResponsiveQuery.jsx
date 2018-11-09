@@ -1,16 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
-export default class ResponsiveQuery extends PureComponent {
+export default class ResponsiveQuery extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            isMobile: window.innerWidth < 1200
+            width: window.innerWidth
         };
     }
 
     handleWindowResize = () => {
-        this.setState({ isMobile: window.innerWidth < 1200 });
+        this.setState({ isMobile: window.innerWidth });
     }
 
     componentDidMount() {
@@ -22,10 +22,6 @@ export default class ResponsiveQuery extends PureComponent {
     }
 
     render() {
-        return (
-            <>
-                {this.props.children(this.state.isMobile)}
-            </>
-        );
+        return this.props.children(this.state.width);
     }
 };

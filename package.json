@@ -2,7 +2,7 @@
   "name": "triton",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://myname.github.io/triton",
+  "homepage": "http://myname.github.io/triton",
   "dependencies": {
     "firebase": "^5.5.6",
     "gh-pages": "^2.0.1",
@@ -10,6 +10,7 @@
     "react-dom": "^16.6.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5",
+    "react-transition-group": "^2.5.0",
     "react-virtualized": "^9.21.0"
   },
   "scripts": {

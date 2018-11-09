@@ -1,15 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, { memo } from 'react';
 
-// Libraries / Context
-import { GlobalContext } from './Context';
+const EmptyPane = ({theme}) => (
+    <div className={"emptypane" + theme}></div>
+);
 
-export default class Emptypane extends PureComponent {
-    static contextType = GlobalContext;
-
-    render() {
-        return (
-            <div className={"emptypane" + this.context.theme}>
-            </div>
-        );
-    }
-};
+export default memo(EmptyPane);
