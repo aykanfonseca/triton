@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/triton/static/media/pin.0b3b0b44.svg"
   },
   {
-    "revision": "79accbe830573f03d6b4",
+    "revision": "4d910a55f95e4c99c5e8",
     "url": "/triton/static/css/main.23b79f00.chunk.css"
   },
   {
@@ -24,8 +24,8 @@ self.__precacheManifest = [
     "url": "/triton/static/media/waitlist.8fdb0e2f.svg"
   },
   {
-    "revision": "79accbe830573f03d6b4",
-    "url": "/triton/static/js/main.79accbe8.chunk.js"
+    "revision": "4d910a55f95e4c99c5e8",
+    "url": "/triton/static/js/main.4d910a55.chunk.js"
   },
   {
     "revision": "132438d3bb162dc9741f4f3f38c0467f",
@@ -48,7 +48,7 @@ self.__precacheManifest = [
     "url": "/triton/static/media/schedule.718ea0ef.svg"
   },
   {
-    "revision": "21df643b2df500e981b63f5bc4f48898",
+    "revision": "1c8dc23cd2183b740d748e2485ad08ec",
     "url": "/triton/index.html"
   }
 ];
