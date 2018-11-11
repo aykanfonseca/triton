@@ -53,22 +53,18 @@ const TeacherCard = ({item, theme}) => (
     </Link>
 );
 
-const ScrollCard = ({item, theme}) => (
-    <div className={'card' + theme}>
-        <div className="card-width">
-            <p style={{fontSize: '26px', fontWeight: '500'}}>{item.code || item.teacher}</p>
+const BlankCard = ({theme}) => (
+    <span className={"blankcard" + theme}>
+        <div>
+            <div className={"blankcard-header" + theme}></div>
+            <div className={"blankcard-subtitle" + theme}></div>
         </div>
-    </div>
+    </span>
 );
 
-const Card = ({item, theme, isScrollingFast, pinned, removePin = ''}) => {
-    if (isScrollingFast) {
-        return (
-            <ScrollCard 
-                theme={theme} 
-                item={item} 
-            />
-        )
+const Card = ({loading, item, theme, pinned, removePin = ''}) => {    
+    if (loading) {
+        return <BlankCard theme={theme} />;
     }
 
     else if (item.code) {

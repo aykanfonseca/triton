@@ -4,6 +4,29 @@ export const quarter_abbreviations = {'Fall': 'FA', 'Winter': 'WI', 'Spring': 'S
 export const quarter_expansions = {'FA': 'Fall', 'WI': 'Winter', 'SP': 'Spring', 'SU': 'Summer Med School', 'S1': 'Summer Session 1', 'S2': 'Summer Session 2', 'S3': 'Summer Session 3', 'SA': 'Summer'}
 export const quarter_precedence = {'SU': 0, 'S1': 1, 'S2': 2, 'S3': 3, 'SA': 4, 'FA': 5, 'WI': 6, 'SP': 7};
 
+export const getNumRows = (loading, resultLength) => {
+    if (loading) {
+        return 100;
+    }
+
+    else if (resultLength === 0) {
+        return 1;
+    }
+
+    return resultLength;
+}
+
+export const getRowHeight = (height, width, loading, resultLength) => {
+    if (!loading && resultLength === 0) {
+        return height;
+    }
+
+    else if (width < 400) {
+        return 80;
+    }
+    return 95;
+}
+
 // Sort quarters.
 export const quarterSort = (a, b) => {
     const yearA = parseInt(a.slice(-2), 10);

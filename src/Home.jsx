@@ -8,11 +8,10 @@ import { GlobalContext } from './Context';
 import Sidepane from './Sidepane';
 import Rightpane from './Rightpane';
 import Emptypane from './Emptypane';
-import ResponsiveQuery from './ResponsiveQuery';
 import Firebase from './firebase.js';
 
 // Utilities
-import { naturalSort, fetchQuarters, quarter_abbreviations } from './Utils';
+import { naturalSort, fetchQuarters } from './Utils';
 
 export default class Home extends Component {   
     static contextType = GlobalContext;
@@ -27,207 +26,150 @@ export default class Home extends Component {
 
         this.state = {
             loading: true,
-            pinned: []
+            pinned: [],
+            width: window.innerWidth,
         };
     }
 
     addPin = (course) => {
-        if (this.state.pinned.length < 6) {
-            this.setState({ pinned: [ ...this.state.pinned, course]})
-        }
+        this.setState({ pinned: [ ...this.state.pinned, course]})
     }
 
     removePin = (course) =>  {
-        // Remove course from pinned by filtering.
         this.setState(prev => ({ pinned: prev.pinned.filter(val => val !== course) })); 
     };
 
     clearPins = () => {
-        // If we don't have to, we shouldn't call setState to reset the pinned list.
         if (this.state.pinned.length > 0) {
             this.setState({pinned: []});
         }
     }
 
-    componentDidMount() {
-        this.quarters = fetchQuarters();
-
-        // Determines the selected quarter.
-        Firebase.database().ref("current").once('value', snapshot => {
-            this.selectedQuarter = snapshot.val();
-            this.loadData();
-        });
+    handleWindowResize = () => {
+        this.setState({ width: window.innerWidth });
     }
 
-    loadData = () => {
-        const classData = Firebase.database().ref("quarter/"+ this.selectedQuarter);
-        const teacherData = Firebase.database().ref("quarter/" + this.selectedQuarter + " teachers");
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.handleWindowResize);
+    }
 
-        classData.once('value', snapshot => {
-            const message = snapshot.val();
+    componentDidMount() {
+        window.addEventListener("resize", this.handleWindowResize);
 
-            let classes = [];
+        this.quarters = fetchQuarters();
 
-            for (const key in message) {
-                classes.push({
-                    code: key, 
-                    title: message[key]["title"], 
-                    units: message[key]["units"], 
-                    rest: message[key], 
-                    waitlist: (message[key]["waitlist"] === 'true'), 
-                    dei: (message[key]['dei'] === 'true')
-                });
-            }
+        Firebase.database().ref("current").once('value')
+            .then(snapshot => this.loadData(snapshot.val()));
+    }
 
-            this.classes = classes.sort(naturalSort);
+    loadData = async (quarter) => {
+        this.selectedQuarter = quarter;
 
-            teacherData.once('value', snapshot => {
-                const message = snapshot.val();
+        const classPromise = await Firebase.database().ref("quarter/" + quarter).once('value')
+            .then(snapshot => this.addClasses(snapshot.val()));
 
-                let teachers = [];
+        const teacherPromise = await Firebase.database().ref("quarter/" + quarter + " teachers").once('value')
+            .then(snapshot => this.addTeachers(snapshot.val()));
 
-                for (const key in message) {
-                    teachers.push({
-                        teacher: key, 
-                        email: message[key][0], 
-                        classes: message[key][1]
-                    });
-                }
+        Promise.all([classPromise, teacherPromise]).then(
+            this.finishLoading()
+        );
+    }
 
-                this.teachers = teachers;
+    addClasses = (message) => {
+        const classData = Object.values(message);
 
-                // Save results.
-                localStorage.setItem(this.selectedQuarter, [this.classes, this.teachers]);
-
-                this.setState({ loading: false });
+        for (const course of classData) {
+            this.classes.push({
+                code: course['code'], 
+                title: course["title"], 
+                units: course["units"], 
+                rest: course, 
+                waitlist: (course["waitlist"] === 'true'), 
+                dei: (course['dei'] === 'true')
             });
-        });
-    };
-
-    loadDataCatalog = () => {
-        // Load in data for classes and teachers and then set loading state to false.
-        const dataForCatalog = Firebase.database().ref("catalog/");
-
-        dataForCatalog.once('value', snapshot => {
-            const message = snapshot.val();
-
-            let classes = [];
-            for (const key in message) {
-                classes.push({
-                    code: key, 
-                    title: message[key]["title"], 
-                    units: message[key]["units"], 
-                    rest: message[key]
-                });
-            }
-
-            this.classes = classes.sort(naturalSort);
-            this.teachers = [];
-
-            // Save results.
-            localStorage.setItem('Catalog', [this.classes, this.teachers]);
-
-            this.setState({ loading: false });
-        });
-    };
-
-    changeQuarter = (quarter) => {
-        this.setState({ loading: true });
-        
-        if (quarter === 'Catalog') {
-            this.selectedQuarter = 'Catalog';
         }
 
-        else {
-            const temp = quarter.split(" ");
-            
-            this.selectedQuarter = quarter_abbreviations[temp[0]] + temp[1].substring(2);
-        }
+        this.classes = this.classes.sort(naturalSort);
+    }
 
-        const data = localStorage.getItem(this.selectedQuarter)
-
-        if (data !== null) {
-            this.classes = data[0];
-            this.teachers = data[1];
-            this.setState({ loading: false });
+    addTeachers = (message) => {
+        for (const teacher in message) {
+            this.teachers.push({
+                teacher: teacher, 
+                email: message[teacher][0], 
+                classes: message[teacher][1]
+            });
         }
+    }
 
-        else if (this.selectedQuarter === 'Catalog') {
-            this.loadDataCatalog();
-        }
+    finishLoading = () => {
+        localStorage.setItem(this.selectedQuarter, [this.classes, this.teachers]);
 
-        else {
-            this.loadData();
-        }
-    };
+        this.setState({ loading: false });
+    }
 
     render() {
+        const isMobile = this.state.width < 1200;
+
+        if (isMobile) {
+            return (
+                <Switch>
+                    <Route exact path='/' render={() => 
+                        <Sidepane 
+                            classes={this.classes} 
+                            teachers={this.teachers} 
+                            quarters={this.quarters} 
+                            selectedQuarter={this.selectedQuarter}
+                            loading={this.state.loading} 
+                            pinned={this.state.pinned}
+                            clearPins={this.clearPins}
+                            removePin={this.removePin}
+                            isMobile={isMobile}
+                        />
+                    }/>
+                    <Route path="/:id" render={props => 
+                        <Rightpane 
+                            isMobile={isMobile} 
+                            classes={this.classes}
+                            pinned={this.state.pinned}
+                            addPin={this.addPin}
+                            removePin={this.removePin} 
+                            {...props}
+                        /> 
+                    }/>
+                    <Redirect from="/:id" to="/" />
+                </Switch>
+            );
+        }
+
         return (
-            <ResponsiveQuery>
-                {width => width < 1200 ? (
-                        <Switch>
-                            <Route exact path='/' render={props => 
-                                <Sidepane 
-                                    classes={this.classes} 
-                                    quarters={this.quarters} 
-                                    selectedQuarter={this.selectedQuarter}
-                                    changeQuarter={this.changeQuarter}
-                                    teachers={this.teachers} 
-                                    loading={this.state.loading} 
-                                    pinned={this.state.pinned}
-                                    clearPins={this.clearPins}
-                                    removePin={this.removePin}
-                                    isMobile={width < 1200}
-                                    {...props} 
-                                />
-                            }/>
-                            <Route path="/:id" render={props => 
-                                <Rightpane 
-                                    isMobile={width < 1200} 
-                                    classes={this.classes}
-                                    pinned={this.state.pinned}
-                                    addPin={this.addPin}
-                                    removePin={this.removePin} 
-                                    {...props} 
-                                /> 
-                            }/>
-                            <Redirect from="/settings" to="/" />
-                            <Redirect from="/:id" to="/" />
-                        </Switch>
-                    ) : (
-                        <Route render={props => (
-                            <div style={{display: 'flex'}}>
-                                <Sidepane 
-                                    classes={this.classes} 
-                                    quarters={this.quarters} 
-                                    selectedQuarter={this.selectedQuarter}
-                                    changeQuarter={this.changeQuarter}
-                                    teachers={this.teachers}
-                                    loading={this.state.loading} 
-                                    pinned={this.state.pinned}
-                                    removePin={this.removePin}
-                                    clearPins={this.clearPins}
-                                    isMobile={width < 1200}
-                                    {...props} 
-                                />
-                                <Switch>
-                                    <Route path="/:id" render={props => 
-                                        <Rightpane 
-                                            isMobile={width < 1200} 
-                                            classes={this.classes} 
-                                            pinned={this.state.pinned}
-                                            addPin={this.addPin}
-                                            removePin={this.removePin} 
-                                            {...props} 
-                                        />
-                                    }/>
-                                    <Route render={_ => (<Emptypane theme={this.context.theme} />)} />
-                                </Switch>
-                            </div>
-                        )}/>
-                    )
-                }
-            </ResponsiveQuery>
+            <div style={{display: 'flex'}}>
+                    <Sidepane 
+                        classes={this.classes} 
+                        teachers={this.teachers}
+                        quarters={this.quarters} 
+                        selectedQuarter={this.selectedQuarter}
+                        loading={this.state.loading} 
+                        pinned={this.state.pinned}
+                        removePin={this.removePin}
+                        clearPins={this.clearPins}
+                        isMobile={isMobile}
+                    />
+                    <Switch>
+                        <Route path="/:id" render={props => 
+                            <Rightpane 
+                                isMobile={isMobile} 
+                                classes={this.classes} 
+                                pinned={this.state.pinned}
+                                addPin={this.addPin}
+                                removePin={this.removePin} 
+                                {...props}
+                            />
+                        }/>
+                        <Route render={() => (<Emptypane theme={this.context.theme} />)} />
+                    </Switch>
+            </div>
         );
     }
 };
