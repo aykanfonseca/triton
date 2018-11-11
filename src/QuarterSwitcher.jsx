@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 
 // Libraries / Context
 import { GlobalContext } from './Context';
-
 import { quarter_expansions } from './Utils';
 
 export default class QuarterSwitcher extends PureComponent {
