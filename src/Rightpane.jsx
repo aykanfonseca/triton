@@ -12,30 +12,33 @@ export default class Rightpane extends PureComponent {
     static contextType = GlobalContext;
 
     render() {
+        const { theme } = this.context;
+        const { location, isMobile, pinned, addPin, removePin, classes } = this.props;
+
         return (
-            <div className={"rightpane" + this.context.theme}>
+            <div className={"rightpane" + theme}>
                 <Ribbon 
-                    item={this.props.location.state.item} 
-                    theme={this.context.theme} 
-                    isMobile={this.props.isMobile} 
-                    addPin={this.props.addPin}
-                    removePin={this.props.removePin}
-                    pinned={this.props.pinned}
+                    item={location.state.item} 
+                    theme={theme} 
+                    isMobile={isMobile} 
+                    pinned={pinned}
+                    addPin={addPin}
+                    removePin={removePin}
                 />
                 <Content 
-                    classes={this.props.classes} 
-                    item={this.props.location.state.item} 
-                    theme={this.context.theme} 
-                    isMobile={this.props.isMobile}
+                    classes={classes} 
+                    item={location.state.item} 
+                    theme={theme} 
+                    isMobile={isMobile}
                 />
-                {this.props.isMobile && 
+                {isMobile && 
                     <Navigation 
-                        theme={this.context.theme} 
-                        type={this.props.location.state.item.code !== undefined ? 'course' : 'teacher'} 
-                        addPin={this.props.addPin}
-                        removePin={this.props.removePin}
-                        pinned={this.props.pinned}
-                        item={this.props.location.state.item}
+                        theme={theme} 
+                        type={location.state.item.code !== undefined ? 'course' : 'teacher'} 
+                        addPin={addPin}
+                        removePin={removePin}
+                        pinned={pinned}
+                        item={location.state.item}
                     /> 
                 }
             </div>

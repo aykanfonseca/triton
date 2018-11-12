@@ -110,7 +110,8 @@ export default class Home extends Component {
     }
 
     render() {
-        const isMobile = this.state.width < 1200;
+        const { loading, pinned, width } = this.state;
+        const isMobile = width < 1200;
 
         if (isMobile) {
             return (
@@ -121,8 +122,8 @@ export default class Home extends Component {
                             teachers={this.teachers} 
                             quarters={this.quarters} 
                             selectedQuarter={this.selectedQuarter}
-                            loading={this.state.loading} 
-                            pinned={this.state.pinned}
+                            loading={loading} 
+                            pinned={pinned}
                             clearPins={this.clearPins}
                             removePin={this.removePin}
                             isMobile={isMobile}
@@ -132,7 +133,7 @@ export default class Home extends Component {
                         <Rightpane 
                             isMobile={isMobile} 
                             classes={this.classes}
-                            pinned={this.state.pinned}
+                            pinned={pinned}
                             addPin={this.addPin}
                             removePin={this.removePin} 
                             {...props}
@@ -150,8 +151,8 @@ export default class Home extends Component {
                         teachers={this.teachers}
                         quarters={this.quarters} 
                         selectedQuarter={this.selectedQuarter}
-                        loading={this.state.loading} 
-                        pinned={this.state.pinned}
+                        loading={loading} 
+                        pinned={pinned}
                         removePin={this.removePin}
                         clearPins={this.clearPins}
                         isMobile={isMobile}
@@ -161,7 +162,7 @@ export default class Home extends Component {
                             <Rightpane 
                                 isMobile={isMobile} 
                                 classes={this.classes} 
-                                pinned={this.state.pinned}
+                                pinned={pinned}
                                 addPin={this.addPin}
                                 removePin={this.removePin} 
                                 {...props}

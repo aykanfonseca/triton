@@ -62,22 +62,26 @@ export default class QuarterSwitcher extends PureComponent {
     }
 
     render() {
-        if (this.props.selectedQuarter !== '') {
+        const { selectedQuarter, quarters } = this.props;
+        const { quarter, showSmall } = this.state;
+        const { theme } = this.context;
+
+        if (selectedQuarter !== '') {
             return (
-                <select title="Select to change quarter" className={'quarter' + this.context.theme} value={this.state.quarter} onChange={this.handleQuarterChange}>
+                <select title="Select to change quarter" className={'quarter' + theme} value={quarter} onChange={this.handleQuarterChange}>
                     <optgroup label="Other">
                         <option>{'Catalog'}</option>
                     </optgroup>
                     <optgroup label="Quarters">
-                        {this.props.quarters.map(quarter => <option key={quarter.abbreviation}>{this.state.showSmall ? quarter.abbreviation : quarter.value}</option>)}
+                        {quarters.map(quart => <option key={quart.abbreviation}>{showSmall ? quart.abbreviation : quart.value}</option>)}
                     </optgroup>
                 </select>
             );
         }
 
         return (
-            <div title="Select to change quarter" className={'quarter' + this.context.theme}>
-                <div className={'quarter' + this.context.theme + '-loading'}></div>
+            <div title="Select to change quarter" className={'quarter' + theme}>
+                <div className={'quarter' + theme + '-loading'}></div>
             </div>
         );
     }

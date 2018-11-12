@@ -4,6 +4,32 @@ export const quarter_abbreviations = {'Fall': 'FA', 'Winter': 'WI', 'Spring': 'S
 export const quarter_expansions = {'FA': 'Fall', 'WI': 'Winter', 'SP': 'Spring', 'SU': 'Summer Med School', 'S1': 'Summer Session 1', 'S2': 'Summer Session 2', 'S3': 'Summer Session 3', 'SA': 'Summer'}
 export const quarter_precedence = {'SU': 0, 'S1': 1, 'S2': 2, 'S3': 3, 'SA': 4, 'FA': 5, 'WI': 6, 'SP': 7};
 
+export const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
+export const convert = (value) => {
+    if (value >= 4.0) {
+        return 'A';
+    } else if (value >=  3.7) {
+        return 'A-';
+    } else if (value >= 3.3) {
+        return 'B+';
+    } else if (value >= 3.0) {
+        return 'B';
+    } else if (value >= 2.7) {
+        return 'B-';
+    } else if (value >= 2.3) {
+        return 'C+';
+    } else if (value >= 2.0) {
+        return 'C';
+    } else if (value >= 1.7) {
+        return 'C-';
+    } else if (value >= 1.0) {
+        return 'D';
+    } else {
+        return 'F';
+    }
+}
+
 export const getNumRows = (loading, resultLength) => {
     if (loading) {
         return 100;
@@ -24,10 +50,10 @@ export const getRowHeight = (height, width, loading, resultLength) => {
     else if (width < 400) {
         return 80;
     }
+
     return 95;
 }
 
-// Sort quarters.
 export const quarterSort = (a, b) => {
     const yearA = parseInt(a.slice(-2), 10);
     const yearB = parseInt(b.slice(-2), 10);

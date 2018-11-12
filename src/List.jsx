@@ -27,15 +27,6 @@ export default class List extends Component {
     }
 
     rowRenderer = ({key, index, style}) => {
-        if (this.props.searchResults.length === 0 && this.props.loading === false) {
-            return (
-                <div key={key} style={style}>
-                    <div className={'empty-list' + this.props.theme}>
-                        <div>No Search Results</div>
-                    </div>
-                </div>
-            );
-        }
         const item = this.props.searchResults[index];
 
         return (  
@@ -73,6 +64,6 @@ export default class List extends Component {
                     )}
                 </AutoSizer>
             </div>
-        );   
+        );  
     }
 };

@@ -5,7 +5,6 @@ import { GlobalContext } from './Context';
 
 // Custom Components
 import QuarterSwitcher from './QuarterSwitcher.jsx';
-
 import {ReactComponent as Cancel} from './icons/cancel.svg';
 import {ReactComponent as Search} from './icons/search.svg';
 
@@ -30,7 +29,6 @@ export default class Searchbox extends PureComponent {
 
     handleText = (event) => {
         this.setState({ text: event.target.value});
-
         this.props.filterView(event);
     }
 
@@ -40,8 +38,12 @@ export default class Searchbox extends PureComponent {
     }
 
     render() {
+        const { theme } = this.context;
+        const { quarters, changeQuarter, selectedQuarter } = this.props;
+        const { text } = this.state;
+
         return (
-            <div className={"searchbox" + this.context.theme}>
+            <div className={"searchbox" + theme}>
                 <input
                     type="text"
                     title="Type to search"
@@ -51,13 +53,13 @@ export default class Searchbox extends PureComponent {
                     onKeyUp={this.handleText}
                 ></input>
                 <QuarterSwitcher 
-                    quarters={this.props.quarters}
-                    changeQuarter={this.props.changeQuarter}
-                    selectedQuarter={this.props.selectedQuarter}
+                    quarters={quarters}
+                    changeQuarter={changeQuarter}
+                    selectedQuarter={selectedQuarter}
                 />
                 <Toggle 
-                    theme={this.context.theme}
-                    hasTextInput={this.state.text !== ''}
+                    theme={theme}
+                    hasTextInput={text !== ''}
                     clearSearchBox={this.clearSearchBox}
                 />
             </div>

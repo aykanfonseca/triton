@@ -118,34 +118,36 @@ export default class Sidepane extends PureComponent {
     };
 
     render() {
-        const showMobileNavigation = this.props.isMobile || this.props.pinned.length > 0;
+        const { quarters, changeQuarter, selectedQuarter, loading, isMobile, pinned, removePin, addPin } = this.props;
+        const { theme } = this.context.theme;
+        const showMobileNavigation = isMobile || pinned.length > 0;
 
         return (
             <div>
                 <Branding {...this.context} />
                 <Searchbox 
-                    quarters={this.props.quarters}
-                    changeQuarter={this.props.changeQuarter}
-                    selectedQuarter={this.props.selectedQuarter}
+                    quarters={quarters}
+                    changeQuarter={changeQuarter}
+                    selectedQuarter={selectedQuarter}
                     filterView={this.filterView}
                     setRef={this.setRef}
                 />
                 <List 
                     searchResults={this.state.displayResults}
-                    loading={this.props.loading}
-                    isMobile={this.props.isMobile}
-                    pinned={this.props.pinned}
-                    removePin={this.props.removePin}
-                    theme={this.context.theme}
+                    loading={loading}
+                    isMobile={isMobile}
+                    pinned={pinned}
+                    removePin={removePin}
+                    theme={theme}
                 />
                 { showMobileNavigation && 
                     <Navigation 
                         type='home' 
-                        theme={this.context.theme} 
-                        pinned={this.props.pinned} 
-                        addPin={this.props.addPin}
-                        removePin={this.props.removePin}
-                        isMobile={this.props.isMobile}
+                        theme={theme} 
+                        pinned={pinned} 
+                        addPin={addPin}
+                        removePin={removePin}
+                        isMobile={isMobile}
                     /> 
                 } 
             </div>

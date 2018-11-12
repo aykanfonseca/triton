@@ -12,7 +12,7 @@
 body {
     -webkit-font-smoothing: antialiased;
     color: rgba(0,0,0,.701961);
-    /* overflow: hidden; */
+    overflow: hidden;
     text-rendering: optimizeLegibility;
 }
 
@@ -92,12 +92,12 @@ body {
     cursor: pointer;
     width: 20vw;
     height: 50px;
-    font-weight: 450;
+    font-weight: 500;
     font-size: 14px;
     text-align: center;
     text-align-last: center;
     color: #333;
-    background-color: #d1e9fc;
+    background-color: #f2f2f2;
     transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -274,10 +274,6 @@ body {
     transition: fill 0.5s ease-in-out;   
 }
 
-.btn-close:active {
-    background-color: red;
-}
-
 .btn-pin-active, .btn-pin-active-dark {
     background-color: #FFC463;
 }
@@ -333,6 +329,10 @@ body {
 
 .content p, .content-dark p {
     margin: 10px 0;
+}
+
+.content h1, .content-dark h1 {
+    margin: 25px 0;   
 }
 
 .emptypane, .emptypane-dark {
@@ -448,6 +448,39 @@ body {
     margin-top: 3px;
 }
 
+.metric-header {
+    width: 200px;
+    height: 25px;
+    border-radius: 10px 10px 0 0;
+    font-size: 16px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+.metric-body {
+    width: 200px;
+    height: 50px;
+    border-radius: 0 0 10px 10px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.metric {
+    margin-right: 50px;
+}
+
+.metric-list {
+    display: flex;
+    margin: 20px 0;
+    overflow-x: scroll;
+}
+
 /* Contracted */
 @media screen and (max-width: 519px) {
     .quarter, .quarter-dark {
@@ -535,7 +568,33 @@ body {
     }
 
     .content h1, .content-dark h1 {
-        font-size: 20px;
+        font-size: 24px;
+        margin: 10px 0;   
+    }
+
+    .metric {
+        margin-right: 10px;
+    }
+    
+    .metric-list {
+        display: flex;
+        overflow-x: scroll;
+    }
+
+    .metric-header {
+        width: 175px;
+        height: 15px;
+        border-radius: 10px 10px 0 0;
+        font-size: 14px;
+        padding: 8px;
+    }
+    
+    .metric-body {
+        width: 175px;
+        height: 40px;
+        border-radius: 0 0 10px 10px;
+        padding: 6px;
+        font-size: 24px;
     }
 }
 
