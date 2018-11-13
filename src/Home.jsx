@@ -156,6 +156,7 @@ export default class Home extends Component {
                         removePin={this.removePin}
                         clearPins={this.clearPins}
                         isMobile={isMobile}
+                        {...this.props}
                     />
                     <Switch>
                         <Route path="/:id" render={props => 

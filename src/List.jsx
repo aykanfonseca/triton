@@ -24,6 +24,10 @@ export default class List extends Component {
         else if (this.props.pinned.length !== prevProps.pinned.length) {
             this.list.current.forceUpdateGrid();
         }
+
+        else if (this.props.location !== prevProps.location) {
+            this.list.current.forceUpdateGrid();
+        }
     }
 
     rowRenderer = ({key, index, style}) => {
@@ -38,6 +42,7 @@ export default class List extends Component {
                     theme={this.props.theme}
                     pinned={this.props.pinned}
                     removePin={this.props.removePin}
+                    location={this.props.location.pathname.slice(1)}
                 />
             </div>        
         );

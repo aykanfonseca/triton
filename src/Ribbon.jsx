@@ -23,10 +23,14 @@ const Ribbon = ({item, addPin, removePin, pinned, theme, isMobile}) => (
     <div className={"ribbon" + theme}>
         <div className={"title" + theme}>
             <h1>{item.code}</h1>
-            <p>{item.title}</p>
+            <b>{item.title}</b>
         </div>
         {!isMobile && 
             <div style={{display: "flex", flexDirection: 'row'}}>
+                <div className={"units" + theme}>
+                    {item.units}
+                    <span>Units</span>
+                </div>
                 <PinBtn theme={theme} item={item} addPin={addPin} removePin={removePin} pinned={pinned} />
                 <CancelBtn theme={theme} />
             </div>

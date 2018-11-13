@@ -16,7 +16,7 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-.branding, .branding-dark, .searchbox, .searchbox-dark, .searchbutton, .searchbutton-dark, .quarter, .quarter-dark, .btn-close, .btn-close-dark, .btn-pin, .btn-pin-dark, .btn-pin-active, .btn-pin-active-dark, .card, .card-dark, .blankcard, .blankcard-dark, .ribbon, .ribbon-dark, .card-waitlist, .card-waitlist-dark, .card-pin, .empty-list, .empty-list-dark, .list-help div, .list-help-dark div {
+.branding, .branding-dark, .searchbox, .searchbox-dark, .searchbutton, .searchbutton-dark, .quarter, .quarter-dark, .btn-close, .btn-close-dark, .btn-pin, .btn-pin-dark, .btn-pin-active, .btn-pin-active-dark, .units, .units-dark, .card, .card-dark, .card-active, .card-active-dark, .blankcard, .blankcard-dark, .ribbon, .ribbon-dark, .card-waitlist, .card-waitlist-dark, .card-pin, .empty-list, .empty-list-dark, .list-help div, .list-help-dark div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -191,7 +191,7 @@ body {
     }
 }
 
-.card, .card-dark, .blankcard, .blankcard-dark {
+.card, .card-dark, .blankcard, .blankcard-dark, .card-active, .card-active-dark {
     cursor: pointer;
     justify-content:space-between;
     background-color:#fff;
@@ -209,9 +209,26 @@ body {
     text-decoration: none;
 }
 
-.card-dark {
+.card-active, .card-active-dark {
+    box-shadow: 0 0 0 3px #2270ee;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, box-shadow 0.25s ease-in-out;
+}
+
+.card-active-dark {
+    box-shadow: 0 0 0 3px #76D0FC;
+}
+
+.card-dark, .card-active-dark {
     color: #fff;
     background-color: #333;
+}
+
+.card:hover {
+    box-shadow: 0 0 0 4px #ccc;
+}
+
+.card-dark:hover {
+    box-shadow: 0 0 0 4px #555;
 }
 
 .card-width {
@@ -252,20 +269,20 @@ body {
     color: #fff;
 }
 
-.btn-close, .btn-close-dark, .btn-pin, .btn-pin-dark, .btn-pin-active, .btn-pin-active-dark {
+.btn-close, .btn-close-dark, .btn-pin, .btn-pin-dark, .btn-pin-active, .btn-pin-active-dark, .units, .units-dark {
     width: 50px;
     height: 50px;
     background-color: #f0f0f0;
     border-radius: 7px;
     margin-right: 50px;
-    transition: background-color 0.5s ease-in-out, fill 0.5s ease-in-out;  
+    transition: background-color 0.5s ease-in-out, fill 0.5s ease-in-out, color 0.5s ease-in-out;  
 }
 
-.btn-pin, .btn-pin-dark, .btn-pin-active, .btn-pin-active-dark {
+.btn-pin, .btn-pin-dark, .btn-pin-active, .btn-pin-active-dark, .units, .units-dark {
     margin-right: 10px;
 }
 
-.btn-close-dark, .btn-pin-dark {
+.btn-close-dark, .btn-pin-dark, .units-dark {
     background-color: #555;
 }
 
@@ -287,17 +304,32 @@ body {
     fill: #fff;
 }
 
+.units, .units-dark {
+    width: 100px;
+    font-weight: 600;
+    color: #2270ee;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+.units-dark {
+    color: #76D0FC;
+}
+
+.units span, .units-dark span {
+    font-size: 12px;
+}
+
 .title, .title-dark {
     margin-left: 50px;
 }
 
-.title p, .title-dark p {
+.title b, .title-dark b {
     color: #2270ee;
-    font-weight: 500;
     transition: color 0.5s ease-in-out;
 }
 
-.title-dark p {
+.title-dark b {
     color: #76D0FC;
 }
 
@@ -527,7 +559,7 @@ body {
         height: calc(100vh - 170px);
     }
 
-    .card, .card-dark, .blankcard, .blankcard-dark {
+    .card, .card-dark, .blankcard, .blankcard-dark, .card-active, .card-active-dark {
         margin: 0 10px;
         min-width: calc(100% - 20px);
         height: 70px;
@@ -622,7 +654,7 @@ body {
 }
 
 @media screen and (min-width: 850px) and (max-width: 1000px) {
-    .card, .card-dark, .blankcard, .blankcard-dark {
+    .card, .card-dark, .blankcard, .blankcard-dark, .card-active, .card-active-dark {
         max-width: calc(70vw + 50px);
     }
 
@@ -682,7 +714,7 @@ body {
         height: calc(100vh - 250px);
     }
 
-    .card, .card-dark, .blankcard, .blankcard-dark {
+    .card, .card-dark, .blankcard, .blankcard-dark, .card-active, .card-active-dark {
         margin: 0 5%;
     }
 }
