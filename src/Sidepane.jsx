@@ -119,7 +119,7 @@ export default class Sidepane extends PureComponent {
 
     render() {
         const { quarters, changeQuarter, selectedQuarter, loading, isMobile, pinned, removePin, addPin } = this.props;
-        const { theme } = this.context.theme;
+        const { theme } = this.context;
         const showMobileNavigation = isMobile || pinned.length > 0;
 
         return (
