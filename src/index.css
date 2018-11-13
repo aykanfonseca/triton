@@ -210,12 +210,12 @@ body {
 }
 
 .card-active, .card-active-dark {
-    box-shadow: 0 0 0 3px #2270ee;
+    box-shadow: 0 0 0 2px #2270ee;
     transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, box-shadow 0.25s ease-in-out;
 }
 
 .card-active-dark {
-    box-shadow: 0 0 0 3px #76D0FC;
+    box-shadow: 0 0 0 2px #76D0FC;
 }
 
 .card-dark, .card-active-dark {
