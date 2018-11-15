@@ -22,25 +22,37 @@ const DeiIcon = () => (
     </div>
 );
 
-const Content = ({item, theme}) => (
-    <div className={"content" + theme}>
-        <div style={{display: 'flex', alignItems: 'center'}}>
-            { item.waitlist && <WaitlistIcon /> }
-            { item.dei && <DeiIcon /> }
-        </div>
+const BlingStrip = ({item}) => (
+    <div style={{display: 'flex', alignItems: 'center'}}>
+        { item.waitlist && <WaitlistIcon /> }
+        { item.dei && <DeiIcon /> }
+    </div>
+);
+
+const DescriptionBox = ({item}) => (
+    <>
         <h1>Description</h1>
         <p>{item.rest.description}</p>
         <b>Prerequisites:</b>
         <p>{capitalizeFirstLetter(item.rest.prerequisites)}</p>
         <b>Restrictions:</b>
         <p>{item.rest.restrictions === '' ? 'None.' : item.rest.restrictions}</p>
-        <h1>Overview</h1>
+    </>
+);
+
+const Content = ({item, theme}) => (
+    <div className={"content" + theme}>
+        <BlingStrip 
+            item={item}
+        />
+        <DescriptionBox 
+            item={item}
+        />
         <MetricBox 
             theme={theme} 
             rest={item.rest}
             code={item.code}
         />
-        <h1>Sections</h1>
         <SectionContainer
             code={item.code}
             rest={item.rest}

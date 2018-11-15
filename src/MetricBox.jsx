@@ -144,11 +144,14 @@ export default class MetricBox extends PureComponent {
 
         if (metrics.length > 0) {
             return (
-                <div className="metric-list">
-                    <GradeMetric grade={metrics[0]} />
-                    <StudyMetric study={metrics[1]} />
-                    <SeatMetric seat={metrics[3]} waitlist={waitlist} />
-                </div>
+                <>
+                    <h1>Overview</h1>
+                    <div className="metric-list">
+                        <GradeMetric grade={metrics[0]} />
+                        <StudyMetric study={metrics[1]} />
+                        <SeatMetric seat={metrics[3]} waitlist={waitlist} />
+                    </div>
+                </>
             );
         }
 

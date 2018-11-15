@@ -137,7 +137,7 @@ export default class SubSection extends Component {
                     {this.handleLocation()}
                 </div>
                 <div className="block" style={{width: '200px', textIndent: '20px', overflowX: 'auto', justifyContent: 'left'}} >
-                    <a title="Click to see info about a teacher!" style={{textDecoration: 'underline', color: '#0000EE', cursor: 'pointer'}} onClick={() => {(this.convertBlank(this.state.sectionRow['name']) !== null) && this.props.chooseView(this.state.sectionRow['name'].replace('.',''), 'teacher')}}>{this.convertBlank(this.state.sectionRow['name'])}</a>
+                    <a title="Click to see info about a teacher!" style={{textDecoration: 'underline', color: '#0000EE', cursor: 'pointer'}}>{this.convertBlank(this.state.sectionRow['name'])}</a>
                 </div>
                 <div className="block" title={(this.state.waitlist) ? "Has a waitlist." : "Seats taken / Seats available."} style={(this.state.waitlist) ? {fontWeight: '500', color: 'red', width: '100px'} : {width: '100px'}}>
                     {this.handleSeats()}

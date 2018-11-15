@@ -54,12 +54,13 @@ export default class SectionContainer extends PureComponent {
 
     render() {
         return (
-            <>            
+            <>      
+                <h1>Sections</h1>      
                 <SectionTitles />
 
                 <div ref={this.acc} onClick={this.handleClick}>
                     {this.state.sections.map((i, index) => 
-                        <Section key={index} rows={i} chooseView={this.props.chooseView} />
+                        <Section key={index} rows={i}/>
                     )}
                 </div>
             </>

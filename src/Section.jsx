@@ -143,7 +143,7 @@ export default class Section extends Component {
                         {this.handleLocation()}
                     </div>
                     <div className="block2" style={{width: '200px', textIndent: '20px', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflowX: 'auto', justifyContent: 'left'}} >
-                        <a title="Click to see info about a teacher" style={{textDecoration: 'underline', color: '#0000EE', cursor: 'pointer'}} onClick={() => {(this.convertBlank(this.state.sectionsAndFinals[1]['name']) !== null) && this.props.chooseView(this.state.sectionsAndFinals[1]['name'].replace('.',''), 'teacher')}}>{this.convertBlank(this.state.sectionsAndFinals[1]['name'])}</a>
+                        <a title="Click to see info about a teacher" style={{textDecoration: 'underline', color: '#0000EE', cursor: 'pointer'}}>{this.convertBlank(this.state.sectionsAndFinals[1]['name'])}</a>
                     </div>
                     <div className="block2" title={(this.state.waitlist) ? "If number is 0, it is exactly full. Else it has a waitlist of this number." : "Seats taken / Seats available."} style={(this.state.waitlist) ? {fontWeight: '500', color: 'red', width: '100px'} : {width: '100px'}}>
                         {this.handleSeats()}
@@ -156,7 +156,7 @@ export default class Section extends Component {
 
                 <div className="body" style={{display: 'inline-block'}}>
                     {this.state.sectionsAndFinals.slice(2).map((i, index) => 
-                        <SubSection key={index} row={i} chooseView={this.props.chooseView}/>
+                        <SubSection key={index} row={i}/>
                     )}
                 </div>
             </div>
