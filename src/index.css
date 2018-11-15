@@ -366,6 +366,11 @@ body {
 
 .content p, .content-dark p {
     margin: 10px 0;
+    font-size: 18px;
+}
+
+.content b, .content-dark b {
+    font-size: 18px;
 }
 
 .content h1, .content-dark h1 {

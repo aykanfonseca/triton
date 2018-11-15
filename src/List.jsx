@@ -48,8 +48,18 @@ export default class List extends Component {
         );
     }
 
+    findIndex = (codeNoSpaces, searchResults) => {
+        for (const index in searchResults) {
+            if (this.props.searchResults[index].code.split(' ').join('') === codeNoSpaces) {
+                return Number(index) + 3;
+            }
+        }
+
+        return 0;
+    }
+
     render() {
-        const { isMobile, theme, pinned, searchResults, loading } = this.props;
+        const { isMobile, theme, pinned, searchResults, loading, location } = this.props;
 
         const listStyle = !isMobile && pinned.length > 0 ? 'list-short' + theme : 'list' + theme;
 
@@ -65,6 +75,7 @@ export default class List extends Component {
                             rowHeight={getRowHeight(height, width, loading, searchResults.length)}
                             rowRenderer={this.rowRenderer}
                             loading={loading}
+                            scrollToIndex={this.findIndex(location.pathname.slice(1), searchResults)}
                         />  
                     )}
                 </AutoSizer>
