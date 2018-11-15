@@ -13,7 +13,7 @@ export default class Rightpane extends PureComponent {
 
     render() {
         const { theme } = this.context;
-        const { location, isMobile, pinned, addPin, removePin, classes } = this.props;
+        const { location, isMobile, pinned, addPin, removePin } = this.props;
 
         return (
             <div className={"rightpane" + theme}>
@@ -26,7 +26,6 @@ export default class Rightpane extends PureComponent {
                     removePin={removePin}
                 />
                 <Content 
-                    classes={classes} 
                     item={location.state.item} 
                     theme={theme} 
                     isMobile={isMobile}

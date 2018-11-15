@@ -133,7 +133,6 @@ export default class Home extends Component {
                     <Route path="/:id" render={props => 
                         <Rightpane 
                             isMobile={isMobile} 
-                            classes={this.classes}
                             pinned={pinned}
                             addPin={this.addPin}
                             removePin={this.removePin} 
@@ -163,7 +162,6 @@ export default class Home extends Component {
                         <Route path="/:id" render={props => 
                             <Rightpane 
                                 isMobile={isMobile} 
-                                classes={this.classes} 
                                 pinned={pinned}
                                 addPin={this.addPin}
                                 removePin={this.removePin} 

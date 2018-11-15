@@ -41,11 +41,6 @@ const SeatMetric = ({seat, waitlist}) => (
                         <div title="Total seats taken." style={{fontSize: '28px', marginRight: '5px', color: (waitlist) ? 'red' : 'inherit'}}>{seat[0]}</div>
                         <div>{"/"}</div>
                         <div title="Total seats available." style={{marginLeft: '5px'}}>{seat[1]}</div>
-                        {(waitlist) && 
-                            <div title="Has a waitlist." style={{marginLeft: '5px'}}>
-                                <svg width="11" height="14" xmlns="http://www.w3.org/2000/svg"><path d="M9.35 6.267h.963c.412 0 .687.266.687.666v6.4c0 .4-.275.667-.688.667H.688A.677.677 0 0 1 0 13.333v-6.4c0-.4.275-.666.688-.666h.962V3.6h1.513v2.667h4.675V3.6H9.35v2.667zm0-2.667h-7.7c0-2 1.788-3.6 3.85-3.6 2.063 0 3.85 1.6 3.85 3.6zm-1.512 0c0-1.2-1.032-2.2-2.338-2.2-1.265 0-2.3.974-2.337 2.2h4.675z" fill="red"/></svg>
-                            </div>
-                        }
                     </div>
             }
         </div>
