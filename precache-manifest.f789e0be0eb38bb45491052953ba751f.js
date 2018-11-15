@@ -1,15 +1,15 @@
 self.__precacheManifest = [
   {
-    "revision": "0b3b0b442303511901d9cbf16baf0163",
-    "url": "/triton/static/media/pin.0b3b0b44.svg"
+    "revision": "132438d3bb162dc9741f4f3f38c0467f",
+    "url": "/triton/static/media/cancel.132438d3.svg"
   },
   {
-    "revision": "d2078e5db0e3dbc1a385",
-    "url": "/triton/static/css/main.6d2ea8c7.chunk.css"
+    "revision": "d4113fbd7cdcfa507eb5",
+    "url": "/triton/static/css/main.3f4f7dda.chunk.css"
   },
   {
-    "revision": "5a3c3e8da59cb449c0d4",
-    "url": "/triton/static/js/1.5a3c3e8d.chunk.js"
+    "revision": "6573f89fcf540e531229",
+    "url": "/triton/static/js/1.6573f89f.chunk.js"
   },
   {
     "revision": "eb3f76c64ecf3c4f46c1",
@@ -24,12 +24,12 @@ self.__precacheManifest = [
     "url": "/triton/static/media/waitlist.8fdb0e2f.svg"
   },
   {
-    "revision": "d2078e5db0e3dbc1a385",
-    "url": "/triton/static/js/main.d2078e5d.chunk.js"
+    "revision": "0b3b0b442303511901d9cbf16baf0163",
+    "url": "/triton/static/media/pin.0b3b0b44.svg"
   },
   {
-    "revision": "132438d3bb162dc9741f4f3f38c0467f",
-    "url": "/triton/static/media/cancel.132438d3.svg"
+    "revision": "d4113fbd7cdcfa507eb5",
+    "url": "/triton/static/js/main.d4113fbd.chunk.js"
   },
   {
     "revision": "5e7a2de92be4ab0df02916d112a29c2d",
@@ -48,7 +48,15 @@ self.__precacheManifest = [
     "url": "/triton/static/media/schedule.718ea0ef.svg"
   },
   {
-    "revision": "b18f96bb66053316dc235d6e80845772",
+    "revision": "0b07b8735b5ad04880fb13e20eb9460d",
+    "url": "/triton/static/media/tag_waitlist.0b07b873.svg"
+  },
+  {
+    "revision": "5548254ffc1fd66b38e21ec1cfabbe19",
+    "url": "/triton/static/media/tag_dei.5548254f.svg"
+  },
+  {
+    "revision": "f66b593284524bbd21f78a637bd031a1",
     "url": "/triton/index.html"
   }
 ];
