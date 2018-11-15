@@ -51,7 +51,7 @@ export default class List extends Component {
     findIndex = (codeNoSpaces, searchResults) => {
         for (const index in searchResults) {
             if (this.props.searchResults[index].code.split(' ').join('') === codeNoSpaces) {
-                return Number(index) + 3;
+                return Number(index);
             }
         }
 
