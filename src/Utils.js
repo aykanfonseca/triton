@@ -4,6 +4,67 @@ export const quarter_abbreviations = {'Fall': 'FA', 'Winter': 'WI', 'Spring': 'S
 export const quarter_expansions = {'FA': 'Fall', 'WI': 'Winter', 'SP': 'Spring', 'SU': 'Summer Med School', 'S1': 'Summer Session 1', 'S2': 'Summer Session 2', 'S3': 'Summer Session 3', 'SA': 'Summer'}
 export const quarter_precedence = {'SU': 0, 'S1': 1, 'S2': 2, 'S3': 3, 'SA': 4, 'FA': 5, 'WI': 6, 'SP': 7};
 
+export const sortByMilitaryTime = (a, b) => {
+    const first = a['start time'].split(':').map(x => parseInt(x, 10));
+    const second = b['start time'].split(':').map(x => parseInt(x, 10));
+
+    // Compare hours.
+    if (first[0] > second[0]) return 1;
+
+    else if (first[0] < second[0]) return -1;
+
+    // Compare minutes.
+    else {
+        if (first[1] > second[1]) return 1;
+
+        else if (first[1] < second[1]) return -1;
+
+        else return 0;
+    }
+}
+
+export const sortByMilitaryTimeEnd = (a, b) => {
+    const first = a['end time'].split(':').map(x => parseInt(x, 10));
+    const second = b['end time'].split(':').map(x => parseInt(x, 10));
+
+    // Compare hours.
+    if (first[0] > second[0]) return -1;
+
+    else if (first[0] < second[0]) return 1;
+
+    // Compare minutes.
+    else {
+        if (first[1] > second[1]) return -1;
+
+        else if (first[1] < second[1]) return 1;
+
+        else return 0;
+    }
+}
+
+export const generateIntervals = (start, end, isFinal) => {
+    // Generates half hour intervals, and hour intervals.
+    const startHour = start.split(':').map(x => parseInt(x, 10))[0];
+    const endHour = end.split(':').map(x => parseInt(x, 10))[0];
+
+    let interval = [];
+    let interval2 = [];
+    for (let i = startHour; i <= endHour; i++) {
+        interval.push(i + ':00');
+
+        interval2.push(i + ':00');
+        interval2.push(i + ':30');
+    }
+
+    if (isFinal) {
+        interval.push(endHour+1 + ':00');
+        interval2.push(endHour+1 + ':00');
+        interval2.push(endHour+1 + ':30');
+    }
+
+    return [interval, interval2];
+}
+
 export const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 export const convert = (value) => {
@@ -42,12 +103,12 @@ export const getNumRows = (loading, resultLength) => {
     return resultLength;
 }
 
-export const getRowHeight = (height, width, loading, resultLength) => {
+export const getRowHeight = (height, isMobile, width, loading, resultLength) => {
     if (!loading && resultLength === 0) {
         return height;
     }
 
-    else if (width < 400) {
+    else if (isMobile && width < 520) {
         return 80;
     }
 

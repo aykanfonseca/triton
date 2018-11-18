@@ -32,11 +32,11 @@ const BlingStrip = ({item}) => (
 const DescriptionBox = ({item}) => (
     <>
         <h1>Description</h1>
-        <p>{item.rest.description}</p>
+        <p>{item.description === '???' ? '---' : item.description}</p>
         <b>Prerequisites:</b>
-        <p>{capitalizeFirstLetter(item.rest.prerequisites)}</p>
+        <p>{item.prerequisites === '???' ? 'None.' : capitalizeFirstLetter(item.prerequisites)}</p>
         <b>Restrictions:</b>
-        <p>{item.rest.restrictions === '' ? 'None.' : item.rest.restrictions}</p>
+        <p>{item.restrictions === '' ? 'None.' : item.restrictions}</p>
     </>
 );
 
@@ -50,12 +50,13 @@ const Content = ({item, theme}) => (
         />
         <MetricBox 
             theme={theme} 
-            rest={item.rest}
             code={item.code}
+            sections={item.sections}
         />
         <SectionContainer
-            code={item.code}
-            rest={item.rest}
+            theme={theme} 
+            key={item.code}
+            sections={item.sections}
         />
     </div>
 );

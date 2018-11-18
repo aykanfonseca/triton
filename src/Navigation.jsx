@@ -8,6 +8,7 @@ import { ReactComponent as Pin } from './icons/pin.svg';
 import { ReactComponent as Settings } from './icons/settings.svg';
 import { ReactComponent as Email } from './icons/email.svg';
 import { ReactComponent as Schedule } from './icons/schedule.svg';
+import { ReactComponent as Save } from './icons/save.svg';
 
 const CancelBtn = ({theme}) => (
     <Link to="/" title="Click to close" className={"btn-nav" + theme}>
@@ -50,6 +51,13 @@ const ScheduleBtn = ({theme}) => (
     </Link>
 );
 
+const SaveBtn = ({theme}) => (
+    <div title="Save your schedule" className={"btn-nav" + theme}>
+        <Save />
+        <div>Save</div>
+    </div>
+);
+
 const Navigation = ({theme, type, addPin, removePin, pinned, item = '', isMobile = false}) => {
     if (type === 'course') {
         return (
@@ -70,6 +78,15 @@ const Navigation = ({theme, type, addPin, removePin, pinned, item = '', isMobile
         return (
             <div className={'navigation' + theme}>
                 <EmailBtn theme={theme} />
+                <CancelBtn theme={theme} />
+            </div>
+        );
+    }
+
+    else if (type === 'schedule') {
+        return (
+            <div className={'navigation' + theme}>
+                <SaveBtn theme={theme} />
                 <CancelBtn theme={theme} />
             </div>
         );

@@ -7,6 +7,7 @@ import { GlobalContext } from './Context';
 // Custom Components
 import Sidepane from './Sidepane';
 import Rightpane from './Rightpane';
+import Schedule from './Schedule';
 import Emptypane from './Emptypane';
 import Firebase from './firebase.js';
 
@@ -32,7 +33,7 @@ export default class Home extends Component {
     }
 
     addPin = (course) => {
-        this.setState({ pinned: [ ...this.state.pinned, course]})
+        this.setState({ pinned: [ ...this.state.pinned, course].sort(naturalSort)})
     }
 
     removePin = (course) =>  {
@@ -80,13 +81,18 @@ export default class Home extends Component {
         const classData = Object.values(message);
 
         for (const course of classData) {
+            const { code, title, units, description, prerequisites, restrictions, waitlist, dei, podcast, ...sections } = course;
+
             this.classes.push({
-                code: course['code'], 
-                title: course["title"], 
-                units: course["units"], 
-                rest: course, 
-                waitlist: (course["waitlist"] === 'true'), 
-                dei: (course['dei'] === 'true')
+                code: code, 
+                title: title, 
+                units: units, 
+                description: description,
+                prerequisites: prerequisites,
+                restrictions: restrictions,
+                waitlist: waitlist === 'true', 
+                dei: dei === 'true',
+                sections: sections
             });
         }
 
@@ -116,7 +122,7 @@ export default class Home extends Component {
         if (isMobile) {
             return (
                 <Switch>
-                    <Route exact path='/' render={() => 
+                    <Route exact path='/' render={props => 
                         <Sidepane 
                             classes={this.classes} 
                             teachers={this.teachers} 
@@ -127,7 +133,14 @@ export default class Home extends Component {
                             clearPins={this.clearPins}
                             removePin={this.removePin}
                             isMobile={isMobile}
-                            {...this.props}
+                            {...props}
+                        />
+                    }/>
+                    <Route exact path='/schedule' render={props => 
+                        <Schedule 
+                            isMobile={isMobile}
+                            pinned={pinned}
+                            {...props}
                         />
                     }/>
                     <Route path="/:id" render={props => 
@@ -146,30 +159,44 @@ export default class Home extends Component {
 
         return (
             <div style={{display: 'flex'}}>
-                    <Sidepane 
-                        classes={this.classes} 
-                        teachers={this.teachers}
-                        quarters={this.quarters} 
-                        selectedQuarter={this.selectedQuarter}
-                        loading={loading} 
-                        pinned={pinned}
-                        removePin={this.removePin}
-                        clearPins={this.clearPins}
-                        isMobile={isMobile}
-                        {...this.props}
-                    />
-                    <Switch>
-                        <Route path="/:id" render={props => 
-                            <Rightpane 
-                                isMobile={isMobile} 
-                                pinned={pinned}
-                                addPin={this.addPin}
-                                removePin={this.removePin} 
-                                {...props}
-                            />
-                        }/>
-                        <Route render={() => (<Emptypane theme={this.context.theme} />)} />
-                    </Switch>
+                <Switch>
+                    <Route path='/schedule' render={props => 
+                        <div style={{width: '25vw', height: '100vh', backgroundColor: '#ccc'}}>Schedule</div>
+                    }/>
+                    <Route path='/' render={props => 
+                        <Sidepane 
+                            classes={this.classes} 
+                            teachers={this.teachers}
+                            quarters={this.quarters} 
+                            selectedQuarter={this.selectedQuarter}
+                            loading={loading} 
+                            pinned={pinned}
+                            removePin={this.removePin}
+                            clearPins={this.clearPins}
+                            isMobile={isMobile}
+                            {...props}
+                        />
+                    }/>
+                </Switch>
+                <Switch>
+                    <Route path='/schedule' render={props => 
+                        <Schedule 
+                            isMobile={isMobile}
+                            pinned={pinned}
+                            {...props}
+                        />
+                    }/>
+                    <Route path="/:id" render={props => 
+                        <Rightpane 
+                            isMobile={isMobile} 
+                            pinned={pinned}
+                            addPin={this.addPin}
+                            removePin={this.removePin} 
+                            {...props}
+                        />
+                    }/>
+                    <Route render={() => (<Emptypane theme={this.context.theme} />)} />
+                </Switch>
             </div>
         );
     }

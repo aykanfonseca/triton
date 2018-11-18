@@ -118,45 +118,41 @@ export default class Section extends Component {
     }
 
     render() {
+        const { theme } = this.props;
+
         return (
             <div className="accor">
-                <div style={{display: 'inline-flex', height: '45px', marginTop: '10px', fontSize: '15px', border: '2px solid #ECECFA'}} >
-                    <div className="dropdown">
-                        <svg width="21" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M10.328 7.486L17.286.528a1.842 1.842 0 0 1 2.611.004c.723.722.716 1.9.004 2.612l-7.853 7.853a1.837 1.837 0 0 1-1.371.54 1.88 1.88 0 0 1-2.014-.413L.701 3.162c-.73-.73-.734-1.91.004-2.648A1.88 1.88 0 0 1 3.352.51l6.976 6.976z" fill="#FFF" opacity={(this.state.sectionsAndFinals.slice(2).length > 0) ? '1' : '0'}/></svg>
+                <div className={'section' + theme}>
+                    <div className={this.state.sectionsAndFinals.slice(2).length > 0 ? (theme === '' ? "dropdown" : "dropdown-dark") : (theme === '' ? "block2" : 'block2-dark')} style={{width: '45px'}}>
+                        {this.state.sectionsAndFinals.slice(2).length > 0 && <svg width="21" height="12" xmlns="http://www.w3.org/2000/svg"><path d="M10.328 7.486L17.286.528a1.842 1.842 0 0 1 2.611.004c.723.722.716 1.9.004 2.612l-7.853 7.853a1.837 1.837 0 0 1-1.371.54 1.88 1.88 0 0 1-2.014-.413L.701 3.162c-.73-.73-.734-1.91.004-2.648A1.88 1.88 0 0 1 3.352.51l6.976 6.976z" fill="#FFF"/></svg>}
                     </div>
-                    <div className="block2" style={{width: '90px', textIndent: '20px'}} >
+                    <div className={"block2" + theme} style={{width: '90px'}}>
                         {this.convertBlank(this.state.sectionsAndFinals[1]['id'])}
                     </div>
-                    <div className="block2" style={{width: '70px'}} >
+                    <div className={"block2" + theme} style={{width: '70px'}}>
                         {this.convertBlank(this.state.sectionsAndFinals[1]['number'])}
                     </div>
-                    <div className="block2" style={{width: '60px'}} >
+                    <div className={"block2" + theme} style={{width: '60px'}}>
                         {this.convertBlank(this.state.sectionsAndFinals[1]['meeting type'])}
                     </div>
-                    <div className="block2" style={{width: '50px'}}>
-                        {this.handleDays()}
+                    <div className={"block2" + theme} style={{width: '200px'}} >
+                        <div style={{marginRight: '10px'}}>{this.handleDays()}</div>
+                        <div>{this.handleTime()}</div>
                     </div>
-                    <div className="block2" style={{width: '200px', textIndent: '20px', justifyContent: 'left'}} >
-                        {this.handleTime()}
-                    </div>
-                    <div className="block2" style={{width: '100px', justifyContent: 'left'}} >
+                    <div className={"block2" + theme} style={{width: '100px'}}>
                         {this.handleLocation()}
                     </div>
-                    <div className="block2" style={{width: '200px', textIndent: '20px', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflowX: 'auto', justifyContent: 'left'}} >
-                        <a title="Click to see info about a teacher" style={{textDecoration: 'underline', color: '#0000EE', cursor: 'pointer'}}>{this.convertBlank(this.state.sectionsAndFinals[1]['name'])}</a>
+                    <div className={"block2" + theme} style={{width: '250px', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflowX: 'auto'}}>
+                        <div title="Click to see info about a teacher" style={{fontWeight: '500', padding: '5px', borderRadius: '7px', backgroundColor: (this.props.theme === '' ? '#EDF4FA' : '#D2E3FB'), color: (this.props.theme === '' ? '#0000EE' : '#333'),  cursor: 'pointer'}}>{this.convertBlank(this.state.sectionsAndFinals[1]['name'])}</div>
                     </div>
-                    <div className="block2" title={(this.state.waitlist) ? "If number is 0, it is exactly full. Else it has a waitlist of this number." : "Seats taken / Seats available."} style={(this.state.waitlist) ? {fontWeight: '500', color: 'red', width: '100px'} : {width: '100px'}}>
+                    <div className={"block2" + theme} title={(this.state.waitlist) ? "If number is 0, it is exactly full. Else it has a waitlist of this number." : "Seats taken / Seats available."} style={(this.state.waitlist) ? {fontWeight: '500', color: 'red', width: '100px'} : {width: '100px'}}>
                         {this.handleSeats()}
-
-                        {(this.state.waitlist) && 
-                            <svg width="11" height="14" style={{marginBottom: '2px', marginLeft: '5px'}} xmlns="http://www.w3.org/2000/svg"><path d="M9.35 6.267h.963c.412 0 .687.266.687.666v6.4c0 .4-.275.667-.688.667H.688A.677.677 0 0 1 0 13.333v-6.4c0-.4.275-.666.688-.666h.962V3.6h1.513v2.667h4.675V3.6H9.35v2.667zm0-2.667h-7.7c0-2 1.788-3.6 3.85-3.6 2.063 0 3.85 1.6 3.85 3.6zm-1.512 0c0-1.2-1.032-2.2-2.338-2.2-1.265 0-2.3.974-2.337 2.2h4.675z" fill="red"/></svg>
-                        }
                     </div>
                 </div>
 
-                <div className="body" style={{display: 'inline-block'}}>
+                <div className={"body" + theme} style={{display: 'inline-block'}}>
                     {this.state.sectionsAndFinals.slice(2).map((i, index) => 
-                        <SubSection key={index} row={i}/>
+                        <SubSection theme={theme} key={index} row={i}/>
                     )}
                 </div>
             </div>

@@ -14,6 +14,8 @@ export default class List extends Component {
         super(props);
 
         this.list = createRef();
+
+        this.lastScrollSpot = 0;
     }
 
     componentDidUpdate(prevProps) {
@@ -48,14 +50,25 @@ export default class List extends Component {
         );
     }
 
-    findIndex = (codeNoSpaces, searchResults) => {
-        for (const index in searchResults) {
-            if (this.props.searchResults[index].code.split(' ').join('') === codeNoSpaces) {
-                return Number(index);
-            }
+    findIndex = (location, searchResults) => {
+        let currLocation = location.pathname;
+
+        if (currLocation === '/') {
+            return this.lastScrollSpot;
         }
 
-        return 0;
+        else {
+            currLocation = currLocation.slice(1);
+
+            for (const index in searchResults) {
+                if (this.props.searchResults[index].code.split(' ').join('') === currLocation) {
+                    this.lastScrollSpot = Number(index);
+                    return Number(index);
+                }
+            }
+    
+            return 0;
+        }
     }
 
     render() {
@@ -72,10 +85,10 @@ export default class List extends Component {
                             height={height}
                             width={width}
                             rowCount={getNumRows(loading, searchResults.length)}
-                            rowHeight={getRowHeight(height, width, loading, searchResults.length)}
+                            rowHeight={getRowHeight(height, isMobile, width, loading, searchResults.length)}
                             rowRenderer={this.rowRenderer}
                             loading={loading}
-                            scrollToIndex={this.findIndex(location.pathname.slice(1), searchResults)}
+                            scrollToIndex={this.findIndex(location, searchResults)}
                         />  
                     )}
                 </AutoSizer>

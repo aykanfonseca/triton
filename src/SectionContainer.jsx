@@ -7,30 +7,16 @@ export default class SectionContainer extends PureComponent {
         super(props);
 
         this.state = {
-            sections: [],
-            code: ''
+            sections: []
         };
 
         this.acc = createRef();
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (prevState.code !== nextProps.code) {
-            const sectionsTemp = [];
-
-            for (let property in nextProps.rest) {
-                if (typeof(nextProps.rest[property]) === 'object' && property !== 'podcast') {
-                    sectionsTemp.push(nextProps.rest[property]);
-                }
-            }
-
-            return {
-                sections: sectionsTemp,
-                code: nextProps.code
-            };
-        }
-
-        return null;
+    static getDerivedStateFromProps(nextProps) {
+        return {
+            sections: Object.values(nextProps.sections)
+        };
     }
 
     componentDidMount() {
@@ -58,9 +44,9 @@ export default class SectionContainer extends PureComponent {
                 <h1>Sections</h1>      
                 <SectionTitles />
 
-                <div ref={this.acc} onClick={this.handleClick}>
+                <div ref={this.acc}>
                     {this.state.sections.map((i, index) => 
-                        <Section key={index} rows={i}/>
+                        <Section theme={this.props.theme} key={index} rows={i}/>
                     )}
                 </div>
             </>

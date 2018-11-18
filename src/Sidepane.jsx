@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+ import React, { PureComponent } from 'react';
 
 // Libraries / Context
 import { GlobalContext } from './Context';
@@ -65,15 +65,8 @@ export default class Sidepane extends PureComponent {
         const listToFilterForClasses = isDeleting ? this.initialClasses : this.classes;
         const listToFilterForTeachers = isDeleting ? this.initialTeachers : this.teachers;
 
-        // Search by pinned.
-        if (input.indexOf('pinned') !== -1) {
-            if (this.props.pinned.length > 0) {
-                this.setState({ displayResults: this.initialClasses.filter(course => this.props.pinned.includes(course)) });
-            }
-        }
-
         // Search by units. 
-        else if (input.indexOf('unit') !== -1 || input.indexOf('units') !== -1) {
+        if (input.indexOf('unit') !== -1 || input.indexOf('units') !== -1) {
             const number = input.match(/\d+/);
 
             if (number !== null) {
