@@ -618,7 +618,7 @@ body {
 /* Desktop */
 @media screen and (min-width: 1201px) {
     .branding, .branding-dark {
-        width: 30vw;
+        width: 28vw;
         font-size: 24px;
         height: 90px;
     }
@@ -634,16 +634,16 @@ body {
     }
 
     .searchbox, .searchbox-dark {
-        width: 30vw;
+        width: 28vw;
         padding-bottom: 10px;
     }
 
     .searchbox input, .searchbox-dark input {
-        width: calc(30vw - 200px);
+        width: calc(28vw - 200px);
     }
     
     .list, .list-dark, .list-short, .list-short-dark {
-        width: 30vw;
+        width: 28vw;
         height: calc(100vh - 190px);
     }
 
@@ -657,7 +657,7 @@ body {
 
     .content, .content-dark {
         padding: 20px 50px;
-        width: calc(70vw - 100px);
+        width: calc(72vw - 100px);
         overflow-y: scroll;
     }
 

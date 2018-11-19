@@ -93,10 +93,18 @@ const Navigation = ({theme, type, addPin, removePin, pinned, item = '', isMobile
     }
 
     else if (type === 'home') {
+        if (isMobile) {
+            return (
+                <div className={'navigation' + theme}>
+                    <ScheduleBtn theme={theme} />
+                    <SettingsBtn theme={theme} />
+                </div>
+            );
+        }
+
         return (
             <div className={'navigation' + theme}>
                 <ScheduleBtn theme={theme} />
-                {isMobile && <SettingsBtn theme={theme} />}
             </div>
         );
     }
