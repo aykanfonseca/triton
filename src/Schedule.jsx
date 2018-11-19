@@ -6,7 +6,6 @@ import { GlobalContext } from './Context';
 // Custom Components.
 import Navigation from './Navigation';
 import ScheduleContent from './ScheduleContent';
-import ScheduleContentPrime from './ScheduleContentPrime';
 
 export default class Schedule extends PureComponent {
     static contextType = GlobalContext;
@@ -35,8 +34,7 @@ export default class Schedule extends PureComponent {
                     </div>
                 </div>
                 <div className={"content" + theme}>
-                    {/* <ScheduleContentPrime pinned={pinned} setRef={this.setRef}/> */}
-                    <ScheduleContent pinned={pinned} setRef={this.setRef}/>
+                    <ScheduleContent pinned={pinned} setRef={this.setRef} theme={theme} />
                 </div>
                 {isMobile && 
                     <Navigation 

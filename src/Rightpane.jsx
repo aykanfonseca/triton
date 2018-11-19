@@ -20,7 +20,7 @@ export default class Rightpane extends PureComponent {
                 <Ribbon 
                     item={location.state.item} 
                     theme={theme} 
-                    isMobile={isMobile} 
+                    isMobile={isMobile}
                     pinned={pinned}
                     addPin={addPin}
                     removePin={removePin}
@@ -38,6 +38,7 @@ export default class Rightpane extends PureComponent {
                         removePin={removePin}
                         pinned={pinned}
                         item={location.state.item}
+                        isMobile='true'
                     /> 
                 }
             </div>

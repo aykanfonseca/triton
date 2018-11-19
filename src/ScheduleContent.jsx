@@ -166,25 +166,28 @@ export default class ScheduleContent extends PureComponent {
     }
 
     render() {
+        const { setRef, theme } = this.props;
+
         return (
             <>
-                <div ref={el => this.props.setRef(el)}>
+                <div ref={el => setRef(el)}>
                     <ScheduleTitles 
                         isNotFinalSchedule={true}
+                        theme={theme}
                     />
 
                     <div style={{display: 'flex', borderBottom: '3px solid #dedede'}}>
                         <div style={{display: 'flex', flexDirection: 'column'}}>
                             {this.interval.map((time, i) =>
-                                <ScheduleFragment key={i} time={time} />
+                                <ScheduleFragment theme={theme} key={i} time={time} />
                             )}
                         </div>
 
-                        <ScheduleColumn key={'M'} dayData={this.days['M']} day='M' intervalWithHalf={this.interval2}/>
-                        <ScheduleColumn key={'T'} dayData={this.days['T']} day='T' intervalWithHalf={this.interval2}/>
-                        <ScheduleColumn key={'W'} dayData={this.days['W']} day='W' intervalWithHalf={this.interval2}/>
-                        <ScheduleColumn key={'R'} dayData={this.days['R']} day='R' intervalWithHalf={this.interval2}/>
-                        <ScheduleColumn key={'F'} dayData={this.days['F']} day='F' intervalWithHalf={this.interval2}/>
+                        <ScheduleColumn theme={theme} key={'M'} dayData={this.days['M']} day='M' intervalWithHalf={this.interval2}/>
+                        <ScheduleColumn theme={theme} key={'T'} dayData={this.days['T']} day='T' intervalWithHalf={this.interval2}/>
+                        <ScheduleColumn theme={theme} key={'W'} dayData={this.days['W']} day='W' intervalWithHalf={this.interval2}/>
+                        <ScheduleColumn theme={theme} key={'R'} dayData={this.days['R']} day='R' intervalWithHalf={this.interval2}/>
+                        <ScheduleColumn theme={theme} key={'F'} dayData={this.days['F']} day='F' intervalWithHalf={this.interval2}/>
                     </div>
                 </div>
 
@@ -195,15 +198,15 @@ export default class ScheduleContent extends PureComponent {
                         <div style={{display: 'flex', borderBottom: '3px solid #dedede'}}>
                             <div style={{display: 'flex', flexDirection: 'column'}}>
                                     {this.finalInterval.map((time, i) =>
-                                        <ScheduleFragment key={i} time={time} />
+                                        <ScheduleFragment theme={theme} key={i} time={time} />
                                     )}
                                 </div> 
 
-                                <ScheduleColumn key={'M'} dayData={this.finalDays['M']} day='M' intervalWithHalf={this.finalInterval2}/>
-                                <ScheduleColumn key={'T'} dayData={this.finalDays['T']} day='T' intervalWithHalf={this.finalInterval2}/>
-                                <ScheduleColumn key={'W'} dayData={this.finalDays['W']} day='W' intervalWithHalf={this.finalInterval2}/>
-                                <ScheduleColumn key={'R'} dayData={this.finalDays['R']} day='R' intervalWithHalf={this.finalInterval2}/>
-                                <ScheduleColumn key={'F'} dayData={this.finalDays['F']} day='F' intervalWithHalf={this.finalInterval2}/>
+                                <ScheduleColumn theme={theme} key={'M'} dayData={this.finalDays['M']} day='M' intervalWithHalf={this.finalInterval2}/>
+                                <ScheduleColumn theme={theme} key={'T'} dayData={this.finalDays['T']} day='T' intervalWithHalf={this.finalInterval2}/>
+                                <ScheduleColumn theme={theme} key={'W'} dayData={this.finalDays['W']} day='W' intervalWithHalf={this.finalInterval2}/>
+                                <ScheduleColumn theme={theme} key={'R'} dayData={this.finalDays['R']} day='R' intervalWithHalf={this.finalInterval2}/>
+                                <ScheduleColumn theme={theme} key={'F'} dayData={this.finalDays['F']} day='F' intervalWithHalf={this.finalInterval2}/>
                         </div>
                     </>
 
@@ -211,7 +214,6 @@ export default class ScheduleContent extends PureComponent {
 
                     <div style={{display: 'flex', marginTop: '110px', borderBottom: '3px solid #dedede'}}>
                             
-
                     </div>
                 }
             </>

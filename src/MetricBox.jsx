@@ -25,11 +25,11 @@ const SeatMetric = ({seat, waitlist}) => (
         <div className="metric-body" style={{border: '2px solid #B8E986'}}>
             {(seat.length === 1) ?
                     <div style={{padding: '6px', display: 'flex', alignItems: 'baseline', justifyContent: 'center'}} >
-                        <div style={{fontSize: '28px'}}>{"Unlimited"}</div>
+                        <div>{"Unlimited"}</div>
                     </div>
                 : 
                     <div style={{padding: '6px', display: 'flex', alignItems: 'baseline', justifyContent: 'center'}} >
-                        <div title="Total seats taken." style={{fontSize: '28px', marginRight: '5px', color: (waitlist) ? 'red' : 'inherit'}}>{seat[0]}</div>
+                        <div title="Total seats taken." style={{marginRight: '5px', color: (waitlist) ? 'red' : 'inherit'}}>{seat[0]}</div>
                         <div>{"/"}</div>
                         <div title="Total seats available." style={{marginLeft: '5px'}}>{seat[1]}</div>
                     </div>

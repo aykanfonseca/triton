@@ -12,12 +12,12 @@ export default class QuarterSwitcher extends PureComponent {
 
         this.state = {
             quarter: '',
-            showSmall: (window.innerWidth >= 1200 && window.innerWidth < 1600) || window.innerWidth < 520
+            showSmall: (window.innerWidth >= 1000 && window.innerWidth <= 1200) || window.innerWidth < 400
         };
     }
 
     handleWindowResize = () => {
-        if ((window.innerWidth >= 1200 && window.innerWidth < 1600) || window.innerWidth < 520) {
+        if ((window.innerWidth >= 1000 && window.innerWidth <= 1200) || window.innerWidth < 400) {
             this.setState({ showSmall: true });
         }
 
@@ -69,12 +69,12 @@ export default class QuarterSwitcher extends PureComponent {
         if (selectedQuarter !== '') {
             return (
                 <select title="Select to change quarter" className={'quarter' + theme} value={quarter} onChange={this.handleQuarterChange}>
-                    <optgroup label="Other">
+                    {/* <optgroup label="Other">
                         <option>{'Catalog'}</option>
                     </optgroup>
-                    <optgroup label="Quarters">
+                    <optgroup label="Quarters"> */}
                         {quarters.map(quart => <option key={quart.abbreviation}>{showSmall ? quart.abbreviation : quart.value}</option>)}
-                    </optgroup>
+                    {/* </optgroup> */}
                 </select>
             );
         }

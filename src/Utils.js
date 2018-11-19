@@ -108,8 +108,16 @@ export const getRowHeight = (height, isMobile, width, loading, resultLength) => 
         return height;
     }
 
-    else if (isMobile && width < 520) {
+    else if (isMobile && width <= 200) {
+        return 60;
+    }
+
+    else if (isMobile && width <= 400) {
         return 80;
+    }
+
+    else if (isMobile && width <= 450) {
+        return 85;
     }
 
     return 95;

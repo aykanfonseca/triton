@@ -18,7 +18,7 @@ const PinBtn = ({theme, addPin, removePin, pinned, item}) => (
         className={pinned.includes(item) ? "btn-pin-active" + theme : "btn-pin" + theme}>
         <Pin />
     </div>    
-)
+);
 
 const Ribbon = ({item, addPin, removePin, pinned, theme, isMobile}) => (
     <div className={"ribbon" + theme}>
@@ -26,16 +26,14 @@ const Ribbon = ({item, addPin, removePin, pinned, theme, isMobile}) => (
             <h1>{item.code}</h1>
             <b>{item.title}</b>
         </div>
-        {!isMobile && 
-            <div style={{display: "flex", flexDirection: 'row'}}>
-                <div className={"units" + theme}>
-                    {item.units}
-                    <span>Units</span>
-                </div>
-                <PinBtn theme={theme} item={item} addPin={addPin} removePin={removePin} pinned={pinned} />
-                <CancelBtn theme={theme} />
+        <div style={{display: "flex", flexDirection: 'row'}}>
+            <div className={"units" + theme}>
+                {item.units}
+                <span>Units</span>
             </div>
-        }
+            {!isMobile && <PinBtn theme={theme} item={item} addPin={addPin} removePin={removePin} pinned={pinned} />}
+            {!isMobile && <CancelBtn theme={theme} /> }
+        </div>
     </div>
 );
 

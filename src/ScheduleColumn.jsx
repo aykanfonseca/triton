@@ -181,8 +181,10 @@ export default class ScheduleColumn extends Component {
     }
 
     render() {
-        if (this.props.dayData.length === 0) {
-            return <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: (this.state.mouseHover) ? '#eee' : '#fff'}} onMouseEnter={this.handleOnMouseEnter} onMouseLeave={this.handleOnMouseLeave}><ScheduleEmptyColumn intervalWithHalf={this.props.intervalWithHalf}/></div>
+        const { dayData, theme } = this.props;
+
+        if (dayData.length === 0) {
+            return <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: (this.state.mouseHover) ? '#eee' : '#fff'}} onMouseEnter={this.handleOnMouseEnter} onMouseLeave={this.handleOnMouseLeave}><ScheduleEmptyColumn theme={theme} intervalWithHalf={this.props.intervalWithHalf}/></div>
         }
 
         return <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: (this.state.mouseHover) ? '#eee' : '#fff'}} onMouseEnter={this.handleOnMouseEnter} onMouseLeave={this.handleOnMouseLeave}>{this.column}</div>

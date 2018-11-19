@@ -92,8 +92,8 @@ export default class Sidepane extends PureComponent {
         }
     }
 
-    filterView = (event) => {
-        if (event.target.value !== "") {
+    filterView = (event = '') => {
+        if (event !== '' && event.target.value !== "") {
             const input = event.target.value.trim().toLowerCase();
             const isDeleting = (event.keyCode === 8);
 
@@ -113,7 +113,7 @@ export default class Sidepane extends PureComponent {
     render() {
         const { quarters, changeQuarter, selectedQuarter, loading, isMobile, pinned, removePin, addPin, location } = this.props;
         const { theme } = this.context;
-        const showMobileNavigation = isMobile || pinned.length > 0;
+        const showNavigation = isMobile || pinned.length > 0;
 
         return (
             <div>
@@ -134,7 +134,7 @@ export default class Sidepane extends PureComponent {
                     theme={theme}
                     location={location}
                 />
-                { showMobileNavigation && 
+                { showNavigation && 
                     <Navigation 
                         type='home' 
                         theme={theme} 

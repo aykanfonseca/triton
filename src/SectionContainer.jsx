@@ -41,14 +41,16 @@ export default class SectionContainer extends PureComponent {
     render() {
         return (
             <>      
-                <h1>Sections</h1>      
-                <SectionTitles />
+                <h1>Sections</h1>
+                <div style={{overflow: 'scroll'}}>
+                    <SectionTitles />
 
-                <div ref={this.acc}>
-                    {this.state.sections.map((i, index) => 
-                        <Section theme={this.props.theme} key={index} rows={i}/>
-                    )}
-                </div>
+                    <div ref={this.acc}>
+                        {this.state.sections.map((i, index) => 
+                            <Section theme={this.props.theme} key={index} rows={i}/>
+                        )}
+                    </div>
+                </div>      
             </>
         );
     }

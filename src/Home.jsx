@@ -9,6 +9,7 @@ import Sidepane from './Sidepane';
 import Rightpane from './Rightpane';
 import Schedule from './Schedule';
 import Emptypane from './Emptypane';
+import Branding from './Branding';
 import Firebase from './firebase.js';
 
 // Utilities
@@ -117,7 +118,7 @@ export default class Home extends Component {
 
     render() {
         const { loading, pinned, width } = this.state;
-        const isMobile = width < 1200;
+        const isMobile = width < 1000;
 
         if (isMobile) {
             return (
@@ -161,7 +162,9 @@ export default class Home extends Component {
             <div style={{display: 'flex'}}>
                 <Switch>
                     <Route path='/schedule' render={props => 
-                        <div style={{width: '25vw', height: '100vh', backgroundColor: '#ccc'}}>Schedule</div>
+                        <div>
+                            <Branding {...this.context} />
+                        </div>
                     }/>
                     <Route path='/' render={props => 
                         <Sidepane 

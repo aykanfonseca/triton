@@ -1,4 +1,4 @@
-import React, { PureComponent, createRef } from 'react';
+import React, { PureComponent } from 'react';
 
 // Libraries / Context
 import { GlobalContext } from './Context';
@@ -21,10 +21,72 @@ export default class Searchbox extends PureComponent {
         super(props);
 
         this.state = {
-            text: ''
+            text: '',
+            placeholder: "Find courses, teachers, units..."
+        };
+    }
+
+    static getDerivedStateFromProps(_, prevState) {   
+        if (window.innerWidth < 230) {
+            return {
+                text: prevState.text,
+                placeholder: "Search..."
+            }
         }
 
-        this.searchbox = createRef();
+        else if (window.innerWidth < 240) {
+            return {
+                text: prevState.text,
+                placeholder: "Type to search"
+            }
+        }
+
+        else if (window.innerWidth < 300 || 1000 <= window.innerWidth <= 1200) {
+            return {
+                text: prevState.text,
+                placeholder: "Type to search..."
+            }
+        }
+
+        else if (window.innerWidth < 350) {
+            return {
+                text: prevState.text,
+                placeholder: "Find courses & teachers..."
+            }
+        }
+
+        return {
+            text: prevState.text,
+            placeholder: "Find courses, teachers, units..."
+        }
+    }
+
+    handleWindowResize = () => {
+        if (window.innerWidth < 230) {
+            this.setState({ placeholder: "Search..." });
+        }
+
+        else if (window.innerWidth < 240) {
+            this.setState({ placeholder: "Type to search" });
+        }
+
+        else if (window.innerWidth < 300 || 1000 <= window.innerWidth <= 1200) {
+            this.setState({ placeholder: "Type to search..." });
+        }
+
+        else if (window.innerWidth < 350) {
+            this.setState({ placeholder: "Find courses & teachers..." });
+        }
+
+        this.setState({ placeholder: "Find courses, teachers, units..." });
+    }
+
+    componentDidMount() {
+        window.addEventListener("resize", this.handleWindowResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.handleWindowResize);
     }
 
     handleText = (event) => {
@@ -33,14 +95,14 @@ export default class Searchbox extends PureComponent {
     }
 
     clearSearchBox = () => {
-        this.searchbox.value = ''
         this.setState({ text : '' });
+        this.props.filterView();
     }
 
     render() {
         const { theme } = this.context;
         const { quarters, changeQuarter, selectedQuarter } = this.props;
-        const { text } = this.state;
+        const { text, placeholder } = this.state;
 
         return (
             <div className={"searchbox" + theme}>
@@ -48,9 +110,9 @@ export default class Searchbox extends PureComponent {
                     type="text"
                     title="Type to search"
                     spellCheck="false"
-                    ref={(input) => { this.searchbox = input; }}
-                    placeholder="Find courses, teachers, units..." 
-                    onKeyUp={this.handleText}
+                    value={text}
+                    placeholder={placeholder}
+                    onChange={this.handleText}
                 ></input>
                 <QuarterSwitcher 
                     quarters={quarters}
