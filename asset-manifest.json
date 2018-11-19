@@ -1,9 +1,9 @@
 {
   "main.css": "/triton/static/css/main.24f9ca6b.chunk.css",
-  "main.js": "/triton/static/js/main.8ce3cd37.chunk.js",
-  "main.js.map": "/triton/static/js/main.8ce3cd37.chunk.js.map",
-  "static/js/1.efaa2e0a.chunk.js": "/triton/static/js/1.efaa2e0a.chunk.js",
-  "static/js/1.efaa2e0a.chunk.js.map": "/triton/static/js/1.efaa2e0a.chunk.js.map",
+  "main.js": "/triton/static/js/main.aa1c6b6f.chunk.js",
+  "main.js.map": "/triton/static/js/main.aa1c6b6f.chunk.js.map",
+  "static/js/1.05fb2578.chunk.js": "/triton/static/js/1.05fb2578.chunk.js",
+  "static/js/1.05fb2578.chunk.js.map": "/triton/static/js/1.05fb2578.chunk.js.map",
   "runtime~main.js": "/triton/static/js/runtime~main.eb3f76c6.js",
   "runtime~main.js.map": "/triton/static/js/runtime~main.eb3f76c6.js.map",
   "static/media/trident.5420360b.svg": "/triton/static/media/trident.5420360b.svg",
@@ -19,6 +19,6 @@
   "static/media/waitlist.8fdb0e2f.svg": "/triton/static/media/waitlist.8fdb0e2f.svg",
   "static/css/main.24f9ca6b.chunk.css.map": "/triton/static/css/main.24f9ca6b.chunk.css.map",
   "index.html": "/triton/index.html",
-  "precache-manifest.4f2881659ca3f973d0f4cf2bc99146c1.js": "/triton/precache-manifest.4f2881659ca3f973d0f4cf2bc99146c1.js",
+  "precache-manifest.99e0a132f1f084ae52bcca25cfeb8a37.js": "/triton/precache-manifest.99e0a132f1f084ae52bcca25cfeb8a37.js",
   "service-worker.js": "/triton/service-worker.js"
 }

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/triton/precache-manifest.4f2881659ca3f973d0f4cf2bc99146c1.js"
+  "/triton/precache-manifest.99e0a132f1f084ae52bcca25cfeb8a37.js"
 );
 
 workbox.clientsClaim();

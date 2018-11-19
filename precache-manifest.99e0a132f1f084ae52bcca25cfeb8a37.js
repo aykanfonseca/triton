@@ -4,12 +4,12 @@ self.__precacheManifest = [
     "url": "/triton/static/media/search.5e7a2de9.svg"
   },
   {
-    "revision": "8ce3cd3742802b00a835",
+    "revision": "aa1c6b6f26d44d61bc17",
     "url": "/triton/static/css/main.24f9ca6b.chunk.css"
   },
   {
-    "revision": "efaa2e0ae8d8af6068a2",
-    "url": "/triton/static/js/1.efaa2e0a.chunk.js"
+    "revision": "05fb257836f557c9788d",
+    "url": "/triton/static/js/1.05fb2578.chunk.js"
   },
   {
     "revision": "eb3f76c64ecf3c4f46c1",
@@ -32,8 +32,8 @@ self.__precacheManifest = [
     "url": "/triton/static/media/cancel.132438d3.svg"
   },
   {
-    "revision": "8ce3cd3742802b00a835",
-    "url": "/triton/static/js/main.8ce3cd37.chunk.js"
+    "revision": "aa1c6b6f26d44d61bc17",
+    "url": "/triton/static/js/main.aa1c6b6f.chunk.js"
   },
   {
     "revision": "3625a81466b0d9099e828e7bac9f68be",
@@ -60,7 +60,7 @@ self.__precacheManifest = [
     "url": "/triton/static/media/tag_dei.5548254f.svg"
   },
   {
-    "revision": "05e7bca6cdd631b08e63f5ca9abbf6da",
+    "revision": "9033e65bcdedef02ecaa6528a0f716e2",
     "url": "/triton/index.html"
   }
 ];
