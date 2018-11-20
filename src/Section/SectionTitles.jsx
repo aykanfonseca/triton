@@ -4,25 +4,25 @@ const SectionTitles = () => (
     <div style={{display: 'inline-flex', height: '25px', fontWeight: '600'}}>
         <div style={{width: '45px'}}></div>
         <div className="block" style={{width: '90px'}}>
-            {"ID"}
+            ID
         </div>
         <div className="block" style={{width: '70px'}}>
-            {"Section"}
+            Section
         </div>
         <div className="block" style={{width: '60px'}}>
-            {"Type"}
+            Type
         </div>
         <div className="block" style={{width: '200px'}}>
-            {"When"}
+            When
         </div>
         <div className="block" style={{width: '100px'}}>
-            {"Where"}
+            Where
         </div>
         <div className="block" style={{width: '250px'}}>
-            {"Instructor"}
+            Teacher
         </div>
         <div className="block" style={{width: '100px'}}>
-            {"Seats"}
+            Seats
         </div>
     </div>  
 );

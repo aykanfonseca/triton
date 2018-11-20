@@ -4,6 +4,103 @@ export const quarter_abbreviations = {'Fall': 'FA', 'Winter': 'WI', 'Spring': 'S
 export const quarter_expansions = {'FA': 'Fall', 'WI': 'Winter', 'SP': 'Spring', 'SU': 'Summer Med School', 'S1': 'Summer Session 1', 'S2': 'Summer Session 2', 'S3': 'Summer Session 3', 'SA': 'Summer'}
 export const quarter_precedence = {'SU': 0, 'S1': 1, 'S2': 2, 'S3': 3, 'SA': 4, 'FA': 5, 'WI': 6, 'SP': 7};
 
+export const getDerivedStateFromProps_Sections = (nextRow, prevRow) => {
+    if (nextRow !== prevRow) {
+        const available = convertBlank(nextRow['seats available']);
+        const taken = convertBlank(nextRow['seats taken']);
+
+        if (taken === 9223372036854776000 || taken === null) {
+            return {
+                row: nextRow,
+                waitlist: false
+            };
+        }
+
+        else if (taken >= available) {
+            return {
+                row: nextRow,
+                waitlist: true
+            };
+        }
+
+        else {
+            return {
+                row: nextRow,
+                waitlist: false
+            };
+        }
+    }
+
+    return null;
+}
+
+export const convertBlank = arg => {
+    return arg !== 'Blank' ? arg : null;
+}
+
+export const handleTime = (startTime, endTime) => {
+    if (startTime !== "TBA") {
+        return convertTime(startTime) + ' - ' + convertTime(endTime);
+    }
+
+    return "TBA";
+}
+
+export const handleLocation = (building, room) => {
+    const buildingConverted = convertBlank(building);
+    const roomConverted = convertBlank(room);
+
+    if (buildingConverted === 'TBA') {
+        return "TBA";
+    }
+
+    if (buildingConverted !== null) {
+        return buildingConverted + " " + roomConverted;
+    }
+
+    return "TBA";
+}
+
+export const handleSeats = (available, taken) => {
+    const availableConverted = convertBlank(available);
+    const takenConverted = convertBlank(taken);
+
+    if (takenConverted === 9223372036854776000) {
+        return "Unlimited"
+    }
+
+    if (takenConverted === null) {
+        return null;
+    }
+
+    if (takenConverted >= availableConverted) {
+        return takenConverted + " / " + availableConverted;
+    }
+
+    else {
+        return takenConverted + " / " + availableConverted;
+    }
+}
+
+export const handleDays = days => {
+    if (days === '-') {
+        return null;
+    }
+
+    return days.replace('T', 'Tu').replace('R', 'Th');
+}
+
+export const convertTime = time => {
+    const timeSplit = time.split(':');
+    const hour = Number(timeSplit[0]);
+
+    if (hour > 12) {
+        return String(hour - 12) + ':' + timeSplit[1] + 'pm';
+    }
+
+    return time + (hour === 12 ? ' pm' : ' am');
+}
+
 export const sortByMilitaryTime = (a, b) => {
     const first = a['start time'].split(':').map(x => parseInt(x, 10));
     const second = b['start time'].split(':').map(x => parseInt(x, 10));

@@ -7,7 +7,7 @@ import { GlobalContext } from './Context';
 // Custom Components
 import Sidepane from './Sidepane';
 import Rightpane from './Rightpane';
-import Schedule from './Schedule';
+import Schedule from './Schedule/Schedule';
 import Emptypane from './Emptypane';
 import Branding from './Branding';
 import Firebase from './firebase.js';

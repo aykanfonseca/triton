@@ -3,7 +3,7 @@ import ScheduleFragment from './ScheduleFragment.jsx';
 import ScheduleTitles from './ScheduleTitles.jsx';
 import ScheduleColumn from './ScheduleColumn.jsx';
 
-import { sortByMilitaryTime, sortByMilitaryTimeEnd, generateIntervals} from './Utils';
+import { sortByMilitaryTime, sortByMilitaryTimeEnd, generateIntervals } from '../Utils';
 
 export default class ScheduleContent extends PureComponent {
     constructor(props) {
@@ -170,7 +170,7 @@ export default class ScheduleContent extends PureComponent {
 
         return (
             <>
-                <div ref={el => setRef(el)}>
+                <div style={{overflowX: 'auto'}} ref={el => setRef(el)}>
                     <ScheduleTitles 
                         isNotFinalSchedule={true}
                         theme={theme}

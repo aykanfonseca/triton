@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
 
 // Libraries / Context
-import { GlobalContext } from './Context';
+import { GlobalContext } from '../Context';
 import { Link } from 'react-router-dom';
 
 // Custom Components.
-import Navigation from './Navigation';
+import Navigation from '../Navigation';
 import ScheduleContent from './ScheduleContent';
 
-import { ReactComponent as Cancel } from './icons/cancel.svg';
-import { ReactComponent as Save } from './icons/save.svg';
+import { ReactComponent as Cancel } from '../icons/cancel.svg';
+import { ReactComponent as Save } from '../icons/save.svg';
 
 const CancelBtn = ({theme}) => (
     <Link to="/" title="Click to close" className={"btn-close" + theme}>

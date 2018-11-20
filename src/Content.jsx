@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
 import MetricBox from './MetricBox';
-import SectionContainer from './SectionContainer';
+import SectionContainer from './Section/SectionContainer';
 import BlingStrip from './BlingStrip';
 
 import { capitalizeFirstLetter } from './Utils';
