@@ -7,8 +7,10 @@ import * as serviceWorker from './serviceWorker';
 // Libraries
 import { BrowserRouter } from 'react-router-dom';
 
+const supportsHistory = 'pushState' in window.history;
+
 ReactDOM.render((
-    <BrowserRouter basename="/triton">
+    <BrowserRouter forceRefresh={!supportsHistory} basename="/triton">
         <App />
     </BrowserRouter>
 ), document.getElementById('root'));

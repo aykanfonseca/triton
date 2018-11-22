@@ -26,10 +26,6 @@ export default class Sidepane extends PureComponent {
         };
     }
 
-    setRef = (ref) => {
-        this.inputRef = ref;
-    }
-
     static getDerivedStateFromProps(nextProps, prevState) {
         if (prevState.displayResults.length === 0 && nextProps.classes.length > 0) {
             return {
@@ -123,7 +119,6 @@ export default class Sidepane extends PureComponent {
                     changeQuarter={changeQuarter}
                     selectedQuarter={selectedQuarter}
                     filterView={this.filterView}
-                    setRef={this.setRef}
                 />
                 <List 
                     searchResults={this.state.displayResults}

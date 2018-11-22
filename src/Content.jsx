@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
 import MetricBox from './MetricBox';
-import SectionContainer from './Section/SectionContainer';
+import Sections from './Section/Sections';
 import BlingStrip from './BlingStrip';
 
 import { capitalizeFirstLetter } from './Utils';
@@ -29,8 +29,7 @@ const Content = ({item, theme}) => (
             code={item.code}
             sections={item.sections}
         />
-        <SectionContainer
-            theme={theme} 
+        <Sections
             key={item.code}
             sections={item.sections}
         />

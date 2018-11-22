@@ -264,6 +264,7 @@ body {
 .rightpane, .rightpane-dark {
     float: right;
     width: 100%;
+    background-color: #fff;
 }
 
 .rightpane-dark {
@@ -565,6 +566,12 @@ body {
     border: 2px solid #4b5188;;
 }
 
+.subinfo-row, .subinfo-row-dark {
+    display: flex;
+    height: 40px;
+    font-size: 15px;
+}
+
 .subinfo-row:hover {
     background-color:#f8f8f8;
 }
@@ -681,6 +688,48 @@ body {
 .schedule-empty-column-dark, .schedule-empty-column2-dark {
     border-color: #777;
     background-color: #444;
+}
+
+/* PAGE TRANSITIONS */
+
+.page {
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    transition: transform 0.6s ease-in-out, box-shadow 0.6s ease-in-out;
+}
+  
+.page-enter {
+    transform: translate(-100%, 0);
+}
+
+.page-enter-active {
+    transform: translate(0, 0);
+}
+
+.page-exit {
+    box-shadow: 0 0 5em 0 rgba(0, 0, 0, .5) inset;
+    transform: translate(-100%, 0);
+}
+
+.page--prev.page-enter {
+    transform: translate(100%, 0);
+}
+
+.page--prev.page-enter-active {
+    transform: translate(0, 0);
+}
+
+.page--prev.page-exit {
+    transform: translate(100%, 0);
+}
+
+.page-exit .page__inner {
+    transform: scale(0.9);
+    transition: transform 0.6s ease-in-out;
 }
 
 /* Desktop */

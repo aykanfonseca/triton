@@ -1,26 +1,26 @@
 import React, { memo } from 'react';
 
-import {ReactComponent as WaitlistTag} from './icons/tag_waitlist.svg';
-import {ReactComponent as DeiTag} from './icons/tag_dei.svg';
+import { ReactComponent as WaitlistIcon } from './icons/tag_waitlist.svg';
+import { ReactComponent as DeiIcon } from './icons/tag_dei.svg';
 
-const WaitlistIcon = () => (
+const Waitlist = () => (
     <div className="bling-strip" title="Course is waitlisted" style={{backgroundColor: '#F7F7F7'}}>
-        <WaitlistTag />
+        <WaitlistIcon />
         <b>Waitlisted</b>
     </div>
 );
 
-const DeiIcon = () => (
+const Dei = () => (
     <div className="bling-strip" title="A DEI approved course" style={{backgroundColor: '#EDF4FA'}}>
-        <DeiTag />
+        <DeiIcon />
         <b>DEI-approved</b>
     </div>
 );
 
 const BlingStrip = ({item}) => (
     <div style={{display: 'flex', alignItems: 'center'}}>
-        { item.waitlist && <WaitlistIcon /> }
-        { item.dei && <DeiIcon /> }
+        { item.waitlist && <Waitlist /> }
+        { item.dei && <Dei /> }
     </div>
 );
 

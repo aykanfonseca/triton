@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // Libraries / Context
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { GlobalContext } from './Context';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 // Custom Components
 import Sidepane from './Sidepane';
@@ -11,6 +12,7 @@ import Schedule from './Schedule/Schedule';
 import Emptypane from './Emptypane';
 import Branding from './Branding';
 import Firebase from './firebase.js';
+import Page from './Page';
 
 // Utilities
 import { naturalSort, fetchQuarters } from './Utils';
@@ -29,26 +31,26 @@ export default class Home extends Component {
         this.state = {
             loading: true,
             pinned: [],
-            width: window.innerWidth,
+            isMobile: window.innerWidth < 1000,
         };
     }
 
-    addPin = (course) => {
+    addPin = course => {
         this.setState({ pinned: [ ...this.state.pinned, course].sort(naturalSort)})
     }
 
-    removePin = (course) =>  {
+    removePin = course =>  {
         this.setState(prev => ({ pinned: prev.pinned.filter(val => val !== course) })); 
     };
 
     clearPins = () => {
         if (this.state.pinned.length > 0) {
-            this.setState({pinned: []});
+            this.setState({ pinned: [] });
         }
     }
 
     handleWindowResize = () => {
-        this.setState({ width: window.innerWidth });
+        this.setState({ isMobile: window.innerWidth < 1000 });
     }
 
     componentWillUnmount() {
@@ -78,10 +80,8 @@ export default class Home extends Component {
         );
     }
 
-    addClasses = (message) => {
-        const classData = Object.values(message);
-
-        for (const course of classData) {
+    addClasses = classData => {
+        for (const course of Object.values(classData)) {
             const { code, title, units, description, prerequisites, restrictions, waitlist, dei, podcast, ...sections } = course;
 
             this.classes.push({
@@ -100,12 +100,12 @@ export default class Home extends Component {
         this.classes = this.classes.sort(naturalSort);
     }
 
-    addTeachers = (message) => {
-        for (const teacher in message) {
+    addTeachers = teacherData => {
+        for (const teacher in teacherData) {
             this.teachers.push({
                 teacher: teacher, 
-                email: message[teacher][0], 
-                classes: message[teacher][1]
+                email: teacherData[teacher][0], 
+                classes: teacherData[teacher][1]
             });
         }
     }
@@ -117,44 +117,57 @@ export default class Home extends Component {
     }
 
     render() {
-        const { loading, pinned, width } = this.state;
-        const isMobile = width < 1000;
+        const { loading, pinned, isMobile } = this.state;
 
         if (isMobile) {
             return (
-                <Switch>
-                    <Route exact path='/' render={props => 
-                        <Sidepane 
-                            classes={this.classes} 
-                            teachers={this.teachers} 
-                            quarters={this.quarters} 
-                            selectedQuarter={this.selectedQuarter}
-                            loading={loading} 
-                            pinned={pinned}
-                            clearPins={this.clearPins}
-                            removePin={this.removePin}
-                            isMobile={isMobile}
-                            {...props}
-                        />
-                    }/>
-                    <Route exact path='/schedule' render={props => 
-                        <Schedule 
-                            isMobile={isMobile}
-                            pinned={pinned}
-                            {...props}
-                        />
-                    }/>
-                    <Route path="/:id" render={props => 
-                        <Rightpane 
-                            isMobile={isMobile} 
-                            pinned={pinned}
-                            addPin={this.addPin}
-                            removePin={this.removePin} 
-                            {...props}
-                        /> 
-                    }/>
-                    <Redirect from="/:id" to="/" />
-                </Switch>
+                <Route render={({ location }) => (
+                    <TransitionGroup>
+                        <CSSTransition key={location.pathname} classNames="page" timeout={{ enter: 600, exit: 600 }}>
+                            <Route location={location} render={() => (
+                                <Switch>
+                                    <Route exact path='/' render={props => 
+                                        <Page>
+                                            <Sidepane 
+                                                classes={this.classes} 
+                                                teachers={this.teachers} 
+                                                quarters={this.quarters} 
+                                                selectedQuarter={this.selectedQuarter}
+                                                loading={loading} 
+                                                pinned={pinned}
+                                                clearPins={this.clearPins}
+                                                removePin={this.removePin}
+                                                isMobile={isMobile}
+                                                {...props}
+                                            />
+                                        </Page>
+                                    }/>
+                                    <Route exact path='/schedule' render={props => 
+                                        <Page>
+                                            <Schedule 
+                                                isMobile={isMobile}
+                                                pinned={pinned}
+                                                {...props}
+                                            />
+                                        </Page>
+                                    }/>
+                                    <Route path="/:id" render={props => 
+                                        <Page>
+                                            <Rightpane 
+                                                isMobile={isMobile} 
+                                                pinned={pinned}
+                                                addPin={this.addPin}
+                                                removePin={this.removePin} 
+                                                {...props}
+                                            /> 
+                                        </Page>
+                                    }/>
+                                    <Redirect from="/:id" to="/" />
+                                </Switch>
+                            )} />
+                        </CSSTransition>
+                    </TransitionGroup>
+                )}/>
             );
         }
 

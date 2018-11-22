@@ -4,36 +4,6 @@ export const quarter_abbreviations = {'Fall': 'FA', 'Winter': 'WI', 'Spring': 'S
 export const quarter_expansions = {'FA': 'Fall', 'WI': 'Winter', 'SP': 'Spring', 'SU': 'Summer Med School', 'S1': 'Summer Session 1', 'S2': 'Summer Session 2', 'S3': 'Summer Session 3', 'SA': 'Summer'}
 export const quarter_precedence = {'SU': 0, 'S1': 1, 'S2': 2, 'S3': 3, 'SA': 4, 'FA': 5, 'WI': 6, 'SP': 7};
 
-export const getDerivedStateFromProps_Sections = (nextRow, prevRow) => {
-    if (nextRow !== prevRow) {
-        const available = convertBlank(nextRow['seats available']);
-        const taken = convertBlank(nextRow['seats taken']);
-
-        if (taken === 9223372036854776000 || taken === null) {
-            return {
-                row: nextRow,
-                waitlist: false
-            };
-        }
-
-        else if (taken >= available) {
-            return {
-                row: nextRow,
-                waitlist: true
-            };
-        }
-
-        else {
-            return {
-                row: nextRow,
-                waitlist: false
-            };
-        }
-    }
-
-    return null;
-}
-
 export const convertBlank = arg => {
     return arg !== 'Blank' ? arg : null;
 }

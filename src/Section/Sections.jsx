@@ -1,8 +1,12 @@
 import React, { PureComponent, createRef } from 'react';
-import Section from './Section.jsx';
+import Row from './Row.jsx';
 import SectionTitles from './SectionTitles.jsx';
 
-export default class SectionContainer extends PureComponent {
+import { GlobalContext } from '../Context';
+
+export default class Sections extends PureComponent {
+    static contextType = GlobalContext;
+
     constructor(props) {
         super(props);
 
@@ -38,6 +42,38 @@ export default class SectionContainer extends PureComponent {
         }
     }
 
+    buildRows = (rowsData, index) => {
+        const numRows = rowsData.section.slice(2).length
+        const hasSubrows = numRows > 0 || rowsData.final !== undefined;
+
+        console.log(rowsData);
+        console.log(numRows);
+        console.log(hasSubrows);
+
+        return (
+            <div className="accor" key={index}>
+                <Row type="header" numRows={numRows} row={rowsData.section[1]} />   
+                {hasSubrows && this.buildSubrows(rowsData)}
+            </div>
+        );
+    }
+
+    buildSubrows = rowsData => {
+        let subrows = rowsData.section.slice(2)
+
+        if (rowsData.final !== undefined) {
+            subrows = subrows.concat(rowsData.final);
+        }
+
+        return (
+            <div className={"body" + this.context.theme} style={{display: 'inline-block'}}>
+                {subrows.map((subrow, index) => 
+                    <Row type="subrow" numRows={0} row={subrow} key={index} />
+                )}
+            </div>
+        );
+    }
+
     render() {
         return (
             <>      
@@ -46,9 +82,7 @@ export default class SectionContainer extends PureComponent {
                     <SectionTitles />
 
                     <div ref={this.acc}>
-                        {this.state.sections.map((i, index) => 
-                            <Section theme={this.props.theme} key={index} rows={i}/>
-                        )}
+                        {this.state.sections.map((rowsData, index) => this.buildRows(rowsData, index))}
                     </div>
                 </div>      
             </>

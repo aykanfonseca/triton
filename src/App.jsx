@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 // Libraries / Context
-import { Route } from 'react-router-dom';
 import { GlobalContext } from './Context';
 
 // Custom Components
@@ -32,7 +31,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<GlobalContext.Provider value={this.state}>
-				<Route component={Home}/>
+				<Home />
 			</GlobalContext.Provider>
 		);
 	}

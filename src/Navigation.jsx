@@ -11,7 +11,7 @@ import { ReactComponent as Schedule } from './icons/schedule.svg';
 import { ReactComponent as Save } from './icons/save.svg';
 
 const CancelBtn = ({theme}) => (
-    <Link to="/" title="Click to close" className={"btn-nav" + theme}>
+    <Link to={{pathname: "/", state: {prev: false} }} title="Click to close" className={"btn-nav" + theme}>
         <Cancel />
         <div>Close</div>
     </Link>
@@ -37,7 +37,7 @@ const EmailBtn = ({theme}) => (
     </div>
 );
 
-const SettingsBtn = ({theme}) => (
+const MoreBtn = ({theme}) => (
     <Link to="/" title="Go to settings" className={"btn-nav" + theme}>
         <Settings style={{margin: '8px 0 7px 0'}} />
         <div>More</div>
@@ -45,7 +45,7 @@ const SettingsBtn = ({theme}) => (
 );
 
 const ScheduleBtn = ({theme}) => (
-    <Link to="/schedule" title="Go to settings" className={"btn-nav" + theme}>
+    <Link to={{pathname: "/schedule", state: {prev: true} }} title="Go to settings" className={"btn-nav" + theme}>
         <Schedule />
         <div>Schedule</div>
     </Link>
@@ -97,7 +97,7 @@ const Navigation = ({theme, type, addPin, removePin, pinned, item = '', isMobile
             return (
                 <div className={'navigation' + theme}>
                     <ScheduleBtn theme={theme} />
-                    <SettingsBtn theme={theme} />
+                    <MoreBtn theme={theme} />
                 </div>
             );
         }

@@ -3,8 +3,8 @@ import React, { memo } from 'react';
 // Libraries / Context
 import { Link } from 'react-router-dom';
 
-import {ReactComponent as Waitlist} from './icons/waitlist.svg';
-import {ReactComponent as Pin} from './icons/pin.svg';
+import { ReactComponent as Waitlist } from './icons/waitlist.svg';
+import { ReactComponent as Pin } from './icons/pin.svg';
 
 const CardIcon = ({waitlist, theme, item, pinned, removePin}) => {
     if (pinned.includes(item)) {
@@ -23,13 +23,11 @@ const CardIcon = ({waitlist, theme, item, pinned, removePin}) => {
         );
     }
 
-    return (
-        <div className="card-waitlist-empty-icon"></div>
-    );
+    return <div className="card-waitlist-empty-icon"></div>;
 }
 
-const CourseCard = ({item, theme, pinned, removePin, location}) => (
-    <Link to={{ pathname: '/' + item.code.split(' ').join(''), state: {item: item} }} title="A course card." className={location === item.code.split(' ').join('') ? 'card-active' + theme : 'card' + theme}>
+const CourseCard = ({item, theme, pinned, removePin, location, codeNoSpaces}) => (
+    <Link to={{ pathname: '/' + codeNoSpaces, state: {item: item, prev: true} }} title="A course card." className={location === codeNoSpaces ? 'card-active' + theme : 'card' + theme}>
         <div className="card-width">
             <p className="card-code">{item.code}</p>
             <p className={"card-title" + theme}>{item.title}</p>
@@ -75,6 +73,7 @@ const Card = ({loading, item, theme, pinned, removePin = '', location}) => {
                 pinned={pinned} 
                 removePin={removePin} 
                 location={location}
+                codeNoSpaces={item.code.split(' ').join('')}
             />
         );
     }
