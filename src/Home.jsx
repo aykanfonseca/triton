@@ -123,7 +123,7 @@ export default class Home extends Component {
             return (
                 <Route render={({ location }) => (
                     <TransitionGroup>
-                        <CSSTransition key={location.pathname} classNames="page" timeout={{ enter: 600, exit: 600 }}>
+                        <CSSTransition key={location.pathname} classNames="page" timeout={{ enter: 550, exit: 550 }}>
                             <Route location={location} render={() => (
                                 <Switch>
                                     <Route exact path='/' render={props => 

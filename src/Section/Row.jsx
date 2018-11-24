@@ -47,11 +47,11 @@ export default class Row extends PureComponent {
         return null;
     }
 
-    hasDropdown = (type, numRows, theme) => {
+    hasDropdown = (type, hasSubrows, theme) => {
         if (type === 'header') {
             return (
-                <div className={numRows > 0 ? (theme === '' ? "dropdown" : "dropdown-dark") : (theme === '' ? "block2" : 'block2-dark')} style={{width: '45px'}}>
-                    {numRows > 0 && <Dropdown />}
+                <div className={hasSubrows ? (theme === '' ? "dropdown" : "dropdown-dark") : (theme === '' ? "block2" : 'block2-dark')} style={{width: '45px'}}>
+                    {hasSubrows && <Dropdown />}
                 </div>
             );
         }
@@ -62,7 +62,7 @@ export default class Row extends PureComponent {
     }
 
     render() {
-        const { type, numRows } = this.props;
+        const { type, hasSubrows } = this.props;
         const { row, waitlist } = this.state;
         const { theme } = this.context;
 
@@ -82,7 +82,7 @@ export default class Row extends PureComponent {
 
         return (
             <div className={type === 'header' ? 'section' + theme : "subinfo-row" + theme}>
-                {this.hasDropdown(type, numRows, theme)}
+                {this.hasDropdown(type, hasSubrows, theme)}
                 <div className={type === 'header' ? "block2" + theme : "block"} style={{width: '90px'}}>
                     {convertBlank(id)}
                 </div>

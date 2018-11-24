@@ -43,16 +43,11 @@ export default class Sections extends PureComponent {
     }
 
     buildRows = (rowsData, index) => {
-        const numRows = rowsData.section.slice(2).length
-        const hasSubrows = numRows > 0 || rowsData.final !== undefined;
-
-        console.log(rowsData);
-        console.log(numRows);
-        console.log(hasSubrows);
+        const hasSubrows = rowsData.section.slice(2).length > 0 || rowsData.final !== undefined;
 
         return (
             <div className="accor" key={index}>
-                <Row type="header" numRows={numRows} row={rowsData.section[1]} />   
+                <Row type="header" hasSubrows={hasSubrows} row={rowsData.section[1]} />   
                 {hasSubrows && this.buildSubrows(rowsData)}
             </div>
         );
@@ -68,7 +63,7 @@ export default class Sections extends PureComponent {
         return (
             <div className={"body" + this.context.theme} style={{display: 'inline-block'}}>
                 {subrows.map((subrow, index) => 
-                    <Row type="subrow" numRows={0} row={subrow} key={index} />
+                    <Row type="subrow" row={subrow} key={index} />
                 )}
             </div>
         );
