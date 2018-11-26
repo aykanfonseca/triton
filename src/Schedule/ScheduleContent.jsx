@@ -63,7 +63,7 @@ export default class ScheduleContent extends PureComponent {
         for (const course of proposal) {
             for (let i = 0; i < course.length - 3; i++) {
                 // Exclude info about seats.
-                const {"seats taken": x, "seats available": y, "number": z, ...picked} = course[i];
+                const { "seats taken": x, "seats available": y, number, ...picked } = course[i];
 
                 // Add the code to the section. Also attach the color.
                 picked['code'] = course[course.length - 1];
@@ -72,7 +72,7 @@ export default class ScheduleContent extends PureComponent {
                 if (picked['days'] !== '-') {
                     // Iterate through all the days.
                     for (const day of picked['days']) {
-                        const {"days": a, ...info} = picked;
+                        const { days, ...info } = picked;
 
                         this.days[day].push(info);
                         this.hasData = true;
@@ -106,19 +106,19 @@ export default class ScheduleContent extends PureComponent {
             }
 
             if (final !== undefined) {
-                const {"seats taken": x, "seats available": y, "number": z, ...picked} = final;
+                const { "seats taken": x, "seats available": y, number, ...picked } = final;
 
                 // Assign date to the day of week.
-                this.finalTitles[picked['days']] = z;
+                this.finalTitles[picked['days']] = number;
 
                 // Assign course name & color to the info.
                 picked['code'] = course[course.length - 1];
                 picked['color'] = this.colors[colorIndex];
                 colorIndex++;
 
-                const {"days": b, ...info} = picked;
+                const { days, ...info } = picked;
 
-                this.finalDays[b].push(info);
+                this.finalDays[days].push(info);
                 this.scheduleHasFinals = true;
             }
         }
@@ -183,18 +183,21 @@ export default class ScheduleContent extends PureComponent {
                             )}
                         </div>
 
-                        <ScheduleColumn theme={theme} key={'M'} dayData={this.days['M']} day='M' intervalWithHalf={this.interval2}/>
-                        <ScheduleColumn theme={theme} key={'T'} dayData={this.days['T']} day='T' intervalWithHalf={this.interval2}/>
-                        <ScheduleColumn theme={theme} key={'W'} dayData={this.days['W']} day='W' intervalWithHalf={this.interval2}/>
-                        <ScheduleColumn theme={theme} key={'R'} dayData={this.days['R']} day='R' intervalWithHalf={this.interval2}/>
-                        <ScheduleColumn theme={theme} key={'F'} dayData={this.days['F']} day='F' intervalWithHalf={this.interval2}/>
+                        <ScheduleColumn theme={theme} key="M" dayData={this.days["M"]} day="M" intervalWithHalf={this.interval2}/>
+                        <ScheduleColumn theme={theme} key="T" dayData={this.days["T"]} day="T" intervalWithHalf={this.interval2}/>
+                        <ScheduleColumn theme={theme} key="W" dayData={this.days["W"]} day="W" intervalWithHalf={this.interval2}/>
+                        <ScheduleColumn theme={theme} key="R" dayData={this.days["R"]} day="R" intervalWithHalf={this.interval2}/>
+                        <ScheduleColumn theme={theme} key="F" dayData={this.days["F"]} day="F" intervalWithHalf={this.interval2}/>
                     </div>
                 </div>
 
-                {(this.scheduleHasFinals) ? 
+                {(this.scheduleHasFinals) && 
                     <>
                         <h3 style={{marginTop: '30px', marginBottom: '10px'}}>Finals Schedule</h3>
-                        <ScheduleTitles isNotFinalSchedule={false} />
+                        <ScheduleTitles 
+                            isNotFinalSchedule={false} 
+                            theme={theme}
+                        />
                         <div style={{display: 'flex', borderBottom: '3px solid #dedede'}}>
                             <div style={{display: 'flex', flexDirection: 'column'}}>
                                     {this.finalInterval.map((time, i) =>
@@ -202,19 +205,13 @@ export default class ScheduleContent extends PureComponent {
                                     )}
                                 </div> 
 
-                                <ScheduleColumn theme={theme} key={'M'} dayData={this.finalDays['M']} day='M' intervalWithHalf={this.finalInterval2}/>
-                                <ScheduleColumn theme={theme} key={'T'} dayData={this.finalDays['T']} day='T' intervalWithHalf={this.finalInterval2}/>
-                                <ScheduleColumn theme={theme} key={'W'} dayData={this.finalDays['W']} day='W' intervalWithHalf={this.finalInterval2}/>
-                                <ScheduleColumn theme={theme} key={'R'} dayData={this.finalDays['R']} day='R' intervalWithHalf={this.finalInterval2}/>
-                                <ScheduleColumn theme={theme} key={'F'} dayData={this.finalDays['F']} day='F' intervalWithHalf={this.finalInterval2}/>
+                                <ScheduleColumn theme={theme} key="M" dayData={this.finalDays["M"]} day="M" intervalWithHalf={this.finalInterval2}/>
+                                <ScheduleColumn theme={theme} key="T" dayData={this.finalDays["T"]} day="T" intervalWithHalf={this.finalInterval2}/>
+                                <ScheduleColumn theme={theme} key="W" dayData={this.finalDays["W"]} day="W" intervalWithHalf={this.finalInterval2}/>
+                                <ScheduleColumn theme={theme} key="R" dayData={this.finalDays["R"]} day="R" intervalWithHalf={this.finalInterval2}/>
+                                <ScheduleColumn theme={theme} key="F" dayData={this.finalDays["F"]} day="F" intervalWithHalf={this.finalInterval2}/>
                         </div>
                     </>
-
-                    :
-
-                    <div style={{display: 'flex', marginTop: '110px', borderBottom: '3px solid #dedede'}}>
-                            
-                    </div>
                 }
             </>
         );

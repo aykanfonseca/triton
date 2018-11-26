@@ -14,6 +14,7 @@ body {
     overflow: hidden;
     color: rgba(0,0,0,.701961);
     text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .branding, .branding-dark, .searchbox, .searchbox-dark, .searchbutton, .searchbutton-dark, .quarter, .quarter-dark, .btn-close, .btn-close-dark, .btn-pin, .btn-pin-dark, .btn-pin-active, .btn-pin-active-dark, .units, .units-dark, .card, .card-dark, .card-active, .card-active-dark, .blankcard, .blankcard-dark, .ribbon, .ribbon-dark, .card-waitlist, .card-waitlist-dark, .card-pin, .empty-list, .empty-list-dark, .list-help div, .list-help-dark div, .bling-strip, .metric-header, .metric-body, .schedule-titles-block, .schedule-titles-block-dark {
@@ -94,8 +95,6 @@ body {
     height: 50px;
     font-weight: 500;
     font-size: 14px;
-    text-align: center;
-    text-align-last: center;
     text-indent: 8px;
     color: #333;
     background-color: #f2f2f2;
@@ -622,7 +621,7 @@ body {
     transform: rotate(180deg);
 }
 
-.schedule-titles-block, .schedule-titles-block-dark {
+/* .schedule-titles-block, .schedule-titles-block-dark {
     width: calc((72vw - 200px) / 5);
     height: 60px;
     border-top: 1px solid #dedede;
@@ -688,7 +687,7 @@ body {
 .schedule-empty-column-dark, .schedule-empty-column2-dark {
     border-color: #777;
     background-color: #444;
-}
+} */
 
 /* PAGE TRANSITIONS */
 
@@ -904,6 +903,10 @@ body {
     .content, .content-dark {
         padding: 20px 50px;
         height: calc(100vh - 192px);
+    }
+
+    .metric {
+        margin-right: 20px;
     }
 }
 
