@@ -2,10 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 
-const Page = ({ children, background, location: { state }}) => (
-    <div className={classNames({ page: true, 'page--prev': state && state.prev })}  style={{ background }}>
+const Page = ({ background, children, location: { state }}) => (
+    <div className={classNames({ page: true, 'page--prev': state && state.prev })} style={{backgroundColor: background}}>
         <div className="page__inner">
-            {children}
+            { children }
         </div>
     </div>
 );

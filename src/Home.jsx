@@ -118,16 +118,17 @@ export default class Home extends Component {
 
     render() {
         const { loading, pinned, isMobile } = this.state;
+        const { theme } = this.context;
 
         if (isMobile) {
             return (
                 <Route render={({ location }) => (
                     <TransitionGroup>
-                        <CSSTransition key={location.pathname} classNames="page" timeout={{ enter: 550, exit: 550 }}>
+                        <CSSTransition key={location.pathname} classNames="page" timeout={{ enter: 600, exit: 600 }}>
                             <Route location={location} render={() => (
                                 <Switch>
                                     <Route exact path='/' render={props => 
-                                        <Page>
+                                        <Page background={theme === '' ? '#ccc' : '#333'}> 
                                             <Sidepane 
                                                 classes={this.classes} 
                                                 teachers={this.teachers} 
@@ -143,7 +144,7 @@ export default class Home extends Component {
                                         </Page>
                                     }/>
                                     <Route exact path='/schedule' render={props => 
-                                        <Page>
+                                        <Page background={theme === '' ? '#ccc' : '#333'}>
                                             <Schedule 
                                                 isMobile={isMobile}
                                                 pinned={pinned}
@@ -152,7 +153,7 @@ export default class Home extends Component {
                                         </Page>
                                     }/>
                                     <Route path="/:id" render={props => 
-                                        <Page>
+                                        <Page background={theme === '' ? '#ccc' : '#333'}>
                                             <Rightpane 
                                                 isMobile={isMobile} 
                                                 pinned={pinned}
@@ -211,7 +212,7 @@ export default class Home extends Component {
                             {...props}
                         />
                     }/>
-                    <Route render={() => (<Emptypane theme={this.context.theme} />)} />
+                    <Route render={() => (<Emptypane theme={theme} />)} />
                 </Switch>
             </div>
         );
