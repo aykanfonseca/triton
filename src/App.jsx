@@ -18,6 +18,7 @@ export default class App extends Component {
 		};
 
 		localStorage.setItem('scrollPos', 0);
+		this.updateMeta();
 	}
 	
 	changeTheme = () => {
@@ -28,6 +29,15 @@ export default class App extends Component {
 
 	saveTheme = () => {
 		localStorage.setItem('theme', this.state.theme);
+
+		this.updateMeta();
+	}
+
+	updateMeta = () => {
+		const link = document.querySelector("link[rel*='icon']");
+		link.href = './favicon' + this.state.theme + '.ico';
+		document.head.removeChild(document.getElementById('favicon'));
+		document.head.appendChild(link);
 	}
 
 	render() {
