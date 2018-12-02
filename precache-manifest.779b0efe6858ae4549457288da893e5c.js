@@ -1,15 +1,15 @@
 self.__precacheManifest = [
   {
-    "revision": "b81e6eef6d439aaf2746e500bf0ae5ab",
-    "url": "/triton/static/media/search.b81e6eef.svg"
+    "revision": "19e370fb5499e3b4065ae77ee14ccdbd",
+    "url": "/triton/static/media/settings.19e370fb.svg"
   },
   {
-    "revision": "e6c43b64709266c5531c",
-    "url": "/triton/static/css/main.3bbe88ee.chunk.css"
+    "revision": "7048e1616ae77cdca15c",
+    "url": "/triton/static/css/main.6f78f65d.chunk.css"
   },
   {
-    "revision": "a0a82d9becedec0b2a6d",
-    "url": "/triton/static/js/1.a0a82d9b.chunk.js"
+    "revision": "519740b82312e05beb00",
+    "url": "/triton/static/js/1.519740b8.chunk.js"
   },
   {
     "revision": "eb3f76c64ecf3c4f46c1",
@@ -32,12 +32,16 @@ self.__precacheManifest = [
     "url": "/triton/static/media/cancel.6fd23699.svg"
   },
   {
-    "revision": "e6c43b64709266c5531c",
-    "url": "/triton/static/js/main.e6c43b64.chunk.js"
+    "revision": "b81e6eef6d439aaf2746e500bf0ae5ab",
+    "url": "/triton/static/media/search.b81e6eef.svg"
   },
   {
-    "revision": "19e370fb5499e3b4065ae77ee14ccdbd",
-    "url": "/triton/static/media/settings.19e370fb.svg"
+    "revision": "3a072f27beb1e7441f8b0731e48a2a1c",
+    "url": "/triton/static/media/pin-disable.3a072f27.svg"
+  },
+  {
+    "revision": "7048e1616ae77cdca15c",
+    "url": "/triton/static/js/main.7048e161.chunk.js"
   },
   {
     "revision": "fa5cfe69be7c8baa038ccadbc9584764",
@@ -64,7 +68,15 @@ self.__precacheManifest = [
     "url": "/triton/static/media/tag_dei.af7e324b.svg"
   },
   {
-    "revision": "09154ad6cb60568e4d9af711af5009da",
+    "revision": "580f79615d9b793e2d02abc92a55688a",
+    "url": "/triton/static/media/tag_podcast.580f7961.svg"
+  },
+  {
+    "revision": "f64f4640b6face6584c7d3eaee8ee9fc",
+    "url": "/triton/static/media/tag_difficult.f64f4640.svg"
+  },
+  {
+    "revision": "29ae8c8d303b86cc77a0282a48beb8bf",
     "url": "/triton/index.html"
   }
 ];
