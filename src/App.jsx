@@ -16,6 +16,8 @@ export default class App extends Component {
 			theme: storedTheme,
 			changeTheme: this.changeTheme
 		};
+
+		localStorage.setItem('scrollPos', 0);
 	}
 	
 	changeTheme = () => {

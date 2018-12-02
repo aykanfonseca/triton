@@ -22,6 +22,10 @@ export default class List extends PureComponent {
         else if (this.props.pinned.length !== prevProps.pinned.length) {
             this.list.current.forceUpdateGrid();
         }
+
+        else if (this.props.location !== prevProps.location) {
+            this.list.current.forceUpdateGrid();
+        }
     }
 
     rowRenderer = ({key, index, style}) => {
@@ -47,11 +51,7 @@ export default class List extends PureComponent {
         let currLocation = location.pathname;
 
         if (currLocation === '/') {
-            if (localStorage.getItem('scrollPos') !== null) {
-                return Number(localStorage.getItem('scrollPos'));
-            }
-
-            return 0;
+            return Number(localStorage.getItem('scrollPos'));
         }
 
         else {
@@ -70,6 +70,8 @@ export default class List extends PureComponent {
 
     render() {
         const { isMobile, theme, pinned, searchResults, loading, location } = this.props;
+
+        console.log(searchResults.length);
 
         const listStyle = !isMobile && pinned.length > 0 ? 'list-short' + theme : 'list' + theme;
 

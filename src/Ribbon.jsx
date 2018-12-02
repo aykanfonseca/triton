@@ -1,18 +1,28 @@
 import React, { memo } from 'react';
 
 // Libraries / Context
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 // Icons
 import { ReactComponent as Cancel } from './icons/cancel.svg';
 import { ReactComponent as Pin } from './icons/pin.svg';
 import { ReactComponent as Save } from './icons/save.svg';
 
-const CancelBtn = ({theme}) => (
-    <Link to="/" title="Click to close" className={"btn-close" + theme}>
-        <Cancel />
-    </Link>
-);
+const CancelBtn = ({isSchedule, theme, history}) => {
+    if (isSchedule) {
+        return (
+            <div title="Click to close" onClick={() => {history.goBack()}} className={"btn-close" + theme}>
+                <Cancel />
+            </div>
+        );
+    }
+
+    return (
+        <Link to="/" title="Click to close" className={"btn-close" + theme}>
+            <Cancel />
+        </Link>
+    );
+};
 
 const PinBtn = ({theme, addPin, removePin, pinned, item}) => (
     <div 
@@ -29,7 +39,7 @@ const SaveBtn = ({theme}) => (
     </div>
 );
 
-const Ribbon = ({item = undefined, addPin = undefined, removePin = undefined, pinned = [], theme, isMobile, isSchedule = false}) => {
+const Ribbon = ({item = undefined, addPin = undefined, removePin = undefined, pinned = [], theme, isMobile, isSchedule = false, history}) => {
     if (isSchedule) {
         return (
             <div className={"ribbon" + theme}>
@@ -38,7 +48,7 @@ const Ribbon = ({item = undefined, addPin = undefined, removePin = undefined, pi
                 </div>
                 <div style={{display: "flex", flexDirection: 'row'}}>
                     {!isMobile && <SaveBtn theme={theme} /> }
-                    {!isMobile && <CancelBtn theme={theme} /> }
+                    {!isMobile && <CancelBtn isSchedule history={history} theme={theme} /> }
                 </div>
             </div>
         );
@@ -62,4 +72,4 @@ const Ribbon = ({item = undefined, addPin = undefined, removePin = undefined, pi
     );
 };
 
-export default memo(Ribbon);
+export default memo(withRouter(Ribbon));

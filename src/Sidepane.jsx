@@ -73,7 +73,7 @@ export default class Sidepane extends PureComponent {
         // Search by classes and teachers.
         else {
             this.classes = listToFilterForClasses.filter(({code, title}) => code.toLowerCase().indexOf(input) !== -1 || title.toLowerCase().indexOf(input) !== -1);
-    
+
             if (this.classes !== this.state.displayResults) {
                 this.teachers = listToFilterForTeachers.filter(({teacher}) => teacher.toLowerCase().replace(',', '').indexOf(input) !== -1);
     
@@ -89,6 +89,8 @@ export default class Sidepane extends PureComponent {
     }
 
     filterView = (event = '') => {
+        localStorage.setItem('scrollPos', 0);
+
         if (event !== '' && event.target.value !== "") {
             const input = event.target.value.trim().toLowerCase();
             const isDeleting = (event.keyCode === 8);
