@@ -3,35 +3,37 @@ import React, { PureComponent } from 'react';
 // Libraries / Context
 import { convert } from './Utils';
 
-const GradeMetric = ({grade}) => (
+const GradeMetric = ({title, color, grade}) => (
     <div className="metric">
-        <b className="metric-header" style={{backgroundColor: '#A2CDFF'}}>{"Average Grade"}</b>
-        <div className="metric-body" style={{border: '2px solid #A2CDFF'}}>{grade}</div>
+        <b className="metric-header" style={{backgroundColor: color}}>{title}</b>
+        <div className="metric-body" style={{border: '2px solid ' + color}}>{grade}</div>
     </div>
 );
 
 const StudyMetric = ({study}) => (
     <div className="metric">
-        <b className="metric-header" style={{backgroundColor: '#AAEEDD'}}>{"Average Study"}</b>
-        <div className="metric-body" style={{border: '2px solid #AAEEDD'}}>
-            <div>{study}</div>
-            {(study !== 'N/A') && <div style={{marginLeft: '5px'}}>hrs/week</div>}
+        <b className="metric-header" style={{backgroundColor: '#B8E986'}}>{"Study"}</b>
+        <div className="metric-body" style={{border: '2px solid #B8E986'}}>
+            <div style={{display: 'flex', alignItems: 'baseline', justifyContent: 'center'}}>
+                <div>{study}</div>
+                {(study !== 'N/A') && <p style={{marginLeft: '5px'}}>hrs/wk</p>}
+            </div>
         </div>
     </div>
 );
 
 const SeatMetric = ({seat, waitlist}) => (
     <div className="metric">
-        <b className="metric-header" style={{backgroundColor: '#B8E986'}}>{"Seats Taken / Available"}</b>
-        <div className="metric-body" style={{border: '2px solid #B8E986'}}>
+        <b className="metric-header" style={{backgroundColor: '#E9CE86'}}>{"Seats Taken / Limit"}</b>
+        <div className="metric-body" style={{border: '2px solid #E9CE86'}}>
             {(seat.length === 1) ?
                     <div style={{padding: '6px', display: 'flex', alignItems: 'baseline', justifyContent: 'center'}} >
                         <div>{"Unlimited"}</div>
                     </div>
                 : 
-                    <div style={{padding: '6px', display: 'flex', alignItems: 'baseline', justifyContent: 'center'}} >
+                    <div style={{padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
                         <div title="Total seats taken." style={{marginRight: '5px', color: (waitlist) ? 'red' : 'inherit'}}>{seat[0]}</div>
-                        <div>{"/"}</div>
+                        <div>/</div>
                         <div title="Total seats available." style={{marginLeft: '5px'}}>{seat[1]}</div>
                     </div>
             }
@@ -100,7 +102,8 @@ export default class MetricBox extends PureComponent {
                 ];
 
                 if (metricsInfo.length > 0) {
-                    metricsInfo[0] = convert(metricsInfo[0])
+                    metricsInfo[0] = convert(metricsInfo[0]);
+                    metricsInfo[2] = convert(metricsInfo[2]);
                 }
             }
 
@@ -139,7 +142,8 @@ export default class MetricBox extends PureComponent {
             <>
                 <h1>Overview</h1>
                 <div className="metric-list">
-                    <GradeMetric grade={metrics[0]} />
+                    <GradeMetric title="Expected Grade" color='#A2CDFF' grade={metrics[0]} />
+                    <GradeMetric title="Received Grade" color='#AAEEDD' grade={metrics[2]} />
                     <StudyMetric study={metrics[1]} />
                     <SeatMetric 
                         seat={metrics[3]}
