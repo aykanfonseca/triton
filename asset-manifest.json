@@ -1,7 +1,7 @@
 {
   "main.css": "/triton/static/css/main.6f78f65d.chunk.css",
-  "main.js": "/triton/static/js/main.7048e161.chunk.js",
-  "main.js.map": "/triton/static/js/main.7048e161.chunk.js.map",
+  "main.js": "/triton/static/js/main.b151ab53.chunk.js",
+  "main.js.map": "/triton/static/js/main.b151ab53.chunk.js.map",
   "static/js/1.519740b8.chunk.js": "/triton/static/js/1.519740b8.chunk.js",
   "static/js/1.519740b8.chunk.js.map": "/triton/static/js/1.519740b8.chunk.js.map",
   "runtime~main.js": "/triton/static/js/runtime~main.eb3f76c6.js",
@@ -23,6 +23,6 @@
   "static/media/tag_difficult.f64f4640.svg": "/triton/static/media/tag_difficult.f64f4640.svg",
   "static/css/main.6f78f65d.chunk.css.map": "/triton/static/css/main.6f78f65d.chunk.css.map",
   "index.html": "/triton/index.html",
-  "precache-manifest.779b0efe6858ae4549457288da893e5c.js": "/triton/precache-manifest.779b0efe6858ae4549457288da893e5c.js",
+  "precache-manifest.5aaecdc51f55decdd7dd4f278a3705c4.js": "/triton/precache-manifest.5aaecdc51f55decdd7dd4f278a3705c4.js",
   "service-worker.js": "/triton/service-worker.js"
 }
