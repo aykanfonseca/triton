@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 // Icons
 import { ReactComponent as Cancel } from './icons/cancel.svg';
 import { ReactComponent as Pin } from './icons/pin.svg';
+import { ReactComponent as PinDisabled } from './icons/pin-disable.svg';
 import { ReactComponent as Settings } from './icons/settings.svg';
 import { ReactComponent as Email } from './icons/email.svg';
 import { ReactComponent as Schedule } from './icons/schedule.svg';
@@ -46,7 +47,7 @@ const MoreBtn = ({theme}) => (
 );
 
 const ScheduleBtn = ({theme}) => (
-    <Link to={{pathname: "/schedule", state: {prev: true} }} title="Go to settings" className={"btn-nav" + theme}>
+    <Link to={{pathname: "/schedule", state: {prev: true} }} title="Go to Schedule" className={"btn-nav" + theme}>
         <Schedule />
         <div>Schedule</div>
     </Link>
@@ -59,7 +60,7 @@ const SaveBtn = ({theme}) => (
     </div>
 );
 
-const Navigation = ({theme, type, addPin, removePin, pinned, item = '', isMobile = false}) => {
+const Navigation = ({theme, type, addPin, removePin, clearPins, pinned, item = '', isMobile = false}) => {
     if (type === 'course') {
         return (
             <div className={'navigation' + theme}>
@@ -104,8 +105,15 @@ const Navigation = ({theme, type, addPin, removePin, pinned, item = '', isMobile
         }
 
         return (
-            <div className={'navigation' + theme}>
-                <ScheduleBtn theme={theme} />
+            <div className={'navigation' + theme} style={{alignItems: 'center'}}>
+                <Link to={{pathname: "/schedule", state: {prev: true} }} title="Go to Schedule" style={{fontWeight: 'bold', textDecoration: 'none', backgroundColor: theme === '' ? '#2181f7' : '#724AE2', height: 'calc(100% - 10px)', color: '#fff', borderRadius: '5px', width: '100%', margin: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    View Schedule
+                    <Schedule style={{fill: '#fff', marginLeft: '10px'}} />
+                </Link>
+                <b onClick={() => clearPins()} style={{backgroundColor: '#EDB576', cursor: 'pointer', height: 'calc(100% - 10px)', color: '#fff', borderRadius: '5px', width: '100%', margin: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    Clear Pins
+                    <PinDisabled style={{fill: '#fff', marginLeft: '10px'}}/>
+                </b>
             </div>
         );
     }

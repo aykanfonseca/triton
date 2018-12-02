@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { PureComponent, createRef } from 'react';
 
 // Libraries / Context
 import { AutoSizer, List as VirtualList } from 'react-virtualized';
@@ -7,13 +7,11 @@ import { getRowHeight, getNumRows } from './Utils';
 // Custom Components
 import Card from './Card';
 
-export default class List extends Component {
+export default class List extends PureComponent {
     constructor(props) {
         super(props);
 
         this.list = createRef();
-
-        this.lastScrollSpot = 0;
     }
 
     componentDidUpdate(prevProps) {
@@ -22,10 +20,6 @@ export default class List extends Component {
         }
 
         else if (this.props.pinned.length !== prevProps.pinned.length) {
-            this.list.current.forceUpdateGrid();
-        }
-
-        else if (this.props.location !== prevProps.location) {
             this.list.current.forceUpdateGrid();
         }
     }
@@ -39,6 +33,7 @@ export default class List extends Component {
                     loading={this.props.loading}
                     key={key.code || key.teacher || index}
                     item={item}
+                    index={index}
                     theme={this.props.theme}
                     pinned={this.props.pinned}
                     removePin={this.props.removePin}
@@ -52,7 +47,11 @@ export default class List extends Component {
         let currLocation = location.pathname;
 
         if (currLocation === '/') {
-            return this.lastScrollSpot;
+            if (localStorage.getItem('scrollPos') !== null) {
+                return Number(localStorage.getItem('scrollPos'));
+            }
+
+            return 0;
         }
 
         else {
@@ -60,7 +59,7 @@ export default class List extends Component {
 
             for (const index in searchResults) {
                 if (this.props.searchResults[index].code.split(' ').join('') === currLocation) {
-                    this.lastScrollSpot = Number(index);
+                    localStorage.setItem('scrollPos', Number(index));
                     return Number(index);
                 }
             }

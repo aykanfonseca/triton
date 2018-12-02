@@ -123,47 +123,45 @@ export default class Home extends Component {
                 <Route render={({ location }) => (
                     <TransitionGroup>
                         <CSSTransition key={location.pathname} classNames="page" timeout={{ enter: 1000, exit: 1000 }}>
-                            <Route location={location} render={() => (
-                                <Switch>
-                                    <Route exact path='/' render={props => 
-                                        <Page background={theme === '' ? '#ccc' : '#333'}> 
-                                            <Sidepane 
-                                                classes={this.classes} 
-                                                teachers={this.teachers} 
-                                                quarters={this.quarters} 
-                                                selectedQuarter={this.selectedQuarter}
-                                                loading={loading} 
-                                                pinned={pinned}
-                                                clearPins={this.clearPins}
-                                                removePin={this.removePin}
-                                                isMobile={isMobile}
-                                                {...props}
-                                            />
-                                        </Page>
-                                    }/>
-                                    <Route exact path='/schedule' render={props => 
-                                        <Page background={theme === '' ? '#ccc' : '#333'}>
-                                            <Schedule 
-                                                isMobile={isMobile}
-                                                pinned={pinned}
-                                                {...props}
-                                            />
-                                        </Page>
-                                    }/>
-                                    <Route path="/:id" render={props => 
-                                        <Page background={theme === '' ? '#ccc' : '#333'}>
-                                            <Rightpane 
-                                                isMobile={isMobile} 
-                                                pinned={pinned}
-                                                addPin={this.addPin}
-                                                removePin={this.removePin} 
-                                                {...props}
-                                            /> 
-                                        </Page>
-                                    }/>
-                                    <Redirect from="/:id" to="/" />
-                                </Switch>
-                            )} />
+                            <Switch location={location}>
+                                <Route exact path='/' render={props => 
+                                    <Page background={theme === '' ? '#ccc' : '#333'}> 
+                                        <Sidepane 
+                                            classes={this.classes} 
+                                            teachers={this.teachers} 
+                                            quarters={this.quarters} 
+                                            selectedQuarter={this.selectedQuarter}
+                                            loading={loading} 
+                                            pinned={pinned}
+                                            // clearPins={this.clearPins}
+                                            removePin={this.removePin}
+                                            isMobile={isMobile}
+                                            {...props}
+                                        />
+                                    </Page>
+                                }/>
+                                <Route exact path='/schedule' render={props => 
+                                    <Page background={theme === '' ? '#ccc' : '#333'}>
+                                        <Schedule 
+                                            isMobile={isMobile}
+                                            pinned={pinned}
+                                            {...props}
+                                        />
+                                    </Page>
+                                }/>
+                                <Route path="/:id" render={props => 
+                                    <Page background={theme === '' ? '#ccc' : '#333'}>
+                                        <Rightpane 
+                                            isMobile={isMobile} 
+                                            pinned={pinned}
+                                            addPin={this.addPin}
+                                            removePin={this.removePin} 
+                                            {...props}
+                                        /> 
+                                    </Page>
+                                }/>
+                                <Redirect from="/:id" to="/" />
+                            </Switch>
                         </CSSTransition>
                     </TransitionGroup>
                 )}/>
