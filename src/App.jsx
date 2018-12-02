@@ -34,6 +34,7 @@ export default class App extends Component {
 	}
 
 	updateMeta = () => {
+		// Update Favicon.
 		const link = document.querySelector("link[rel*='icon']");
 		link.href = './favicon' + this.state.theme + '.ico';
 		document.head.removeChild(document.getElementById('favicon'));
