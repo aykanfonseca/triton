@@ -1,8 +1,10 @@
 import React, { PureComponent, createRef } from 'react';
-import Row from './Row.jsx';
-import SectionTitles from './SectionTitles.jsx';
 
-import { GlobalContext } from '../Context';
+// Libraries / Context
+import { GlobalContext } from './Context';
+
+// Custom Components
+import Row from './Row';
 
 export default class Sections extends PureComponent {
     static contextType = GlobalContext;
@@ -17,10 +19,14 @@ export default class Sections extends PureComponent {
         this.acc = createRef();
     }
 
-    static getDerivedStateFromProps(nextProps) {
-        return {
-            sections: Object.values(nextProps.sections)
-        };
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.sections !== prevState.sections) {
+            return {
+                sections: Object.values(nextProps.sections)
+            };
+        }
+
+        return null;
     }
 
     componentDidMount() {
@@ -47,14 +53,14 @@ export default class Sections extends PureComponent {
 
         return (
             <div className="accor" key={index}>
-                <Row type="header" hasSubrows={hasSubrows} row={rowsData.section[1]} />   
+                <Row isHeader hasSubrows={hasSubrows} row={rowsData.section[1]} />
                 {hasSubrows && this.buildSubrows(rowsData)}
             </div>
         );
     }
 
     buildSubrows = rowsData => {
-        let subrows = rowsData.section.slice(2)
+        let subrows = rowsData.section.slice(2);
 
         if (rowsData.final !== undefined) {
             subrows = subrows.concat(rowsData.final);
@@ -63,7 +69,7 @@ export default class Sections extends PureComponent {
         return (
             <div className={"body" + this.context.theme} style={{display: 'inline-block'}}>
                 {subrows.map((subrow, index) => 
-                    <Row type="subrow" row={subrow} key={index} />
+                    <Row row={subrow} key={index} />
                 )}
             </div>
         );
@@ -73,8 +79,17 @@ export default class Sections extends PureComponent {
         return (
             <>      
                 <h1>Sections</h1>
-                <div style={{overflow: 'scroll'}}>
-                    <SectionTitles />
+                <div className='section-container'>
+                    <div style={{display: 'inline-flex', height: '25px', fontWeight: '600'}}>
+                        <div style={{width: '45px'}}></div>
+                        <div className="block" style={{width: '90px'}}>ID</div>
+                        <div className="block" style={{width: '70px'}}>Section</div>
+                        <div className="block" style={{width: '60px'}}>Type</div>
+                        <div className="block" style={{width: '200px'}}>When</div>
+                        <div className="block" style={{width: '100px'}}>Where</div>
+                        <div className="block" style={{width: '250px'}}>Teacher</div>
+                        <div className="block" style={{width: '100px'}}>Seats</div>
+                    </div>  
 
                     <div ref={this.acc}>
                         {this.state.sections.map((rowsData, index) => this.buildRows(rowsData, index))}

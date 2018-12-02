@@ -1,17 +1,16 @@
 import React, { memo } from 'react';
 
+// Custom Components
 import MetricBox from './MetricBox';
-import Sections from './Section/Sections';
+import Sections from './Sections';
 import BlingStrip from './BlingStrip';
-
-import { capitalizeFirstLetter } from './Utils';
 
 const DescriptionBox = ({item}) => (
     <>
         <h1>Description</h1>
         <p>{item.description === '???' ? '---' : item.description}</p>
         <b>Prerequisites:</b>
-        <p>{item.prerequisites === '???' ? 'None.' : capitalizeFirstLetter(item.prerequisites)}</p>
+        <p>{item.prerequisites === '???' ? 'None.' : item.prerequisites}</p>
         <b>Restrictions:</b>
         <p>{item.restrictions === '' ? 'None.' : item.restrictions}</p>
     </>

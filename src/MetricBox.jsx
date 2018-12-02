@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 
+// Libraries / Context
 import { convert } from './Utils';
 
 const GradeMetric = ({grade}) => (

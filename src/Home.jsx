@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import { GlobalContext } from './Context';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { naturalSort, fetchQuarters } from './Utils';
 
 // Custom Components
 import Sidepane from './Sidepane';
@@ -13,9 +14,6 @@ import Emptypane from './Emptypane';
 import Branding from './Branding';
 import Firebase from './firebase.js';
 import Page from './Page';
-
-// Utilities
-import { naturalSort, fetchQuarters } from './Utils';
 
 export default class Home extends Component {   
     static contextType = GlobalContext;
@@ -124,7 +122,7 @@ export default class Home extends Component {
             return (
                 <Route render={({ location }) => (
                     <TransitionGroup>
-                        <CSSTransition key={location.pathname} classNames="page" timeout={{ enter: 600, exit: 600 }}>
+                        <CSSTransition key={location.pathname} classNames="page" timeout={{ enter: 1000, exit: 1000 }}>
                             <Route location={location} render={() => (
                                 <Switch>
                                     <Route exact path='/' render={props => 

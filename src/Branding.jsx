@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-// Custom Components
+// Icons
 import { ReactComponent as Trident } from './icons/trident.svg';
 
 const Branding = ({theme, changeTheme}) => (

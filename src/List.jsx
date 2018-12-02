@@ -2,12 +2,10 @@ import React, { Component, createRef } from 'react';
 
 // Libraries / Context
 import { AutoSizer, List as VirtualList } from 'react-virtualized';
+import { getRowHeight, getNumRows } from './Utils';
 
 // Custom Components
 import Card from './Card';
-
-// Utilities
-import { getRowHeight, getNumRows } from './Utils';
 
 export default class List extends Component {
     constructor(props) {

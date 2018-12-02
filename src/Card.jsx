@@ -3,6 +3,7 @@ import React, { memo } from 'react';
 // Libraries / Context
 import { Link } from 'react-router-dom';
 
+// Icons
 import { ReactComponent as Waitlist } from './icons/waitlist.svg';
 import { ReactComponent as Pin } from './icons/pin.svg';
 

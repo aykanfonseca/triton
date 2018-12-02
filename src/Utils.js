@@ -132,8 +132,6 @@ export const generateIntervals = (start, end, isFinal) => {
     return [interval, interval2];
 }
 
-export const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
-
 export const convert = (value) => {
     if (value >= 4.0) {
         return 'A';

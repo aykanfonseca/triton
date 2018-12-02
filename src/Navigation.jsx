@@ -3,6 +3,7 @@ import React, { memo } from 'react';
 // Libraries / Context
 import { Link } from 'react-router-dom';
 
+// Icons
 import { ReactComponent as Cancel } from './icons/cancel.svg';
 import { ReactComponent as Pin } from './icons/pin.svg';
 import { ReactComponent as Settings } from './icons/settings.svg';
