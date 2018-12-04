@@ -122,7 +122,7 @@ export default class Home extends Component {
             return (
                 <Route render={({ location }) => (
                     <TransitionGroup>
-                        <CSSTransition key={location.pathname} classNames="page" timeout={{ enter: 1000, exit: 1000 }}>
+                        <CSSTransition key={location.pathname} classNames="page" timeout={2000}>
                             <Switch location={location}>
                                 <Route exact path='/' render={props => 
                                     <Page background={theme === '' ? '#ccc' : '#333'}> 
@@ -133,7 +133,6 @@ export default class Home extends Component {
                                             selectedQuarter={this.selectedQuarter}
                                             loading={loading} 
                                             pinned={pinned}
-                                            // clearPins={this.clearPins}
                                             removePin={this.removePin}
                                             isMobile={isMobile}
                                             {...props}

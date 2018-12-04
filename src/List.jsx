@@ -71,8 +71,6 @@ export default class List extends PureComponent {
     render() {
         const { isMobile, theme, pinned, searchResults, loading, location } = this.props;
 
-        console.log(searchResults.length);
-
         const listStyle = !isMobile && pinned.length > 0 ? 'list-short' + theme : 'list' + theme;
 
         return (
