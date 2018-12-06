@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
 // Libraries / Context
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 // Icons
 import { ReactComponent as Waitlist } from './icons/waitlist.svg';
@@ -65,12 +65,14 @@ const BlankCard = ({theme}) => (
     </span>
 );
 
-const Card = ({loading, item, index, theme, pinned, removePin = '', location}) => {    
+const Card = memo(({loading, item, index, theme, pinned, removePin = '', location}) => {    
     if (loading) {
         return <BlankCard theme={theme} />;
     }
 
     else if (item.code) {
+        const currLocation = location.pathname.slice(1);
+
         return (
             <CourseCard 
                 theme={theme} 
@@ -78,7 +80,7 @@ const Card = ({loading, item, index, theme, pinned, removePin = '', location}) =
                 index={index}
                 pinned={pinned} 
                 removePin={removePin} 
-                location={location}
+                location={currLocation}
                 codeNoSpaces={item.code.split(' ').join('')}
             />
         );
@@ -90,6 +92,6 @@ const Card = ({loading, item, index, theme, pinned, removePin = '', location}) =
             item={item} 
         />
     );
-}
+});
 
-export default memo(Card);
+export default withRouter(Card);

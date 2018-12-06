@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
 
+import { withRouter } from 'react-router-dom';
+
 // Custom Components
 import MetricBox from './MetricBox';
 import Sections from './Sections';
@@ -16,23 +18,27 @@ const DescriptionBox = ({item}) => (
     </>
 );
 
-const Content = ({item, theme}) => (
-    <div className={"content" + theme}>
-        <BlingStrip 
-            item={item}
-        />
-        <DescriptionBox 
-            item={item}
-        />
-        <MetricBox 
-            code={item.code}
-            sections={item.sections}
-        />
-        <Sections
-            key={item.code}
-            sections={item.sections}
-        />
-    </div>
-);
+const Content = memo(({location, theme}) => {
+    const item = location.state.item;
 
-export default memo(Content);
+    return (
+        <div className={"content" + theme}>
+            <BlingStrip 
+                item={item}
+            />
+            <DescriptionBox 
+                item={item}
+            />
+            <MetricBox 
+                code={item.code}
+                sections={item.sections}
+            />
+            <Sections
+                key={item.code}
+                sections={item.sections}
+            />
+        </div>
+    );
+});
+
+export default withRouter(Content);

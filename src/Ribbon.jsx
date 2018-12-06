@@ -39,7 +39,9 @@ const SaveBtn = ({theme}) => (
     </div>
 );
 
-const Ribbon = ({item = undefined, addPin = undefined, removePin = undefined, pinned = [], theme, isMobile, isSchedule = false, history}) => {
+const Ribbon = memo(({location, addPin = undefined, removePin = undefined, pinned = [], theme, isMobile, isSchedule = false, history}) => {
+    const item = location.state.item;
+
     if (isSchedule) {
         return (
             <div className={"ribbon" + theme}>
@@ -65,11 +67,19 @@ const Ribbon = ({item = undefined, addPin = undefined, removePin = undefined, pi
                     {item.units}
                     <span>Units</span>
                 </div>
-                {!isMobile && <PinBtn theme={theme} item={item} addPin={addPin} removePin={removePin} pinned={pinned} /> }
+                {!isMobile && 
+                    <PinBtn 
+                        theme={theme} 
+                        item={item} 
+                        addPin={addPin} 
+                        removePin={removePin} 
+                        pinned={pinned}
+                    />
+                }
                 {!isMobile && <CancelBtn theme={theme} /> }
             </div>
         </div>
     );
-};
+});
 
-export default memo(withRouter(Ribbon));
+export default withRouter(Ribbon);

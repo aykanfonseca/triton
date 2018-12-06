@@ -168,20 +168,15 @@ export const getNumRows = (loading, resultLength) => {
     return resultLength;
 }
 
-export const getRowHeight = (height, isMobile, width, loading, resultLength) => {
-    if (!loading && resultLength === 0) {
-        return height;
-    }
+// export const getRowHeight = (height, isMobile, width, loading, resultLength) => {
+export const getRowHeight = () => {
+    const width = window.innerWidth;
 
-    else if (isMobile && width <= 200) {
+    if (width <= 200) {
         return 60;
     }
 
-    else if (isMobile && width <= 400) {
-        return 80;
-    }
-
-    else if (isMobile && width <= 450) {
+    else if (width <= 450) {
         return 85;
     }
 

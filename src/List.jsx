@@ -1,51 +1,40 @@
 import React, { PureComponent, createRef } from 'react';
 
 // Libraries / Context
-import { AutoSizer, List as VirtualList } from 'react-virtualized';
 import { getRowHeight, getNumRows } from './Utils';
+import { VariableSizeList } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 // Custom Components
 import Card from './Card';
 
-export default class List extends PureComponent {
-    constructor(props) {
-        super(props);
+class listItem extends PureComponent {
+    render() {
+        const { style, index, data } = this.props;
+        const [ loading, searchResults, theme, pinned, removePin ] = data;
+        const item = searchResults[index];
 
-        this.list = createRef();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.theme !== prevProps.theme) {
-            this.list.current.forceUpdateGrid();
-        }
-
-        else if (this.props.pinned.length !== prevProps.pinned.length) {
-            this.list.current.forceUpdateGrid();
-        }
-
-        else if (this.props.location !== prevProps.location) {
-            this.list.current.forceUpdateGrid();
-        }
-    }
-
-    rowRenderer = ({key, index, style}) => {
-        const item = this.props.searchResults[index];
-
-        return (  
-            <div key={key} style={style}>
+        return (
+            <div style={style}>
                 <Card 
-                    loading={this.props.loading}
-                    key={key.code || key.teacher || index}
+                    loading={loading}
                     item={item}
                     index={index}
-                    theme={this.props.theme}
-                    pinned={this.props.pinned}
-                    removePin={this.props.removePin}
-                    location={this.props.location.pathname.slice(1)}
+                    theme={theme}
+                    pinned={pinned}
+                    removePin={removePin}
                 />
-            </div>        
+            </div>
         );
     }
+}
+
+export default class List extends PureComponent {
+    // constructor(props) {
+    //     super(props);
+
+    //     this.list = createRef();
+    // }
 
     findIndex = (location, searchResults) => {
         let currLocation = location.pathname;
@@ -69,24 +58,27 @@ export default class List extends PureComponent {
     }
 
     render() {
-        const { isMobile, theme, pinned, searchResults, loading, location } = this.props;
+        const { isMobile, theme, pinned, removePin, searchResults, loading } = this.props;
 
         const listStyle = !isMobile && pinned.length > 0 ? 'list-short' + theme : 'list' + theme;
+
+        const itemData = [loading, searchResults, theme, pinned, removePin];
 
         return (
             <div className={listStyle}>
                 <AutoSizer>
-                    {({ height, width}) => (
-                        <VirtualList
-                            ref={this.list}
+                    {({ height, width }) => (
+                            <VariableSizeList
+                            // ref={this.list}
+                            itemCount={getNumRows(loading, searchResults.length)}
+                            itemSize={getRowHeight}
                             height={height}
                             width={width}
-                            rowCount={getNumRows(loading, searchResults.length)}
-                            rowHeight={getRowHeight(height, isMobile, width, loading, searchResults.length)}
-                            rowRenderer={this.rowRenderer}
-                            loading={loading}
-                            scrollToIndex={this.findIndex(location, searchResults)}
-                        />  
+                            itemData={itemData}
+                            // scrollToItem={this.findIndex(location, searchResults), 'center'}
+                        >
+                            {listItem}
+                        </VariableSizeList>
                     )}
                 </AutoSizer>
             </div>

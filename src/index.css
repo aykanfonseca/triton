@@ -524,7 +524,7 @@ body {
     margin-right: 50px;
 }
 
-.metric-list, .metric-list-dark {
+.metric-list {
     display: flex;
     margin: 20px 0;
     overflow-x: auto;
@@ -714,11 +714,11 @@ body {
     width: 100%;
     position: fixed;
     -webkit-overflow-scrolling: touch;
-    transition: transform 2s ease-in-out, opacity 2s ease-in-out;
+    transition: transform 600ms ease-in-out, opacity 600ms ease-in-out;
 }
 
 .page-enter {
-    transform: translate(-100%, 0);
+    transform: translate3d(-100%, 0, 0);
 }
 
 .page-enter .page_contents {
@@ -727,17 +727,17 @@ body {
 }
 
 .page-enter-active {
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
 }
 
 .page-enter-active .page_contents {
     opacity: 1;
     transform: scale(1);
-    transition: transform 2s ease-in-out, opacity 2s ease-in-out;
+    transition: transform 600ms ease-in-out, opacity 600ms ease-in-out;
 }
 
 .page-exit {
-    transform: translate(-100%, 0);
+    transform: translate3d(-100%, 0, 0);
 }
 
 .page-exit .page_contents {
@@ -748,11 +748,11 @@ body {
 .page-exit-active .page_contents {
     opacity: 0;
     transform: scale(0.8);
-    transition: transform 2s ease-in-out, opacity 2s ease-in-out;
+    transition: transform 600ms ease-in-out, opacity 600ms ease-in-out;
 }
 
 .page-prev.page-enter {
-    transform: translate(100%, 0);
+    transform: translate3d(100%, 0, 0);
 }
 
 .page-prev.page-enter .page_contents {
@@ -761,17 +761,17 @@ body {
 }
 
 .page-prev.page-enter-active {
-    transform: translate(0, 0);
+    transform: translate3d(0, 0, 0);
 }
 
 .page-prev.page-enter-active .page_contents {
     opacity: 1;
     transform: scale(1);
-    transition: transform 2s ease-in-out, opacity 2s ease-in-out;
+    transition: transform 600ms ease-in-out, opacity 600ms ease-in-out;
 }
 
 .page-prev.page-exit {
-    transform: translate(100%, 0);
+    transform: translate3d(100%, 0, 0);
 }
 
 .page-prev.page-exit .page_contents {
@@ -782,7 +782,7 @@ body {
 .page-prev.page-exit-active .page_contents {
     opacity: 0;
     transform: scale(0.8);
-    transition: transform 2s ease-in-out, opacity 2s ease-in-out;
+    transition: transform 600ms ease-in-out, opacity 600ms ease-in-out;
 }
 
 /* Desktop */

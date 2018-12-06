@@ -1,4 +1,4 @@
- import React, { PureComponent } from 'react';
+ import React, { Component } from 'react';
 
 // Libraries / Context
 import { GlobalContext } from './Context';
@@ -9,7 +9,7 @@ import List from './List';
 import Searchbox from './Searchbox';
 import Navigation from './Navigation';
 
-export default class Sidepane extends PureComponent {
+export default class Sidepane extends Component {
     static contextType = GlobalContext;
 
     constructor(props) {
@@ -24,6 +24,26 @@ export default class Sidepane extends PureComponent {
         this.state = {
             displayResults: []
         };
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextState.displayResults.length !== this.state.displayResults.length) {
+            return true;
+        }   
+
+        else if (nextProps.loading !== this.props.loading) {
+            return true;
+        }
+
+        else if (nextProps.pinned !== this.props.pinned) {
+            return true;
+        }
+
+        else if (nextProps.location !== this.props.location) {
+            return true;
+        }
+
+        return false;
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -109,7 +129,7 @@ export default class Sidepane extends PureComponent {
     };
 
     render() {
-        const { quarters, changeQuarter, selectedQuarter, loading, isMobile, pinned, removePin, addPin, clearPins, location } = this.props;
+        const { quarters, changeQuarter, selectedQuarter, loading, isMobile, pinned, removePin, addPin, clearPins } = this.props;
         const { theme } = this.context;
         const showNavigation = isMobile || pinned.length > 0;
 
@@ -129,7 +149,6 @@ export default class Sidepane extends PureComponent {
                     pinned={pinned}
                     removePin={removePin}
                     theme={theme}
-                    location={location}
                 />
                 { showNavigation && 
                     <Navigation 

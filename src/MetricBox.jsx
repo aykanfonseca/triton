@@ -32,7 +32,7 @@ const SeatMetric = ({seat, waitlist}) => (
                     </div>
                 : 
                     <div style={{padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
-                        <div title="Total seats taken." style={{marginRight: '5px', color: (waitlist) ? 'red' : 'inherit'}}>{seat[0]}</div>
+                        <div title="Total seats taken." style={{marginRight: '5px', color: waitlist ? 'red' : 'inherit'}}>{seat[0]}</div>
                         <div>/</div>
                         <div title="Total seats available." style={{marginLeft: '5px'}}>{seat[1]}</div>
                     </div>

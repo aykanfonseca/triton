@@ -14,26 +14,14 @@ export default class Row extends PureComponent {
         super(props);
 
         this.state = {
-            row: [],
-            waitlist: false
+            row: []
         };
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.row !== prevState.row) {
-            const available = convertBlank(nextProps.row['seats available']);
-            const taken = convertBlank(nextProps.row['seats taken']);
-    
-            if (taken !== null && taken !== 9223372036854776000 && taken >= available) {
-                return {
-                    row: nextProps.row,
-                    waitlist: true
-                };
-            }
-    
             return {
                 row: nextProps.row,
-                waitlist: false
             };
         }
     
@@ -54,8 +42,13 @@ export default class Row extends PureComponent {
 
     render() {
         const { isHeader = false, hasSubrows = false } = this.props;
-        const { row, waitlist = false } = this.state;
+        const { row } = this.state;
         const { theme } = this.context;
+
+        const available = convertBlank(row['seats available']);
+        const taken = convertBlank(row['seats taken']);
+
+        const waitlist = (taken !== null && taken !== 9223372036854776000 && taken >= available) ? true : false;
 
         const { 
             name, 

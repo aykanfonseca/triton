@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
 // Libraries / Context
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 // Icons
 import { ReactComponent as Cancel } from './icons/cancel.svg';
@@ -60,8 +60,12 @@ const SaveBtn = ({theme}) => (
     </div>
 );
 
-const Navigation = ({theme, type, addPin, removePin, clearPins, pinned, item = '', isMobile = false}) => {
-    if (type === 'course') {
+const Navigation = memo(({location, theme, type = '', addPin, removePin, clearPins, pinned, isMobile = false}) => {
+    const navType = type !== '' ? type : location.state.item.code !== undefined ? 'course' : 'teacher';
+
+    if (navType === 'course') {
+        const item = location.state.item;
+
         return (
             <div className={'navigation' + theme}>
                 <PinBtn 
@@ -76,7 +80,7 @@ const Navigation = ({theme, type, addPin, removePin, clearPins, pinned, item = '
         );
     }
 
-    else if (type === 'teacher') {
+    else if (navType === 'teacher') {
         return (
             <div className={'navigation' + theme}>
                 <EmailBtn theme={theme} />
@@ -85,7 +89,7 @@ const Navigation = ({theme, type, addPin, removePin, clearPins, pinned, item = '
         );
     }
 
-    else if (type === 'schedule') {
+    else if (navType === 'schedule') {
         return (
             <div className={'navigation' + theme}>
                 <SaveBtn theme={theme} />
@@ -94,7 +98,7 @@ const Navigation = ({theme, type, addPin, removePin, clearPins, pinned, item = '
         );
     }
 
-    else if (type === 'home') {
+    else if (navType === 'home') {
         if (isMobile) {
             return (
                 <div className={'navigation' + theme}>
@@ -117,6 +121,6 @@ const Navigation = ({theme, type, addPin, removePin, clearPins, pinned, item = '
             </div>
         );
     }
-};
+});
 
-export default memo(Navigation);
+export default withRouter(Navigation);
