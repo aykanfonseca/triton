@@ -110,14 +110,10 @@ const Navigation = memo(({location, theme, type = '', addPin, removePin, clearPi
 
         return (
             <div className={'navigation' + theme} style={{alignItems: 'center'}}>
-                <Link to={{pathname: "/schedule", state: {prev: true} }} title="Go to Schedule" style={{fontWeight: 'bold', textDecoration: 'none', backgroundColor: theme === '' ? '#2181f7' : '#724AE2', height: 'calc(100% - 10px)', color: '#fff', borderRadius: '5px', width: '100%', margin: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                <Link to={{pathname: "/schedule", state: {prev: true} }} title="Go to Schedule" style={{fontSize: '20px', fontWeight: 'bold', textDecoration: 'none', backgroundColor: theme === '' ? '#2181f7' : '#724AE2', height: '100%', color: '#fff', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     View Schedule
-                    <Schedule style={{fill: '#fff', marginLeft: '10px'}} />
+                    <Schedule style={{fill: '#fff', marginLeft: '10px', transform: 'scale(1.1)'}} />
                 </Link>
-                <b onClick={() => clearPins()} style={{backgroundColor: '#EDB576', cursor: 'pointer', height: 'calc(100% - 10px)', color: '#fff', borderRadius: '5px', width: '100%', margin: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                    Clear Pins
-                    <PinDisabled style={{fill: '#fff', marginLeft: '10px'}}/>
-                </b>
             </div>
         );
     }

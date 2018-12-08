@@ -129,7 +129,7 @@ export default class Sidepane extends Component {
     };
 
     render() {
-        const { quarters, changeQuarter, selectedQuarter, loading, isMobile, pinned, removePin, addPin, clearPins } = this.props;
+        const { quarters, changeQuarter, selectedQuarter, loading, isMobile, pinned, removePin, addPin, location } = this.props;
         const { theme } = this.context;
         const showNavigation = isMobile || pinned.length > 0;
 
@@ -149,6 +149,7 @@ export default class Sidepane extends Component {
                     pinned={pinned}
                     removePin={removePin}
                     theme={theme}
+                    location={location}
                 />
                 { showNavigation && 
                     <Navigation 
@@ -156,7 +157,6 @@ export default class Sidepane extends Component {
                         theme={theme} 
                         pinned={pinned} 
                         addPin={addPin}
-                        clearPins={clearPins}
                         removePin={removePin}
                         isMobile={isMobile}
                     /> 

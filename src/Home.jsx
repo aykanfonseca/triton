@@ -54,15 +54,32 @@ export default class Home extends Component {
     componentWillUnmount() {
         window.removeEventListener("resize", this.handleWindowResize);
     }
-
+    
     componentDidMount() {
         window.addEventListener("resize", this.handleWindowResize);
 
         this.quarters = fetchQuarters();
 
-        Firebase.database().ref("current").once('value')
-            .then(snapshot => this.loadData(snapshot.val()));
+        const url = "https://winter-2019-rd.firebaseio.com/current.json";
+
+        fetch(url, {headers: {method: "GET", mode: "no-cors"}}).then(val => val.json()).then(data => this.loadData(data));
+
+        // Firebase.database().ref("current").once('value')
+        //     .then(snapshot => this.loadData(snapshot.val()));
     }
+
+    // classPromise = (quarter) => {
+    //     const classDataUrl = "https://winter-2019-rd.firebaseio.com/quarters/" + quarter + ".json";
+
+    //     return fetch(classDataUrl, {headers: {method: "GET", mode: "no-cors"}})
+    //         .then(data => this.addClasses(data));
+    // }
+
+    // teacherPromise = (quarter) => {
+    //     const teacherDataUrl = "https://winter-2019-rd.firebaseio.com/quarters/" + quarter + "-teachers" + ".json";
+
+    //     return fetch(teacherDataUrl, {headers: {method: "GET", mode: "no-cors"}}).then(data => this.addTeachers(data));
+    // }
 
     loadData = async (quarter) => {
         this.selectedQuarter = quarter;
@@ -122,7 +139,7 @@ export default class Home extends Component {
             return (
                 <Route render={({ location }) => (
                     <TransitionGroup>
-                        <CSSTransition key={location.pathname} classNames="page" timeout={600}>
+                        <CSSTransition key={location.pathname} classNames="page" timeout={900}>
                             <Switch location={location}>
                                 <Route exact path='/' render={props => 
                                     <Page background={theme === '' ? '#ccc' : '#333'}> 
@@ -185,7 +202,6 @@ export default class Home extends Component {
                             loading={loading} 
                             pinned={pinned}
                             removePin={this.removePin}
-                            clearPins={this.clearPins}
                             isMobile={isMobile}
                             {...props}
                         />

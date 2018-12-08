@@ -24,8 +24,8 @@ const StudyMetric = ({study}) => (
 
 const SeatMetric = ({seat, waitlist}) => (
     <div className="metric">
-        <b className="metric-header" style={{backgroundColor: '#E9CE86'}}>{"Seats Taken / Limit"}</b>
-        <div className="metric-body" style={{border: '2px solid #E9CE86'}}>
+        <b className="metric-header" style={{backgroundColor: '#fade91'}}>{"Seats Taken / Limit"}</b>
+        <div className="metric-body" style={{border: '2px solid #fade91'}}>
             {(seat.length === 1) ?
                     <div style={{padding: '6px', display: 'flex', alignItems: 'baseline', justifyContent: 'center'}} >
                         <div>{"Unlimited"}</div>

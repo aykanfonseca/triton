@@ -176,6 +176,10 @@ export const getRowHeight = () => {
         return 60;
     }
 
+    else if (width <= 400) {
+        return 80;
+    }
+
     else if (width <= 450) {
         return 85;
     }

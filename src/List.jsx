@@ -30,11 +30,11 @@ class listItem extends PureComponent {
 }
 
 export default class List extends PureComponent {
-    // constructor(props) {
-    //     super(props);
+    constructor(props) {
+        super(props);
 
-    //     this.list = createRef();
-    // }
+        this.list = createRef();
+    }
 
     findIndex = (location, searchResults) => {
         let currLocation = location.pathname;
@@ -64,18 +64,19 @@ export default class List extends PureComponent {
 
         const itemData = [loading, searchResults, theme, pinned, removePin];
 
+        // this.list.current.scrollToItem(this.findIndex(this.props.location, this.props.searchResults), 'center');
+
         return (
             <div className={listStyle}>
                 <AutoSizer>
                     {({ height, width }) => (
-                            <VariableSizeList
-                            // ref={this.list}
+                        <VariableSizeList
+                            ref={this.list}
                             itemCount={getNumRows(loading, searchResults.length)}
                             itemSize={getRowHeight}
                             height={height}
                             width={width}
                             itemData={itemData}
-                            // scrollToItem={this.findIndex(location, searchResults), 'center'}
                         >
                             {listItem}
                         </VariableSizeList>

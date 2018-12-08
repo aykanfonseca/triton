@@ -1,28 +1,18 @@
 import React, { memo } from 'react';
 
 // Libraries / Context
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 // Icons
 import { ReactComponent as Cancel } from './icons/cancel.svg';
 import { ReactComponent as Pin } from './icons/pin.svg';
 import { ReactComponent as Save } from './icons/save.svg';
 
-const CancelBtn = ({isSchedule, theme, history}) => {
-    if (isSchedule) {
-        return (
-            <div title="Click to close" onClick={() => {history.goBack()}} className={"btn-close" + theme}>
-                <Cancel />
-            </div>
-        );
-    }
-
-    return (
-        <Link to="/" title="Click to close" className={"btn-close" + theme}>
-            <Cancel />
-        </Link>
-    );
-};
+const CancelBtn = ({isSchedule, theme, history}) => (
+    <div title="Click to close" onClick={() => {isSchedule ? history.goBack() : history.push('/')}} className={"btn-close" + theme}>
+        <Cancel />
+    </div>
+);
 
 const PinBtn = ({theme, addPin, removePin, pinned, item}) => (
     <div 
@@ -62,7 +52,7 @@ const Ribbon = memo(({location, addPin = undefined, removePin = undefined, pinne
                 <h1>{item.code}</h1>
                 <b>{item.title}</b>   
             </div>
-            <div style={{display: "flex", flexDirection: 'row'}}>
+            <div style={{display: "flex", flexDirection: 'row', whiteSpace: 'nowrap'}}>
                 <div className={"units" + theme}>
                     {item.units}
                     <span>Units</span>
@@ -76,7 +66,7 @@ const Ribbon = memo(({location, addPin = undefined, removePin = undefined, pinne
                         pinned={pinned}
                     />
                 }
-                {!isMobile && <CancelBtn theme={theme} /> }
+                {!isMobile && <CancelBtn theme={theme} history={history} /> }
             </div>
         </div>
     );
