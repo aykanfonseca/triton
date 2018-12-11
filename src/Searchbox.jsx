@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 // Libraries / Context
 import { GlobalContext } from './Context';
@@ -14,7 +14,7 @@ const Toggle = props => (
     </div>
 );
 
-export default class Searchbox extends PureComponent {
+export default class Searchbox extends Component {
     static contextType = GlobalContext;
 
     constructor(props) {
@@ -90,7 +90,8 @@ export default class Searchbox extends PureComponent {
     }
 
     handleText = (event) => {
-        this.setState({ text: event.target.value});
+        console.log(event.target.value);
+        this.setState({ text: event.target.value });
         this.props.filterView(event);
     }
 
@@ -112,7 +113,7 @@ export default class Searchbox extends PureComponent {
                     spellCheck="false"
                     value={text}
                     placeholder={placeholder}
-                    onChange={this.handleText}
+                    onChange={event => {this.handleText(event)}}
                 ></input>
                 <QuarterSwitcher 
                     quarters={quarters}

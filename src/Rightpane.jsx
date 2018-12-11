@@ -5,7 +5,7 @@ import Ribbon from './Ribbon';
 import Content from './Content';
 import Navigation from './Navigation';
 
- const Rightpane = ({theme, isMobile, pinned, addPin, removePin}) => (
+ const Rightpane = ({theme, isMobile, pinned, addPin, removePin, classes}) => (
     <div className={"rightpane" + theme}>
         <Ribbon 
             theme={theme} 
@@ -14,7 +14,7 @@ import Navigation from './Navigation';
             addPin={addPin}
             removePin={removePin}
         />
-        <Content theme={theme} />
+        <Content theme={theme} classes={classes}/>
         {isMobile && 
             <Navigation 
                 theme={theme} 

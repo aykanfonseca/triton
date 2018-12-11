@@ -29,7 +29,7 @@ export default class Sidepane extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         if (nextState.displayResults.length !== this.state.displayResults.length) {
             return true;
-        }   
+        }
 
         else if (nextProps.loading !== this.props.loading) {
             return true;
@@ -109,7 +109,7 @@ export default class Sidepane extends Component {
     }
 
     filterView = (event = '') => {
-        localStorage.setItem('scrollPos', 0);
+        // localStorage.setItem('scrollPos', 0);
 
         if (event !== '' && event.target.value !== "") {
             const input = event.target.value.trim().toLowerCase();

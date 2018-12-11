@@ -173,6 +173,7 @@ export default class Home extends Component {
                                             addPin={this.addPin}
                                             removePin={this.removePin} 
                                             theme={theme}
+                                            classes={this.classes}
                                             {...props}
                                         /> 
                                     </Page>
@@ -222,6 +223,7 @@ export default class Home extends Component {
                             addPin={this.addPin}
                             removePin={this.removePin} 
                             theme={theme}
+                            classes={this.classes}
                             {...props}
                         />
                     }/>

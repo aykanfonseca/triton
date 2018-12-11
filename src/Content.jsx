@@ -6,19 +6,22 @@ import { withRouter } from 'react-router-dom';
 import MetricBox from './MetricBox';
 import Sections from './Sections';
 import BlingStrip from './BlingStrip';
+import Tag from './Tag';
 
-const DescriptionBox = ({item}) => (
+// {/* <p>{item.prerequisites === '???' ? 'None.' : item.prerequisites}</p> */}
+
+const DescriptionBox = ({item, classes}) => (
     <>
         <h1>Description</h1>
         <p>{item.description === '???' ? '---' : item.description}</p>
         <b>Prerequisites:</b>
-        <p>{item.prerequisites === '???' ? 'None.' : item.prerequisites}</p>
+        <Tag prerequisites={item.prerequisites} classes={classes} key={item.code}/>
         <b>Restrictions:</b>
         <p>{item.restrictions === '' ? 'None.' : item.restrictions}</p>
     </>
 );
 
-const Content = memo(({location, theme}) => {
+const Content = memo(({location, theme, classes}) => {
     const item = location.state.item;
 
     return (
@@ -28,6 +31,7 @@ const Content = memo(({location, theme}) => {
             />
             <DescriptionBox 
                 item={item}
+                classes={classes}
             />
             <MetricBox 
                 code={item.code}

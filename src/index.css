@@ -9,6 +9,21 @@
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
 }
 
+.tagged_class span {
+    background-color: #f1f8ff;
+    color: #3072f6;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+.tagged_class span:hover {
+    background-color: #dceeff;
+}
+
+.tagged_class span:active {
+    background-color: #c6e3fd;
+}
+
 body {
     -webkit-font-smoothing: antialiased;
     overflow: hidden;
@@ -1004,7 +1019,7 @@ body {
 
     .content, .content-dark {
         padding: 20px 50px;
-        height: calc(100vh - 192px);
+        height: calc(100vh - 190px);
     }
 
     .metric {
@@ -1084,7 +1099,7 @@ body {
 
     .content, .content-dark {
         padding: 20px 50px;
-        height: calc(100vh - 192px);
+        height: calc(100vh - 190px);
     }
     
     .metric {
@@ -1161,7 +1176,7 @@ body {
 
     .content, .content-dark {
         padding: 20px 30px;
-        height: calc(100vh - 182px);
+        height: calc(100vh - 180px);
     }
 
     .content h1, .content-dark h1 {
@@ -1292,7 +1307,7 @@ body {
 
     .content, .content-dark {
         padding: 20px 20px;
-        height: calc(100vh - 172px);
+        height: calc(100vh - 170px);
     }
 
     .content h1, .content-dark h1 {
@@ -1447,7 +1462,7 @@ body {
 
     .content, .content-dark {
         padding: 10px 20px;
-        height: calc(100vh - 132px);
+        height: calc(100vh - 130px);
     }
 
     .content h1, .content-dark h1 {
@@ -1551,7 +1566,7 @@ body {
 
     .content, .content-dark {
         padding: 10px 10px;
-        height: calc(100vh - 122px);
+        height: calc(100vh - 120px);
     }
 
     .content h1, .content-dark h1 {
