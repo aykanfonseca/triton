@@ -1,7 +1,4 @@
- import React, { Component } from 'react';
-
-// Libraries / Context
-import { GlobalContext } from './Context';
+import React, { Component } from 'react';
 
 // Custom Components
 import Branding from './Branding';
@@ -10,158 +7,149 @@ import Searchbox from './Searchbox';
 import Navigation from './Navigation';
 
 export default class Sidepane extends Component {
-    static contextType = GlobalContext;
+	constructor(props) {
+		super(props);
 
-    constructor(props) {
-        super(props);
+		// Necessary for displayResults value to function properly.
+		this.initialClasses = [];
+		this.classes = [];
 
-        // Necessary for displayResults value to function properly.
-        this.initialClasses = [];
-        this.initialTeachers = [];
-        this.classes = [];
-        this.teachers = [];
+		this.state = {
+			displayResults: []
+		};
+	}
 
-        this.state = {
-            displayResults: []
-        };
-    }
+	shouldComponentUpdate(nextProps, nextState) {
+		if (nextState.displayResults.length !== this.state.displayResults.length) {
+			return true;
+		} else if (nextProps.loading !== this.props.loading) {
+			return true;
+		} else if (nextProps.pinned !== this.props.pinned) {
+			return true;
+		} else if (nextProps.location !== this.props.location) {
+			return true;
+		} else if (nextProps.theme !== this.props.theme) {
+			return true;
+		}
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextState.displayResults.length !== this.state.displayResults.length) {
-            return true;
-        }
+		return false;
+	}
 
-        else if (nextProps.loading !== this.props.loading) {
-            return true;
-        }
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (prevState.displayResults.length === 0 && nextProps.classes.length > 0) {
+			return {
+				displayResults: nextProps.classes
+			};
+		}
 
-        else if (nextProps.pinned !== this.props.pinned) {
-            return true;
-        }
+		return null;
+	}
 
-        else if (nextProps.location !== this.props.location) {
-            return true;
-        }
+	componentDidUpdate() {
+		// Clear quarter switch.
+		if (this.props.loading === true && this.state.displayResults.length !== 0) {
+			this.setState({ displayResults: [] });
+			this.searchbox.value = '';
+			this.initialClasses = this.classes = [];
+		} else if (this.classes.length === 0 && this.state.displayResults.length > 0) {
+			this.classes = this.initialClasses = this.props.classes;
+		}
+	}
 
-        return false;
-    }
+	clearTextInput = () => {
+		this.searchbox.value = '';
+		this.classes = this.initialClasses;
+		this.setState({ displayResults: this.classes });
+	};
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (prevState.displayResults.length === 0 && nextProps.classes.length > 0) {
-            return {
-                displayResults: nextProps.classes
-            }
-        }
+	handleFilter = (isDeleting, input) => {
+		const listToFilterForClasses = isDeleting ? this.initialClasses : this.classes;
 
-        return null;
-    }
+		// Search by units.
+		if (input.indexOf('unit') !== -1 || input.indexOf('units') !== -1) {
+			const number = input.match(/\d+/);
 
-    componentDidUpdate() {
-        // Clear quarter switch.
-        if (this.props.loading === true && this.state.displayResults.length !== 0) {
-            this.setState({ displayResults: [] });
-            this.searchbox.value = '';
-            this.initialClasses = this.initialTeachers = this.classes = this.teachers = [];
-        }
+			if (number !== null) {
+				this.setState({
+					displayResults: this.initialClasses.filter(({ units }) => units.indexOf(number) !== -1)
+				});
+			}
+		} else {
+			// Search by classes.
+			this.classes = listToFilterForClasses.filter(
+				({ code, title }) =>
+					code.toLowerCase().indexOf(input) !== -1 || title.toLowerCase().indexOf(input) !== -1
+			);
 
-        else if (this.classes.length === 0 && this.state.displayResults.length > 0) {
-            this.classes = this.initialClasses = this.props.classes;
-            this.teachers = this.initialTeachers = this.props.teachers;
-        }
-    }
+			if (this.classes !== this.state.displayResults) {
+				this.setState({ displayResults: this.classes });
+			}
+		}
+	};
 
-    clearTextInput = () => {
-        this.searchbox.value = '';
-        this.classes = this.initialClasses;
-        this.teachers = this.initialTeachers;
-        this.setState({ displayResults: this.classes });
-    };
+	filterView = (event = '') => {
+		// localStorage.setItem('scrollPos', 0);
 
-    handleFilter = (isDeleting, input) => {
-        const listToFilterForClasses = isDeleting ? this.initialClasses : this.classes;
-        const listToFilterForTeachers = isDeleting ? this.initialTeachers : this.teachers;
+		if (event !== '' && event.target.value !== '') {
+			const input = event.target.value.trim().toLowerCase();
+			const isDeleting = event.keyCode === 8;
 
-        // Search by units. 
-        if (input.indexOf('unit') !== -1 || input.indexOf('units') !== -1) {
-            const number = input.match(/\d+/);
+			// Doesn't do anything if we type a space.
+			if (input !== ' ') {
+				this.handleFilter(isDeleting, input);
+			}
+		} else {
+			this.setState({ displayResults: this.initialClasses });
+			this.classes = this.initialClasses;
+		}
+	};
 
-            if (number !== null) {
-                this.setState({ displayResults: this.initialClasses.filter(({units}) => units.indexOf(number) !== -1) });
-            }
-        }
+	render() {
+		const {
+			quarters,
+			changeQuarter,
+			selectedQuarter,
+			loading,
+			isMobile,
+			pinned,
+			removePin,
+			addPin,
+			location,
+			theme,
+			changeTheme
+		} = this.props;
+		const showNavigation = isMobile || pinned.length > 0;
 
-        // Search by classes and teachers.
-        else {
-            this.classes = listToFilterForClasses.filter(({code, title}) => code.toLowerCase().indexOf(input) !== -1 || title.toLowerCase().indexOf(input) !== -1);
-
-            if (this.classes !== this.state.displayResults) {
-                this.teachers = listToFilterForTeachers.filter(({teacher}) => teacher.toLowerCase().replace(',', '').indexOf(input) !== -1);
-    
-                if (this.classes.length < 5) {
-                    this.setState({ displayResults: this.classes.concat(this.teachers.slice(0, 7)) });
-                }
-    
-                else {
-                    this.setState({ displayResults: this.classes });
-                }
-            }
-        }
-    }
-
-    filterView = (event = '') => {
-        // localStorage.setItem('scrollPos', 0);
-
-        if (event !== '' && event.target.value !== "") {
-            const input = event.target.value.trim().toLowerCase();
-            const isDeleting = (event.keyCode === 8);
-
-            // Doesn't do anything if we type a space.
-            if (input !== ' ') {
-                this.handleFilter(isDeleting, input);
-            }
-        }
-
-        else {
-            this.setState({ displayResults: this.initialClasses });
-            this.classes = this.initialClasses;
-            this.teachers = this.initialTeachers;
-        }
-    };
-
-    render() {
-        const { quarters, changeQuarter, selectedQuarter, loading, isMobile, pinned, removePin, addPin, location } = this.props;
-        const { theme } = this.context;
-        const showNavigation = isMobile || pinned.length > 0;
-
-        return (
-            <div>
-                <Branding {...this.context} />
-                <Searchbox 
-                    quarters={quarters}
-                    changeQuarter={changeQuarter}
-                    selectedQuarter={selectedQuarter}
-                    filterView={this.filterView}
-                />
-                <List 
-                    searchResults={this.state.displayResults}
-                    loading={loading}
-                    isMobile={isMobile}
-                    pinned={pinned}
-                    removePin={removePin}
-                    theme={theme}
-                    location={location}
-                />
-                { showNavigation && 
-                    <Navigation 
-                        type='home' 
-                        theme={theme} 
-                        pinned={pinned} 
-                        addPin={addPin}
-                        removePin={removePin}
-                        isMobile={isMobile}
-                    /> 
-                } 
-            </div>
-        );
-    }
-};
+		return (
+			<div>
+				<Branding theme={theme} changeTheme={changeTheme} />
+				<Searchbox
+					quarters={quarters}
+					changeQuarter={changeQuarter}
+					selectedQuarter={selectedQuarter}
+					filterView={this.filterView}
+					theme={theme}
+				/>
+				<List
+					searchResults={this.state.displayResults}
+					loading={loading}
+					isMobile={isMobile}
+					pinned={pinned}
+					removePin={removePin}
+					theme={theme}
+					location={location}
+				/>
+				{showNavigation && (
+					<Navigation
+						type="home"
+						theme={theme}
+						pinned={pinned}
+						addPin={addPin}
+						removePin={removePin}
+						isMobile={isMobile}
+					/>
+				)}
+			</div>
+		);
+	}
+}

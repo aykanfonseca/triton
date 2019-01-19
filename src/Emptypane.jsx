@@ -1,7 +1,5 @@
-import React, { memo } from 'react';
+import React from 'react';
 
-const EmptyPane = ({theme}) => (
-    <div className={"emptypane" + theme}></div>
-);
+const EmptyPane = ({ theme }) => <div className={'emptypane' + theme} />;
 
-export default memo(EmptyPane);
+export default EmptyPane;

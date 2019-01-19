@@ -13,12 +13,12 @@ import 'firebase/database';
 // export default firebase.initializeApp(config);
 
 const config = {
-    apiKey: "AIzaSyDoBGorgT6WStsAGDdz2RDwhzdSPrlhDcw",
-    authDomain: "winter-2019-rd.firebaseapp.com",
-    databaseURL: "https://winter-2019-rd.firebaseio.com",
-    projectId: "winter-2019-rd",
-    storageBucket: "winter-2019-rd.appspot.com",
-    messagingSenderId: "405408128128"
+	apiKey: 'AIzaSyDoBGorgT6WStsAGDdz2RDwhzdSPrlhDcw',
+	authDomain: 'winter-2019-rd.firebaseapp.com',
+	databaseURL: 'https://winter-2019-rd.firebaseio.com',
+	projectId: 'winter-2019-rd',
+	storageBucket: 'winter-2019-rd.appspot.com',
+	messagingSenderId: '405408128128'
 };
 
 export default firebase.initializeApp(config);

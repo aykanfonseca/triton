@@ -1,49 +1,52 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 // Icons
-import { ReactComponent as WaitlistIcon } from './icons/tag_waitlist.svg';
-import { ReactComponent as DeiIcon } from './icons/tag_dei.svg';
-import { ReactComponent as PodcastIcon } from './icons/tag_podcast.svg';
-import { ReactComponent as DifficultIcon } from './icons/tag_difficult.svg';
+import { ReactComponent as WaitlistIcon } from './icons/bling_waitlist.svg';
+import { ReactComponent as DeiIcon } from './icons/bling_dei.svg';
+import { ReactComponent as PodcastIcon } from './icons/bling_podcast.svg';
+import { ReactComponent as DifficultIcon } from './icons/bling_difficult.svg';
+
+const BlingStripIcon = ({ title, width = '160px', color, children }) => (
+	<div className="bling-strip-icon" title={title} style={{ backgroundColor: color, width: width }}>
+		{children}
+	</div>
+);
 
 const Waitlist = () => (
-    <div className="bling-strip" title="Course is waitlisted" style={{width: '150px', backgroundColor: '#F7F7F7'}}>
-        <WaitlistIcon />
-        <b>Waitlisted</b>
-    </div>
+	<BlingStripIcon width="150px" color="#F7F7F7" title="Course is waitlisted">
+		<WaitlistIcon />
+		<b>Waitlisted</b>
+	</BlingStripIcon>
 );
 
 const Dei = () => (
-    <div className="bling-strip" title="A DEI approved course" style={{width: '100px', backgroundColor: '#EDF4FA'}}>
-        <DeiIcon />
-        <b>DEI</b>
-    </div>
+	<BlingStripIcon width="100px" color="#EDF4FA" title="A DEI-approved course">
+		<DeiIcon />
+		<b>DEI</b>
+	</BlingStripIcon>
 );
 
 const Podcast = () => (
-    <div className="bling-strip" title="Has podcasts." style={{width: '160px', backgroundColor: '#FFDDF6'}}>
-        <PodcastIcon />
-        <b>Podcasts</b>
-    </div>
+	<BlingStripIcon color="#FFDDF6" title="Has podcasts">
+		<PodcastIcon />
+		<b>Podcasts</b>
+	</BlingStripIcon>
 );
 
 const Difficult = () => (
-    <div className="bling-strip" title="Has a low grade average or high study hours." style={{width: '160px', backgroundColor: '#F4E8FF'}}>
-        <DifficultIcon />
-        <b>Difficult</b>
-    </div>
+	<BlingStripIcon color="#F4E8FF" title="Low grade average or high study hours">
+		<DifficultIcon />
+		<b>Difficult</b>
+	</BlingStripIcon>
 );
 
-const BlingStrip = ({item}) => (
-    <div className="bling-strip-container">
-        { item.waitlist && <Waitlist /> }
-        { item.dei && <Dei /> }
-        { item.podcast && <Podcast /> }
-        {/* <Waitlist />
-        <Dei />
-        <Podcast />
-        <Difficult/> */}
-    </div>
+const BlingStrip = ({ item }) => (
+	<div className="bling-strip">
+		{item.waitlist && <Waitlist />}
+		{item.dei && <Dei />}
+		{item.podcast && <Podcast />}
+		{item.difficult && <Difficult />}
+	</div>
 );
 
-export default memo(BlingStrip);
+export default BlingStrip;

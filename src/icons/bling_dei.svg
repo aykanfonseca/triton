@@ -8,17 +8,17 @@
         <circle id="path-2" cx="21.5333333" cy="17" r="9.06666667"></circle>
         <circle id="path-3" cx="12.4666667" cy="17" r="9.06666667"></circle>
     </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g stroke-width="1" fill="none">
         <g id="Icon-Explorations" transform="translate(-328.000000, -254.000000)">
-            <g id="Team-Icon" transform="translate(328.256662, 254.000000)">
-                <circle id="Oval" fill="url(#linearGradient-1)" cx="17" cy="17" r="17"></circle>
-                <g id="Oval-2-Copy">
+            <g transform="translate(328.256662, 254.000000)">
+                <circle fill="url(#linearGradient-1)" cx="17" cy="17" r="17"></circle>
+                <g>
                     <use fill="#D8D8D8" fill-rule="evenodd" style="mix-blend-mode: soft-light;" xlink:href="#path-2"></use>
-                    <use stroke="#FFFFFF" stroke-width="1.5" xlink:href="#path-2"></use>
+                    <use stroke="#FFF" stroke-width="1.5" xlink:href="#path-2"></use>
                 </g>
-                <g id="Oval-2-Copy-2">
+                <g>
                     <use fill="#D8D8D8" fill-rule="evenodd" style="mix-blend-mode: soft-light;" xlink:href="#path-3"></use>
-                    <use stroke="#FFFFFF" stroke-width="1.5" xlink:href="#path-3"></use>
+                    <use stroke="#FFF" stroke-width="1.5" xlink:href="#path-3"></use>
                 </g>
             </g>
         </g>

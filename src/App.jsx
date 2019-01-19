@@ -1,37 +1,39 @@
 import React, { Component } from 'react';
 
-// Libraries / Context
-import { GlobalContext } from './Context';
+// Libraries
+import { BrowserRouter } from 'react-router-dom';
 
 // Custom Components
 import Home from './Home';
+
+const supportsHistory = 'pushState' in window.history;
 
 export default class App extends Component {
 	constructor(props) {
 		super(props);
 
-		const storedTheme = localStorage.getItem('theme') || ''; 
-
 		this.state = {
-			theme: storedTheme,
-			changeTheme: this.changeTheme
+			theme: localStorage.getItem('theme') || ''
 		};
 
 		localStorage.setItem('scrollPos', 0);
 		this.updateMeta();
 	}
-	
+
 	changeTheme = () => {
-		this.setState({
-			theme: this.state.theme === '' ? '-dark' : ''
-		}, this.saveTheme);
-	}
+		this.setState(
+			{
+				theme: this.state.theme === '' ? '-dark' : ''
+			},
+			this.saveTheme
+		);
+	};
 
 	saveTheme = () => {
 		localStorage.setItem('theme', this.state.theme);
 
 		this.updateMeta();
-	}
+	};
 
 	updateMeta = () => {
 		// Update Favicon.
@@ -39,13 +41,13 @@ export default class App extends Component {
 		link.href = './favicon' + this.state.theme + '.ico';
 		document.head.removeChild(document.getElementById('favicon'));
 		document.head.appendChild(link);
-	}
+	};
 
 	render() {
 		return (
-			<GlobalContext.Provider value={this.state}>
-				<Home />
-			</GlobalContext.Provider>
+			<BrowserRouter forceRefresh={!supportsHistory} basename="/triton">
+				<Home theme={this.state.theme} changeTheme={this.changeTheme} />
+			</BrowserRouter>
 		);
 	}
-};
+}

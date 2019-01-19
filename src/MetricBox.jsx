@@ -1,156 +1,129 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 
-// Libraries / Context
+// Libraries
 import { convert } from './Utils';
 
-const GradeMetric = ({title, color, grade}) => (
-    <div className="metric">
-        <b className="metric-header" style={{backgroundColor: color}}>{title}</b>
-        <div className="metric-body" style={{border: '2px solid ' + color}}>{grade}</div>
-    </div>
-);
-
-const StudyMetric = ({study}) => (
-    <div className="metric">
-        <b className="metric-header" style={{backgroundColor: '#B8E986'}}>{"Study"}</b>
-        <div className="metric-body" style={{border: '2px solid #B8E986'}}>
-            <div style={{display: 'flex', alignItems: 'baseline', justifyContent: 'center'}}>
-                <div>{study}</div>
-                {(study !== 'N/A') && <p style={{marginLeft: '5px'}}>hrs/wk</p>}
-            </div>
-        </div>
-    </div>
-);
-
-const SeatMetric = ({seat, waitlist}) => (
-    <div className="metric">
-        <b className="metric-header" style={{backgroundColor: '#fade91'}}>{"Seats Taken / Limit"}</b>
-        <div className="metric-body" style={{border: '2px solid #fade91'}}>
-            {(seat.length === 1) ?
-                    <div style={{padding: '6px', display: 'flex', alignItems: 'baseline', justifyContent: 'center'}} >
-                        <div>{"Unlimited"}</div>
-                    </div>
-                : 
-                    <div style={{padding: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center'}} >
-                        <div title="Total seats taken." style={{marginRight: '5px', color: waitlist ? 'red' : 'inherit'}}>{seat[0]}</div>
-                        <div>/</div>
-                        <div title="Total seats available." style={{marginLeft: '5px'}}>{seat[1]}</div>
-                    </div>
-            }
-        </div>
-    </div>
+const Metric = ({ name, color, children }) => (
+	<div className="metric">
+		<b className="metric-header" style={{ backgroundColor: color }}>
+			{name}
+		</b>
+		<div className="metric-body" style={{ border: '2px solid ' + color }}>
+			<div>{children}</div>
+		</div>
+	</div>
 );
 
 export default class MetricBox extends PureComponent {
-    constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props);
 
-        // metrics has the following format: [cape expected grade, cape average study, cape received grade, seats taken / seats available].
-        this.state = {
-            metrics: ["N/A", "N/A", "N/A", "N/A"],
-            waitlist: false,
-            code: ''
-        };
-    }
+		// metrics has the following format: [cape expected grade, cape average study, cape received grade, seats taken / seats available].
+		this.state = {
+			metrics: [ 'N/A', 'N/A', 'N/A', 'N/A' ],
+			waitlist: false,
+			code: ''
+		};
+	}
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (prevState.code !== nextProps.code) {
-            let metricsInfo = [0, 0, 0];
-            let seatInfo = [0, 0]; 
-            let numSections = 0;
-            let waitlist = false;
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (prevState.code !== nextProps.code) {
+			let metricsInfo = [ 0, 0, 0 ];
+			let seatInfo = [ 0, 0 ];
+			let numSections = 0;
+			let waitlist = false;
 
-            for (const sectionNum in nextProps.sections) {
-                const section = nextProps.sections[sectionNum];
+			for (const section of Object.values(nextProps.sections)) {
+				const capeData = section['cape'];
+				const seats = section['section'];
 
-                const capeData = section['cape'];
-                const seats = section['section'];
+				// Handle getting CAPE Data.
+				if (capeData !== 'N/A') {
+					metricsInfo[0] += capeData['expected'];
+					metricsInfo[1] += capeData['study'];
+					metricsInfo[2] += capeData['received'];
 
-                // Handle getting CAPE Data.
-                if (capeData !== 'N/A') {
-                    metricsInfo[0] += capeData['expected']
-                    metricsInfo[1] += capeData['study']
-                    metricsInfo[2] += capeData['received']
+					numSections += 1;
+				}
 
-                    numSections += 1;
-                }
+				// Handle getting seat information.
+				for (const i in seats) {
+					const taken = seats[i]['seats taken'] !== 'Blank' ? seats[i]['seats taken'] : null;
 
-                // Handle getting seat information.
-                for (const i in seats) {
-                    const taken = (seats[i]['seats taken'] !== 'Blank') ? seats[i]['seats taken'] : null;
+					if (taken === null) {
+						continue;
+					} else if (taken === 9223372036854776000) {
+						seatInfo[0] = 'Unlimited';
+						break;
+					}
 
-                    if (taken === null) {
-                        continue;
-                    }
+					seatInfo[0] += taken;
+					seatInfo[1] += seats[i]['seats available'] !== 'Blank' ? seats[i]['seats available'] : null;
+				}
+			}
 
-                    else if (taken === 9223372036854776000) {
-                        seatInfo[0] = "Unlimited";
-                        break;
-                    }
-                    
-                    seatInfo[0] += taken;
-                    seatInfo[1] += (seats[i]['seats available'] !== 'Blank') ? seats[i]['seats available'] : null;
-                }
-            }
+			if (numSections !== 0) {
+				metricsInfo = [
+					(metricsInfo[0] / numSections).toFixed(2),
+					(metricsInfo[1] / numSections).toFixed(2),
+					(metricsInfo[2] / numSections).toFixed(2),
+					''
+				];
 
-            if (numSections !== 0) {
-                metricsInfo = [
-                    (metricsInfo[0] / numSections).toFixed(2), 
-                    (metricsInfo[1] / numSections).toFixed(2),
-                    (metricsInfo[2] / numSections).toFixed(2),
-                    ''
-                ];
+				if (metricsInfo.length > 0) {
+					metricsInfo[0] = convert(metricsInfo[0]);
+					metricsInfo[2] = convert(metricsInfo[2]);
+				}
+			}
 
-                if (metricsInfo.length > 0) {
-                    metricsInfo[0] = convert(metricsInfo[0]);
-                    metricsInfo[2] = convert(metricsInfo[2]);
-                }
-            }
+			if (seatInfo[0] === 'Unlimited') {
+				metricsInfo[3] = [ 'Unlimited' ];
+			} else {
+				waitlist = seatInfo[0] >= seatInfo[1];
+				metricsInfo[3] = [ seatInfo[0], seatInfo[1] ];
+			}
 
-            if (seatInfo[0] === "Unlimited") {
-                metricsInfo[3] = ["Unlimited"];
-            }
+			return {
+				metrics: [
+					numSections === 0 ? 'N/A' : metricsInfo[0],
+					numSections === 0 ? 'N/A' : metricsInfo[1],
+					numSections === 0 ? 'N/A' : metricsInfo[2],
+					metricsInfo[3]
+				],
+				waitlist: waitlist,
+				code: nextProps.code
+			};
+		}
 
-            else if (seatInfo[0] >= seatInfo[1]) {
-                waitlist = true;
-                metricsInfo[3] = [seatInfo[0], seatInfo[1]];
-            }
+		return null;
+	}
 
-            else {
-                metricsInfo[3] = [seatInfo[0], seatInfo[1]];
-            }
+	render() {
+		const { metrics, waitlist } = this.state;
 
-            return {
-                metrics: [
-                    (numSections === 0) ? 'N/A' : metricsInfo[0], 
-                    (numSections === 0) ? 'N/A' : metricsInfo[1],
-                    (numSections === 0) ? 'N/A' : metricsInfo[2],
-                    metricsInfo[3]
-                ], 
-                waitlist: waitlist,
-                code: nextProps.code
-            }
-        }
-        
-        return null;
-    }
-
-    render() {
-        const { metrics, waitlist } = this.state;
-
-        return (
-            <>
-                <h1>Overview</h1>
-                <div className="metric-list">
-                    <GradeMetric title="Expected Grade" color='#A2CDFF' grade={metrics[0]} />
-                    <GradeMetric title="Received Grade" color='#AAEEDD' grade={metrics[2]} />
-                    <StudyMetric study={metrics[1]} />
-                    <SeatMetric 
-                        seat={metrics[3]}
-                        waitlist={waitlist} 
-                    />
-                </div>
-            </>
-        );
-    }
-};
+		return (
+			<Fragment>
+				<h1>Overview</h1>
+				<div className="metric-list">
+					<Metric name="Expected Grade" color="#A2CDFF">
+						{metrics[0]}
+					</Metric>
+					<Metric name="Received Grade" color="#AAEEDD">
+						{metrics[2]}
+					</Metric>
+					<Metric name="Study" color="#B8E986">
+						{metrics[1]}
+						{metrics[1] !== 'N/A' && <p style={{ margin: '0 0 0 5px' }}>hrs/wk</p>}
+					</Metric>
+					<Metric name="Seats Taken / Limit" color="#FADE91">
+						<div title="Total seats taken." style={{ color: waitlist ? 'red' : 'inherit' }}>
+							{metrics[3][0]}
+						</div>
+						{metrics[3].length !== 1 && <div style={{ margin: '0 5px' }}>/</div>}
+						<div title="Total seats available.">{metrics[3][1]}</div>
+					</Metric>
+				</div>
+			</Fragment>
+		);
+	}
+}
