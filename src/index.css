@@ -280,8 +280,7 @@ body {
 	position: relative;
 }
 
-.card-active,
-.card-active-dark {
+.card-active {
 	box-shadow: 0 0 0 3px #2270ee;
 }
 
@@ -687,8 +686,8 @@ body {
 	margin: 20px 0;
 	overflow-x: auto;
 	max-width: 940px;
-	mask-image: linear-gradient(to right, transparent, black 0, black 98%, transparent);
-	-webkit-mask-image: linear-gradient(to right, transparent, black 0, black 98%, transparent);
+	/* mask-image: linear-gradient(to right, transparent, black 0, black 98%, transparent);
+	-webkit-mask-image: linear-gradient(to right, transparent, black 0, black 98%, transparent); */
 }
 
 .bling-strip-icon {
@@ -757,8 +756,8 @@ body {
 .bling-strip {
 	padding: 5px;
 	overflow: auto;
-	mask-image: linear-gradient(to right, transparent, black 7px, black 97%, transparent);
-	-webkit-mask-image: linear-gradient(to right, transparent, black 7px, black 97%, transparent);
+	/* mask-image: linear-gradient(to right, transparent, black 7px, black 97%, transparent);
+	-webkit-mask-image: linear-gradient(to right, transparent, black 7px, black 97%, transparent); */
 }
 
 .section-container {
