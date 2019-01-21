@@ -7,6 +7,7 @@
 	-webkit-font-smoothing: antialiased;
 	box-sizing: content-box;
 	font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+	-webkit-tap-highlight-color: transparent;
 }
 
 .tagged_class span {
@@ -108,7 +109,8 @@ body {
 }
 
 .searchbox input,
-.searchbox-dark input {
+.searchbox-dark input,
+.searchthingy {
 	outline: none;
 	width: 50vw;
 	height: 50px;

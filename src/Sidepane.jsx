@@ -123,13 +123,31 @@ export default class Sidepane extends Component {
 		return (
 			<div>
 				<Branding theme={theme} changeTheme={changeTheme} />
-				<Searchbox
+				{/* <Searchbox
 					quarters={quarters}
 					changeQuarter={changeQuarter}
 					selectedQuarter={selectedQuarter}
 					filterView={this.filterView}
 					theme={theme}
-				/>
+				/> */}
+				<div className={'searchbox' + theme}>
+					<span
+						className="searchthingy"
+						style={{
+							backgroundColor: theme === '' ? '#fff' : '#333',
+							width: 'calc(28vw - 20px)',
+							borderRadius: '7px',
+							color: theme === '' ? '#333' : '#fff',
+							display: 'flex',
+							alignItems: 'center',
+							justifyContent: 'center',
+							fontSize: '20px',
+							margin: '0 5%'
+						}}
+					>
+						<b>Select Department</b>
+					</span>
+				</div>
 				<List
 					searchResults={this.state.displayResults}
 					loading={loading}

@@ -33,7 +33,6 @@
     "gh-pages": "^2.0.1",
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",
-    "inferno-compat": "^7.0.5",
     "jest": "23.6.0",
     "jest-pnp-resolver": "1.0.1",
     "jest-resolve": "23.6.0",
@@ -79,7 +78,9 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {},
+  "devDependencies": {
+    "inferno-compat": "^7.0.5"
+  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
